@@ -1,0 +1,4 @@
+- Creazione alert per il budget
+- implementare parte finale di undo e redo
+- look and feel deve cambiare anche nel pannello di configurazione
+- capire come realizzare gestione budget.

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<styles>
+    <style nome="stylebase">
+        <font font-family="Arial" size="15" type="0"/>
+        <foreground>
+            <color b="100" g="100" r="100"/>
+        </foreground>
+        <background>
+            <color b="255" g="255" r="255"/>
+        </background>
+        <dimensionarea columns="60" rows="60"/>
+        <dimension height="131" width="101"/>
+    </style>
+</styles>
