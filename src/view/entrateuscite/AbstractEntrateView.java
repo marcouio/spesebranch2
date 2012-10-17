@@ -65,6 +65,7 @@ public abstract class AbstractEntrateView extends JDialog implements Observer {
 
 	public void setUtenti(final Utenti utente) {
 		modelEntrate.setUtenti(utente);
+		modelEntrate.setIdUtente(utente.getIdUtente());
 	}
 
 	public String getFisseOVar() {

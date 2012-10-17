@@ -10,12 +10,12 @@ public class ConnectionClass extends ConnectionPool{
 	public static final String DRIVERCLASSNAME = "org.sqlite.JDBC";
 	@Override
 	protected String getPassword() {
-		return "marco";
+		return null;
 	}
 
 	@Override
 	protected String getUser() {
-		return "root";
+		return null;
 	}
 
 	@Override

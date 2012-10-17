@@ -35,8 +35,8 @@ public class Entrate implements AbstractOggettoEntita, Serializable, IEntrate {
 	@Column(name = "idEntrate", nullable = false)
 	private int idEntrate;
 
-	// @Column(name="idUtente", nullable=false)
-	// private int idUtente;
+	 @Column(name="idUtente", nullable=false)
+	 private int idUtente;
 
 	@Column(name = "inEuro", nullable = false)
 	private double inEuro;
@@ -50,6 +50,14 @@ public class Entrate implements AbstractOggettoEntita, Serializable, IEntrate {
 	private Utenti utenti;
 
 	public Entrate() {
+	}
+	
+	public int getIdUtente() {
+		return idUtente;
+	}
+
+	public void setIdUtente(int idUtente) {
+		this.idUtente = idUtente;
 	}
 	
 	public String getData() {

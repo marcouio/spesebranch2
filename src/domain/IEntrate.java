@@ -34,5 +34,9 @@ public interface IEntrate {
 	public Utenti getUtenti();
 
 	public void setUtenti(Utenti utenti);
+	
+	public int getIdUtente();
+	
+	public  void setIdUtente(int idUtente);
 
 }

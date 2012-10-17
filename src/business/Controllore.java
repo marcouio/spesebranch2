@@ -13,10 +13,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import messaggi.I18NManager;
-
 import view.GeneralFrame;
 import view.MyWindowListener;
-import view.mymenu.MyMenu;
 import business.aggiornatori.AggiornatoreManager;
 import business.cache.CacheLookAndFeel;
 import business.cache.CacheUtenti;
@@ -25,7 +23,6 @@ import command.AbstractCommand;
 import command.CommandManager;
 
 import controller.ControlloreBase;
-import db.dao.GenericDAO;
 import domain.IUtenti;
 import domain.Lookandfeel;
 import domain.Utenti;

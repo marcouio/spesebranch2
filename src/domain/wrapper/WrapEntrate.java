@@ -348,6 +348,17 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 	public void setUtenti(final Utenti utenti) {
 		entrate.setUtenti(utenti);
 	}
+	
+	@Override
+	public int getIdUtente() {
+		return entrate.getIdUtente();
+	}
+
+	@Override
+	public void setIdUtente(int idUtente) {
+		entrate.setIdUtente(idUtente);
+		
+	}
 
 	@Override
 	public void setDataIns(final String date) {

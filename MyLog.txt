@@ -1,4 +1,8 @@
-ott 17, 2012 11:28:48 PM log.LoggerOggetto creaLog
+ott 18, 2012 12:12:07 AM log.LoggerOggetto creaLog
 INFO: Start programma!
-ott 17, 2012 11:28:48 PM grafica.componenti.alert.Alert segnalazioneErroreGrave
-SEVERE: Login non effettuato: username o password non corretti
+ott 18, 2012 12:12:07 AM grafica.componenti.alert.Alert segnalazioneInfo
+INFO: Entrata Prima inserita correttamente
+ott 18, 2012 12:12:28 AM grafica.componenti.alert.Alert segnalazioneInfo
+INFO: Entrata Seconda inserita correttamente
+ott 18, 2012 12:13:21 AM view.report.ReportView <init>
+INFO: Registrato Report: 18/10/2012 00:13
