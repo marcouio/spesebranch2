@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import view.GeneralFrame;
 import view.entrateuscite.AbstractEntrateView;
 import view.font.ButtonF;
 import view.font.LabelListaGruppi;
@@ -214,7 +213,7 @@ public class DialogEntrateMov extends AbstractEntrateView {
 			if (e.getActionCommand().equals(Controllore.getSingleton().getMessaggio("update"))) {
 				aggiornaModelDaVista();
 				final String[] nomiColonne = (String[]) AltreUtil.generaNomiColonne(WrapEntrate.NOME_TABELLA);
-				final JTextField campo = ((GeneralFrame) Controllore.getSingleton().getView().getContentPane()).getTabMovimenti().getTabMovEntrate().getCampo();
+				final JTextField campo = Controllore.getPannello().getTabMovimenti().getTabMovEntrate().getCampo();
 
 				final Entrate oldEntrata = CacheEntrate.getSingleton().getEntrate(idEntrate.getText());
 
@@ -234,7 +233,7 @@ public class DialogEntrateMov extends AbstractEntrateView {
 				dialog.dispose();
 			} else if (e.getActionCommand().equals(Controllore.getSingleton().getMessaggio("delete"))) {
 				final String[] nomiColonne = (String[]) AltreUtil.generaNomiColonne(WrapEntrate.NOME_TABELLA);
-				final JTextField campo = ((GeneralFrame) Controllore.getSingleton().getView().getContentPane()).getTabMovimenti().getTabMovEntrate().getCampo();
+				final JTextField campo = Controllore.getPannello().getTabMovimenti().getTabMovEntrate().getCampo();
 				aggiornaModelDaVista();
 				if (idEntrate.getText() != null) {
 					if (!Controllore.invocaComando(new CommandDeleteEntrata(modelEntrate))) {

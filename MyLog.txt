@@ -1,8 +1,4 @@
-ott 18, 2012 12:12:07 AM log.LoggerOggetto creaLog
+ott 18, 2012 10:49:39 PM log.LoggerOggetto creaLog
 INFO: Start programma!
-ott 18, 2012 12:12:07 AM grafica.componenti.alert.Alert segnalazioneInfo
+ott 18, 2012 10:49:39 PM grafica.componenti.alert.Alert segnalazioneInfo
 INFO: Entrata Prima inserita correttamente
-ott 18, 2012 12:12:28 AM grafica.componenti.alert.Alert segnalazioneInfo
-INFO: Entrata Seconda inserita correttamente
-ott 18, 2012 12:13:21 AM view.report.ReportView <init>
-INFO: Registrato Report: 18/10/2012 00:13
