@@ -1,6 +1,8 @@
 package business.aggiornatori;
 
-public class AggiornatoreTotale extends AggiornatoreBase implements IAggiornatore {
+import aggiornatori.AggiornatoreBase;
+
+public class AggiornatoreTotale extends AggiornatoreBase  {
 
 	@Override
 	public boolean aggiorna() {

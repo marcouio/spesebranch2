@@ -25,13 +25,13 @@ import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
 import view.impostazioni.ascoltatori.AscoltatoreLanguage;
 import view.impostazioni.ascoltatori.AscoltatoreLook;
+import xml.CoreXMLManager;
 import business.Controllore;
 import business.DBUtil;
 import business.aggiornatori.AggiornatoreManager;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import business.ascoltatori.AscoltatoreAggiornatoreTutto;
 import business.cache.CacheLookAndFeel;
-import business.config.ConfiguratoreXml;
 import domain.Lookandfeel;
 import domain.Utenti;
 import domain.wrapper.Model;
@@ -64,7 +64,7 @@ public class Impostazioni extends JDialog {
 	private JTextField dataOdierna;
 	private JTextField utente;
 	private ArrayList<String> listaLook;
-	private JComboBox comboLook;
+	private JComboBox<Lookandfeel> comboLook;
 	private TextFieldF annotextField;
 	private static int anno = new GregorianCalendar().get(Calendar.YEAR);
 	private static JTextField caricaDatabase;
@@ -187,7 +187,7 @@ public class Impostazioni extends JDialog {
 			final Vector<Lookandfeel> vettore = cacheLook.getVettoreLooksPerCombo();
 
 			Lookandfeel look = null;
-			comboLook = new JComboBox(vettore);
+			comboLook = new JComboBox<Lookandfeel>(vettore);
 			Lookandfeel system = new Lookandfeel();
 			system.setNome("System");
 			system.setValore(UIManager.getSystemLookAndFeelClassName());
@@ -214,14 +214,14 @@ public class Impostazioni extends JDialog {
 			lblLang.setBounds(278, 29, 113, 15);
 			getContentPane().add(lblLang);
 
-			Object[] languages = new Object[] { "it", "en" };
-			JComboBox comboLanguage = new JComboBox(languages);
+			String[] languages = new String[] { "it", "en" };
+			JComboBox<String> comboLanguage = new JComboBox<String>(languages);
 
 			comboLanguage.addActionListener(new AscoltatoreLanguage(comboLanguage));
 			comboLanguage.setBounds(396, 24, 115, 24);
 
 			for (int i = 0; i < languages.length; i++) {
-				String lingua = ConfiguratoreXml.getSingleton().getLanguage();
+				String lingua = CoreXMLManager.getSingleton().getLanguage();
 				if (languages[i].equals(lingua)) {
 //					comboLanguage.setSelectedIndex(i);
 //					break;
@@ -326,7 +326,7 @@ public class Impostazioni extends JDialog {
 	/**
 	 * @return the comboLook
 	 */
-	public JComboBox getComboLook() {
+	public JComboBox<Lookandfeel> getComboLook() {
 		return comboLook;
 	}
 
@@ -334,7 +334,7 @@ public class Impostazioni extends JDialog {
 	 * @param comboLook
 	 *            the comboLook to set
 	 */
-	public void setComboLook(final JComboBox comboLook) {
+	public void setComboLook(final JComboBox<Lookandfeel> comboLook) {
 		this.comboLook = comboLook;
 	}
 

@@ -1,8 +1,9 @@
 package business.aggiornatori;
 
+import aggiornatori.AggiornatoreBase;
 import domain.wrapper.WrapSingleSpesa;
 
-public class AggiornatoreUscite extends AggiornatoreBase implements IAggiornatore {
+public class AggiornatoreUscite extends AggiornatoreBase  {
 
 	@Override
 	public boolean aggiorna() {

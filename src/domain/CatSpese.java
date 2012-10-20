@@ -6,6 +6,7 @@ import command.javabeancommand.AbstractOggettoEntita;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,8 +28,8 @@ public class CatSpese implements AbstractOggettoEntita,Serializable, ICatSpese {
 	@Column(name = "idCategoria", nullable = false)
 	private int idCategoria;
 
-	// @Column(name="idGruppo", nullable=false)
-	// private int idGruppo;
+	@Column(name="idGruppo", nullable=false)
+	private int idGruppo;
 
 	@Column(name = "importanza", nullable = false, length = 2000000000)
 	private String importanza;
@@ -42,7 +43,7 @@ public class CatSpese implements AbstractOggettoEntita,Serializable, ICatSpese {
 
 	// bi-directional many-to-one association to Gruppi
 	@ManyToOne
-	@JoinColumns({})
+	@JoinColumns(value = { @JoinColumn(name="idGruppo") })
 	private Gruppi gruppi;
 
 	// bi-directional many-to-one association to SingleSpesa
@@ -136,5 +137,13 @@ public class CatSpese implements AbstractOggettoEntita,Serializable, ICatSpese {
 	@Override
 	public void setIdEntita(String idEntita) {
 		setIdCategoria(Integer.parseInt(idEntita));
+	}
+
+	public int getIdGruppo() {
+		return idGruppo;
+	}
+
+	public void setIdGruppo(int idGruppo) {
+		this.idGruppo = idGruppo;
 	}
 }

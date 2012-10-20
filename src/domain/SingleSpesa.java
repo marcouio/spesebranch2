@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -28,6 +29,9 @@ public class SingleSpesa implements AbstractOggettoEntita, Serializable, ISingle
 	@Id
 	@Column(name = "idSpesa", nullable = false)
 	private int idSpesa;
+	
+	@Column(name = "idCategorie", nullable = false)
+	private int idCategorie;
 
 	@Column(name = "inEuro", nullable = false)
 	private double inEuro;
@@ -40,7 +44,7 @@ public class SingleSpesa implements AbstractOggettoEntita, Serializable, ISingle
 
 	// bi-directional many-to-one association to CatSpese
 	@ManyToOne
-	@JoinColumns({})
+	@JoinColumns(value = { @JoinColumn(name="idCategorie") })
 	private CatSpese catSpese;
 
 	// bi-directional many-to-one association to Utenti
@@ -158,6 +162,14 @@ public class SingleSpesa implements AbstractOggettoEntita, Serializable, ISingle
 	@Override
 	public void setIdEntita(String idEntita) {
 		setidSpesa(Integer.parseInt(idEntita));
+	}
+
+	public int getIdCategorie() {
+		return idCategorie;
+	}
+
+	public void setIdCategorie(int idCategorie) {
+		this.idCategorie = idCategorie;
 	}
 
 }

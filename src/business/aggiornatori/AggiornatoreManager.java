@@ -22,6 +22,7 @@ import view.impostazioni.CategorieView;
 import view.tabelleMesi.TabellaEntrata;
 import view.tabelleMesi.TabellaUscita;
 import view.tabelleMesi.TabellaUscitaGruppi;
+import aggiornatori.IAggiornatore;
 import business.AltreUtil;
 import business.Controllore;
 import business.DBUtil;

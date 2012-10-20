@@ -1,5 +1,7 @@
 package business.aggiornatori;
 
-public class AggiornatoreNull extends AggiornatoreBase implements IAggiornatore {
+import aggiornatori.AggiornatoreBase;
+
+public class AggiornatoreNull extends AggiornatoreBase  {
 
 }

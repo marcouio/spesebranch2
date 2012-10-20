@@ -1,4 +1,6 @@
-ott 18, 2012 10:49:39 PM log.LoggerOggetto creaLog
+ott 20, 2012 8:29:31 AM log.LoggerOggetto creaLog
 INFO: Start programma!
-ott 18, 2012 10:49:39 PM grafica.componenti.alert.Alert segnalazioneInfo
-INFO: Entrata Prima inserita correttamente
+ott 20, 2012 8:29:31 AM grafica.componenti.alert.Alert segnalazioneInfo
+INFO: Entrata Stipendio inserita correttamente
+ott 20, 2012 8:30:25 AM grafica.componenti.alert.Alert segnalazioneInfo
+INFO: Entrata adsadsa inserita correttamente
