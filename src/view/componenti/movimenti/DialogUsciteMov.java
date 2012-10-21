@@ -119,7 +119,7 @@ public class DialogUsciteMov extends AbstractUsciteView {
 
 	public void aggiornaModelDaVista() {
 		if (AltreUtil.checkInteger(idSpesa.getText())) {
-			getModelUscita().setidSpesa(idSpesa.getText() != "" ? Integer.parseInt(idSpesa.getText()) : 0);
+			getModelUscita().setIdSpesa(idSpesa.getText() != "" ? Integer.parseInt(idSpesa.getText()) : 0);
 		} else {
 			final String messaggio = Controllore.getSingleton().getMessaggio("idintero");
 			Alert.segnalazioneErroreGrave(messaggio);

@@ -49,7 +49,7 @@ public class SingleSpesa implements AbstractOggettoEntita, Serializable, ISingle
 
 	// bi-directional many-to-one association to Utenti
 	@ManyToOne
-	@JoinColumns({})
+	@JoinColumns(value = { @JoinColumn(name="idUtente") })
 	private Utenti utenti;
 
 	public SingleSpesa() {
@@ -85,7 +85,7 @@ public class SingleSpesa implements AbstractOggettoEntita, Serializable, ISingle
 
 
 
-	public void setidSpesa(int idSpesa) {
+	public void setIdSpesa(int idSpesa) {
 		this.idSpesa = idSpesa;
 	}
 
@@ -161,7 +161,7 @@ public class SingleSpesa implements AbstractOggettoEntita, Serializable, ISingle
 
 	@Override
 	public void setIdEntita(String idEntita) {
-		setidSpesa(Integer.parseInt(idEntita));
+		setIdSpesa(Integer.parseInt(idEntita));
 	}
 
 	public int getIdCategorie() {

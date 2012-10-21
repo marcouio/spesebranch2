@@ -71,7 +71,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 				final CatSpese categoria = (CatSpese) mappaCategorie.get(Integer.toString(rs.getInt(5)));
 
 				final SingleSpesa uscita = new SingleSpesa();
-				uscita.setidSpesa(rs.getInt(1));
+				uscita.setIdSpesa(rs.getInt(1));
 				uscita.setData(rs.getString(2));
 				uscita.setInEuro(rs.getDouble(3));
 				uscita.setDescrizione(rs.getString(4));
@@ -197,7 +197,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 			while (rs.next()) {
 				final CatSpese categoria = CacheCategorie.getSingleton().getCatSpese(rs.getString(5));
 				final SingleSpesa ss = new SingleSpesa();
-				ss.setidSpesa(rs.getInt(1));
+				ss.setIdSpesa(rs.getInt(1));
 				ss.setData(rs.getString(2));
 				ss.setInEuro(rs.getDouble(3));
 				ss.setDescrizione(rs.getString(4));
@@ -223,43 +223,15 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 	 * @param dieci
 	 * @return Vector<SingleSpesa>
 	 */
-	public Vector<SingleSpesa> dieciUscite(final int dieci) {
-		Vector<SingleSpesa> sSpesa = null;
-
-		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
-		int idUtente = 0;
-		if (utente != null) {
-			idUtente = utente.getIdUtente();
-		}
-
-		final String sql = "select * from " + NOME_TABELLA + " where " + DATA + " BETWEEN '" + Impostazioni.getAnno() + "/01/01'" + " AND '"
-		+ Impostazioni.getAnno() + "/12/31'" + " AND " + IDUTENTE + " = " + idUtente + " ORDER BY " + ID + " desc limit 0," + dieci;
-		try {
-			final Connection cn = DBUtil.getConnection();
-
-			final Statement st = cn.createStatement();
-			final ResultSet rs = st.executeQuery(sql);
-			sSpesa = new Vector<SingleSpesa>();
-			while (rs.next()) {
-				final CatSpese categoria = CacheCategorie.getSingleton().getCatSpese(rs.getString(5));
-				final SingleSpesa ss = new SingleSpesa();
-				ss.setidSpesa(rs.getInt(1));
-				ss.setData(rs.getString(2));
-				ss.setInEuro(rs.getDouble(3));
-				ss.setDescrizione(rs.getString(4));
-				ss.setNome(rs.getString(6));
-				ss.setCatSpese(categoria);
-				ss.setDataIns(rs.getString(8));
-				ss.setUtenti(utente);
-				sSpesa.add(ss);
-			}
-		} catch (final Exception e) {
-			// TODO implementare log
-			// log.severe("Impossibile caricare il record da single_spesa: "+e.getMessage());
+	@SuppressWarnings("unchecked")
+	public ArrayList<SingleSpesa> dieciUscite(final int dieci) {
+		 try {
+			return (ArrayList<SingleSpesa>) genericDao.selectAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		DBUtil.closeConnection();
-		return sSpesa;
+		return null;
 
 	}
 
@@ -278,7 +250,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 			if (rs.next()) {
 				SingleSpesa ss = new SingleSpesa();
 				ss = new SingleSpesa();
-				ss.setidSpesa(rs.getInt(1));
+				ss.setIdSpesa(rs.getInt(1));
 
 				final String sql2 = "DELETE FROM " + NOME_TABELLA + " WHERE " + ID + "=?";
 				final PreparedStatement ps = cn.prepareStatement(sql2);
@@ -324,8 +296,8 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 	}
 
 	@Override
-	public void setidSpesa(final int idSpesa) {
-		uscita.setidSpesa(idSpesa);
+	public void setIdSpesa(final int idSpesa) {
+		uscita.setIdSpesa(idSpesa);
 		uscita.setIdEntita(Integer.toString(idSpesa));
 	}
 

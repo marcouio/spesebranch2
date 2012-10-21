@@ -180,7 +180,7 @@ public class UsciteView extends AbstractUsciteView {
 
 	public void aggiornaModelDaVista() {
 		final int idSpesa = (CacheUscite.getSingleton().getMaxId()) + 1;
-		getModelUscita().setidSpesa(idSpesa);
+		getModelUscita().setIdSpesa(idSpesa);
 
 		final CorreggiTesto checkTesto = new CorreggiTesto(tfNome.getText());
 		final String nomeCheckato = checkTesto.getTesto();

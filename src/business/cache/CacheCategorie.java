@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import business.DBUtil;
+
 import command.javabeancommand.AbstractOggettoEntita;
 
 import domain.CatSpese;
@@ -40,6 +42,7 @@ public class CacheCategorie extends AbstractCacheBase {
 				cache.put(id, categoria);
 			}
 		}
+		DBUtil.closeConnection();
 		return (CatSpese) cache.get(id);
 	}
 

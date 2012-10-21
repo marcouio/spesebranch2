@@ -12,7 +12,7 @@ public interface ISingleSpesa {
 
 	public int getIdSpesa();
 
-	public void setidSpesa(int idSpesa);
+	public void setIdSpesa(int idSpesa);
 
 	public double getInEuro();
 

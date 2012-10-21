@@ -1,5 +1,6 @@
 package domain.wrapper;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
 
@@ -424,7 +425,7 @@ public class Model {
 	 */
 	public String[][] movimentiUscite(final int numUscite, final String tabella) throws Exception {
 		final Vector<String> nomi = Database.getSingleton().nomiColonne(tabella);
-		final Vector<SingleSpesa> uscite = Model.getSingleton().modelUscita.dieciUscite(numUscite);
+		final ArrayList<SingleSpesa> uscite = Model.getSingleton().modelUscita.dieciUscite(numUscite);
 
 		if (uscite.size() > 0 && (uscite.size() == numUscite || uscite.size() >= numUscite)) {
 			movimentiUscite = new String[numUscite][nomi.size()];
