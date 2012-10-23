@@ -184,7 +184,7 @@ public class WrapGruppi extends Observable implements IDAO, IGruppi {
 	}
 
 	@Override
-	public Object selectWhere(HashMap<String, String> clausole)
+	public Object selectWhere(HashMap<String, String> clausole, String appendToQuery)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;

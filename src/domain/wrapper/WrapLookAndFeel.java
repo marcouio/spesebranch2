@@ -156,9 +156,9 @@ public class WrapLookAndFeel extends Observable implements IDAO, ILookandfeel {
 	}
 
 	@Override
-	public Object selectWhere(HashMap<String, String> clausole)
+	public Object selectWhere(HashMap<String, String> clausole, String appendToQuery)
 			throws Exception {
-		return genericDao.selectWhere(clausole);
+		return genericDao.selectWhere(clausole, appendToQuery);
 	}
 
 }

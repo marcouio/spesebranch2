@@ -367,7 +367,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 	}
 
 	@Override
-	public Object selectWhere(HashMap<String, String> clausole)
+	public Object selectWhere(HashMap<String, String> clausole, String appendToQuery)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
