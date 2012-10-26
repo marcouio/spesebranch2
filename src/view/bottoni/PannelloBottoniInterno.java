@@ -1,10 +1,19 @@
 package view.bottoni;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
 public class PannelloBottoniInterno extends PannelloBottoni {
+
+	public PannelloBottoniInterno(final ArrayList<Bottone> bottoni, final Container container) {
+		super(bottoni, container);
+	}
+
+	public PannelloBottoniInterno(final Container container) {
+		super(container);
+	}
 
 	private static final long serialVersionUID = 1L;
 
@@ -15,7 +24,7 @@ public class PannelloBottoniInterno extends PannelloBottoni {
 	}
 
 	@Override
-	public void addBottone(Bottone bottone) {
+	public void addBottone(final Bottone bottone) {
 		if (listaBottoni.size() == 0) {
 			this.add(bottone, BorderLayout.NORTH);
 		} else {
@@ -28,15 +37,15 @@ public class PannelloBottoniInterno extends PannelloBottoni {
 		}
 	}
 
-	public void addDueBottoni(ArrayList<Bottone> dueBottoni) {
+	public void addDueBottoni(final ArrayList<Bottone> dueBottoni) {
 		Bottone bottone = dueBottoni.get(0);
 		this.add(bottone, BorderLayout.NORTH);
 		this.gruppoBottoni.add(bottone.getBottone());
 		this.listaBottoni.add(bottone);
 		if (bottone.getBottone() != null) {
 			bottone.getBottone().addActionListener(this);
+			bottone.getBottone().setPreferredSize(new Dimension(getWidth(), 22));
 		}
-		bottone.getBottone().setPreferredSize(new Dimension(getWidth(), 22));
 
 		Bottone bottone2 = dueBottoni.get(1);
 		this.add(bottone2, BorderLayout.CENTER);
@@ -44,7 +53,7 @@ public class PannelloBottoniInterno extends PannelloBottoni {
 		this.listaBottoni.add(bottone2);
 		if (bottone2.getBottone() != null) {
 			bottone2.getBottone().addActionListener(this);
+			bottone2.getBottone().setPreferredSize(new Dimension(getWidth(), 22));
 		}
-		bottone2.getBottone().setPreferredSize(new Dimension(getWidth(), 22));
 	}
 }

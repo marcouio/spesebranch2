@@ -1,8 +1,8 @@
 package view.componenti.movimenti;
 
-import javax.swing.JFrame;
+import java.awt.Container;
+
 import javax.swing.JTabbedPane;
-import javax.swing.WindowConstants;
 
 import view.OggettoVistaBase;
 import business.Controllore;
@@ -11,37 +11,28 @@ public class Movimenti extends OggettoVistaBase {
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setBounds(0, 0, 900, 650);
-		frame.getContentPane().add(new Movimenti());
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
-
 	private JTabbedPane           tabGenerale;
 	private ListaMovimentiEntrate tabMovEntrate;
 	private ListaMovimentiUscite  tabMovUscite;
 
-	public Movimenti() {
-		super();
-		initGUI();
+	public Movimenti(final Container container) {
+		super(container);
+		initGUI(container);
 	}
 
-	private void initGUI() {
+	private void initGUI(final Container container) {
 		try {
 			this.setPreferredSize(new java.awt.Dimension(900, 650));
 			this.setLayout(null);
 
-			tabMovEntrate = new ListaMovimentiEntrate();
+			tabMovEntrate = new ListaMovimentiEntrate(container);
 
 			tabGenerale = new JTabbedPane();
 			tabGenerale.setBounds(65, 65, 800, 600);
 			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("income")+" "+Controllore.getSingleton().getMessaggio("transactions"), tabMovEntrate);
 
 			tabMovEntrate.setBounds(20, 10, 700, 500);
-			tabMovUscite = new ListaMovimentiUscite();
+			tabMovUscite = new ListaMovimentiUscite(container);
 			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("withdrawal")+" "+Controllore.getSingleton().getMessaggio("transactions"), tabMovUscite);
 			tabMovUscite.setBounds(20, 10, 700, 500);
 
@@ -55,7 +46,7 @@ public class Movimenti extends OggettoVistaBase {
 		return tabMovEntrate;
 	}
 
-	protected void setTabMovEntrate(ListaMovimentiEntrate tabMovEntrate) {
+	protected void setTabMovEntrate(final ListaMovimentiEntrate tabMovEntrate) {
 		this.tabMovEntrate = tabMovEntrate;
 	}
 
@@ -63,7 +54,7 @@ public class Movimenti extends OggettoVistaBase {
 		return tabMovUscite;
 	}
 
-	protected void setTabMovUscite(ListaMovimentiUscite tabMovUscite) {
+	protected void setTabMovUscite(final ListaMovimentiUscite tabMovUscite) {
 		this.tabMovUscite = tabMovUscite;
 	}
 

@@ -1,10 +1,9 @@
 package view.tabelleMesi;
 
+import java.awt.Container;
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
-import javax.swing.WindowConstants;
 
 import view.OggettoVistaBase;
 import business.Controllore;
@@ -13,31 +12,23 @@ public class PerMesiF extends OggettoVistaBase {
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(final String[] args) {
-		final JFrame frame = new JFrame();
-		frame.getContentPane().add(new PerMesiF());
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
-
 	private static TabellaEntrata      tabEntrate = null;
 	private static TabellaUscita       tabUscite  = null;
 	private static TabellaUscitaGruppi tabUG      = null;
 
 	private JTabbedPane                tabGenerale;
 
-	public PerMesiF() {
-		super();
-		initGUI();
+	public PerMesiF(final Container container) {
+		super(container);
+		initGUI(container);
 	}
 
-	private void initGUI() {
+	private void initGUI(final Container container) {
 		try {
-			tabEntrate = new TabellaEntrata();
-			tabUscite  = new TabellaUscita();
-			tabUG      = new TabellaUscitaGruppi();
-			
+			tabEntrate = new TabellaEntrata(container);
+			tabUscite  = new TabellaUscita(container);
+			tabUG      = new TabellaUscitaGruppi(container);
+
 			this.setPreferredSize(new Dimension(983, 545));
 			this.setLayout(null);
 
@@ -47,8 +38,9 @@ public class PerMesiF extends OggettoVistaBase {
 			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("withdrawal"), tabUscite);
 			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("groupscharge"), tabUG);
 
-			tabUscite.setBounds(26, 10, 400, 400);
-			tabEntrate.setBounds(26, 10, 400, 400);
+			TabellaUscita.getScrollPane().setSize(400, 400);
+			TabellaEntrata.getScrollPane().setSize(400, 400);
+			tabUG.getScrollPane().setSize(400, 400);
 			this.add(tabGenerale);
 
 		} catch (final Exception e) {

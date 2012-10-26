@@ -9,7 +9,7 @@ import business.Database;
 
 public class TableModelEntrate extends TableModel{
 	public static HashMap<Integer, String> mapMesi = new HashMap<Integer, String>();
-	 
+
 	static{
 		mapMesi.put(1, Controllore.getSingleton().getMessaggio("january"));
 		mapMesi.put(2, Controllore.getSingleton().getMessaggio("february"));
@@ -26,15 +26,15 @@ public class TableModelEntrate extends TableModel{
 	}
 
 	String[] listaColonne;
-	
-	public TableModelEntrate(Object parametro) throws Exception {
+
+	public TableModelEntrate(final Object parametro) throws Exception {
 		super(parametro);
 	}
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void preBuild(Object parametro) throws Exception {
+	protected void preBuild(final Object parametro) throws Exception {
 		aggiungiNomiColonne();
 		for (int i = 1; i <= 12; i++) {
 			Riga riga = new Riga();
@@ -46,15 +46,17 @@ public class TableModelEntrate extends TableModel{
 			addRiga(riga);
 		}
 	}
-	
-	private void aggiungiNomiColonne(){
+
+	private Riga aggiungiNomiColonne(){
+
 		String mesi = Controllore.getSingleton().getMessaggio("months");
 		addColumn(mesi);
 		for (int i = 0; i < getListaColonne().length; i++) {
 			addColumn(getListaColonne()[i]);
 		}
+		return nomiColonne;
 	}
-	
+
 	public String[] getListaColonne() {
 		if(listaColonne == null){
 			String fisse = Controllore.getSingleton().getMessaggio("fixity");

@@ -1,6 +1,4 @@
-ott 20, 2012 8:29:31 AM log.LoggerOggetto creaLog
+ott 26, 2012 11:47:52 PM log.LoggerOggetto creaLog
 INFO: Start programma!
-ott 20, 2012 8:29:31 AM grafica.componenti.alert.Alert segnalazioneInfo
-INFO: Entrata Stipendio inserita correttamente
-ott 20, 2012 8:30:25 AM grafica.componenti.alert.Alert segnalazioneInfo
-INFO: Entrata adsadsa inserita correttamente
+ott 26, 2012 11:47:52 PM grafica.componenti.alert.Alert segnalazioneErroreGrave
+SEVERE: Operazione SQL non eseguita:near "Inserisci": syntax error

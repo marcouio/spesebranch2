@@ -1,18 +1,20 @@
 package view;
 
+import grafica.componenti.contenitori.ScrollPaneBase;
+import grafica.componenti.table.table.TableBase;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import view.font.TableF;
 import business.Controllore;
 
 public class FinestraListaComandi extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private TableF            table;
-	private JScrollPane       scrollPane;
+	private TableBase            table;
+	private ScrollPaneBase       scrollPane;
 
 	public FinestraListaComandi() {
 		setResizable(false);
@@ -20,14 +22,16 @@ public class FinestraListaComandi extends JFrame {
 		getContentPane().setLayout(null);
 		String lista = Controllore.getSingleton().getMessaggio("lista");
 		this.setTitle(lista);
-		table = new TableF();
+
+		scrollPane = new ScrollPaneBase(this);
+		table = new TableBase(scrollPane);
+
+		scrollPane.setViewportView(table);
 		Object[][] dati = generaDati();
 		table.setModel(new DefaultTableModel(dati, new String[] { lista }));
 
 		table.setBounds(12, 12, 254, 61);
 
-		scrollPane = new JScrollPane();
-		scrollPane.setViewportView(table);
 
 		// Add the scroll pane to this panel.
 		getContentPane().add(scrollPane);
@@ -39,15 +43,15 @@ public class FinestraListaComandi extends JFrame {
 		return Controllore.getSingleton().getCommandManager().generaDati();
 	}
 
-	public TableF getTable() {
+	public TableBase getTable() {
 		return table;
 	}
 
-	public void setTable(TableF table) {
+	public void setTable(final TableBase table) {
 		this.table = table;
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -65,7 +69,7 @@ public class FinestraListaComandi extends JFrame {
 		return scrollPane;
 	}
 
-	public void setScrollPane(JScrollPane scrollPane) {
+	public void setScrollPane(final ScrollPaneBase scrollPane) {
 		this.scrollPane = scrollPane;
 	}
 }

@@ -3,20 +3,19 @@
 package view.tabelleMesi;
 
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.util.ArrayList;
+import grafica.componenti.ExceptionGraphics;
+import grafica.componenti.contenitori.ScrollPaneBase;
+import grafica.componenti.table.table.TableBase;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
+import java.awt.Container;
+import java.awt.GridLayout;
 
 import view.OggettoVistaBase;
-import view.font.TableF;
 import business.Controllore;
 import business.generatori.TableModelEntrate;
 
 public class TabellaEntrata extends OggettoVistaBase {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static String[][] primo;
@@ -31,25 +30,26 @@ public class TabellaEntrata extends OggettoVistaBase {
 		TabellaEntrata.nomiColonne = nomiColonne;
 	}
 
-	private static JScrollPane scrollPane;
+	private static ScrollPaneBase scrollPane;
 
-	public TabellaEntrata() {
-		super(new GridLayout(1,0));
-		TableF table = null;
+	public TabellaEntrata(final Container container) throws ExceptionGraphics {
+		super(new GridLayout(1,0), container);
+		scrollPane = new ScrollPaneBase(container);
+		TableBase table = null;
 		try{
 			TableModelEntrate model = new TableModelEntrate(null);
-			table = createTable(model);
+			table = createTable(model, scrollPane);
+			scrollPane.setSize(300, 300);
 		}catch (final Exception e) {
 			e.printStackTrace();
 		}
 
 		//Create the scroll pane and add the table to it.
-		scrollPane = new JScrollPane(table);
 
 		//Add the scroll pane to this panel.
 		add(scrollPane);
 	}
-	
+
 	/**
 	 * 
 	 * Permette di generare una tabella
@@ -58,30 +58,14 @@ public class TabellaEntrata extends OggettoVistaBase {
 	 * @param nomiColonne
 	 * @return TableF
 	 */
-	public static TableF createTable(TableModelEntrate model) {
-		ArrayList<String> listaCelle = model.getNomiColonne().getListaCelle();
-		TableF table = new TableF(model.getMatrice(), listaCelle.toArray(new String[listaCelle.size()]));
+	public static TableBase createTable(final TableModelEntrate model, final Container container) {
+		TableBase table = new TableBase(model, container);
 
-		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		table.setFillsViewportHeight(true);
 		table.setRowHeight(27);
 		return table;
 	}
 
-	private static void createAndShowGUI() throws Exception {
-		//Create and set up the window.
-		final JFrame frame = new JFrame("Tabella Entrata");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//Create and set up the content pane.
-		final TabellaEntrata newContentPane = new TabellaEntrata();
-		newContentPane.setOpaque(true); //content panes must be opaque
-		frame.setContentPane(newContentPane);
-
-		//Display the window.
-		frame.pack();
-		frame.setVisible(true);
-	}
 	public static String[][] getPrimo() {
 		return primo;
 	}
@@ -90,26 +74,11 @@ public class TabellaEntrata extends OggettoVistaBase {
 		TabellaEntrata.primo = primo;
 	}
 
-	public static void main(final String[] args) {
-		//Schedule a job for the event-dispatching thread:
-		//creating and showing this application's GUI.
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					createAndShowGUI();
-				} catch (final Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public static JScrollPane getScrollPane() {
+	public static ScrollPaneBase getScrollPane() {
 		return scrollPane;
 	}
 
-	protected void setScrollPane(final JScrollPane scrollPane) {
+	protected void setScrollPane(final ScrollPaneBase scrollPane) {
 		TabellaEntrata.scrollPane = scrollPane;
 	}
 }

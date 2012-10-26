@@ -1,5 +1,6 @@
 package view.componenti.movimenti;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class ListaMovimentiEntrate extends AbstractListaMov {
 
 	private static final long serialVersionUID = 1L;
 
-	public ListaMovimentiEntrate() {
-		super();
+	public ListaMovimentiEntrate(final Container container) {
+		super(container);
 		pulsanteNMovimenti.addActionListener(new AscoltatoreNumeroMovimenti(WrapEntrate.NOME_TABELLA, createNomiColonne(), campo));
 	}
 
@@ -62,7 +63,7 @@ public class ListaMovimentiEntrate extends AbstractListaMov {
 						@Override
 						public String[][] getMovimenti() {
 							final Vector<Entrate> entrate = Model.getSingleton().getModelEntrate()
-							.movimentiEntrateFiltrati(getDataDa(), getDataA(), getNome(), getEuro(), getCategoria());
+									.movimentiEntrateFiltrati(getDataDa(), getDataA(), getNome(), getEuro(), getCategoria());
 							String[][] mov = null;
 							try {
 								mov = Model.getSingleton().movimentiFiltratiEntratePerNumero(WrapEntrate.NOME_TABELLA, entrate);

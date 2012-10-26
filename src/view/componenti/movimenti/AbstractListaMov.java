@@ -1,5 +1,9 @@
 package view.componenti.movimenti;
 
+import grafica.componenti.contenitori.ScrollPaneBase;
+import grafica.componenti.table.table.TableBase;
+
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
@@ -13,15 +17,14 @@ import javax.swing.WindowConstants;
 
 import view.font.ButtonF;
 import view.font.LabelListaGruppi;
-import view.font.TableF;
 import view.font.TextFieldF;
 import business.Controllore;
 
 public abstract class AbstractListaMov extends view.OggettoVistaBase {
 	private static final long serialVersionUID = 1L;
 	int numMovimenti = 10;
-	TableF table;
-	private JScrollPane scrollPane;
+	TableBase table;
+	private ScrollPaneBase scrollPane;
 	protected JTextField campo;
 	String[][] movimenti;
 	protected ButtonF pulsanteNMovimenti;
@@ -44,12 +47,12 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 		frame.setVisible(true);
 	}
 
-	public AbstractListaMov() {
-		super();
-		initGUI();
+	public AbstractListaMov(final Container container) {
+		super(container);
+		initGUI(container);
 	}
 
-	private void initGUI() {
+	private void initGUI(final Container container) {
 		try {
 			this.setLayout(null);
 			this.setPreferredSize(new Dimension(1000, 605));
@@ -70,7 +73,11 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 
 			movimenti = createMovimenti();
 
-			table = new TableF(movimenti, nomiColonne);
+			scrollPane = new ScrollPaneBase(container);
+			table = new TableBase(movimenti, nomiColonne, scrollPane);
+
+			scrollPane.setViewportView(table);
+
 			impostaTable(table);
 			if (this instanceof ListaMovimentiEntrate) {
 				table.addMouseListener(new AscoltatoreBottoniEntrata(this.getTable()));
@@ -78,9 +85,6 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 				table.addMouseListener(new AscoltatoreBottoniUscita(this.getTable()));
 			}
 
-			// Create the scroll pane and add the table to it.
-			scrollPane = new JScrollPane();
-			scrollPane.setViewportView(table);
 
 			// Add the scroll pane to this panel.
 			this.add(scrollPane);
@@ -140,15 +144,15 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 		return scrollPane;
 	}
 
-	public void setScrollPane(final JScrollPane scrollPane) {
+	public void setScrollPane(final ScrollPaneBase scrollPane) {
 		this.scrollPane = scrollPane;
 	}
 
-	public TableF getTable() {
+	public TableBase getTable() {
 		return table;
 	}
 
-	public void setTable(final TableF table) {
+	public void setTable(final TableBase table) {
 		this.table = table;
 	}
 

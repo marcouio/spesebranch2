@@ -38,21 +38,7 @@ public class GeneralFrame extends PannelloBase {
 	private static GeneralFrame singleton;
 	private final ArrayList<JPanel> listaPannelli = new ArrayList<JPanel>();
 
-//	public static void main(final string[] args) {
-//
-//		swingutilities.invokelater(new runnable() {
-//			@override
-//			public void run() {
-//				dbutil.closeconnection();
-//				final generalframe inst = new generalframe();
-//				inst.settitle(Controllore.getSingleton().getMessaggio("title"));
-//				inst.setlocationrelativeto(null);
-//				inst.setvisible(true);
-//			}
-//		});
-//	}
-
-	public static final GeneralFrame getSingleton(Container contenitore) {
+	public static final GeneralFrame getSingleton(final Container contenitore) {
 		if (singleton == null) {
 			synchronized (GeneralFrame.class) {
 				if (singleton == null) {
@@ -66,26 +52,29 @@ public class GeneralFrame extends PannelloBase {
 	/**
 	 * Create the frame.
 	 */
-	private GeneralFrame(Container contenitore) {
+	private GeneralFrame(final Container contenitore) {
 		super(contenitore);
 
-		final MyMenu menu = new MyMenu();
-		this.add(menu);
-		
+		final MyMenu menu = new MyMenu(this);
+		menu.posizionaSottoA(null, 0, 0);
+		menu.setSize(980, 23);
+
 		PannelloBottoni pannelloBottoni = createPannelloBottoni();
-		this.add(pannelloBottoni);
-		pannelloBottoni.setBounds(0, 20, 980, 94);
-		
+		pannelloBottoni.posizionaSottoA(menu, 0, 10);
+		pannelloBottoni.setSize(980, 93);
+
 		// movimenti
-		tabMovimenti = new Movimenti();
-		tabMovimenti.getTabMovUscite().setBounds(0, 110, 980, 500);
-		tabMovimenti.getTabMovEntrate().setBounds(0, 110, 980, 500);
+		tabMovimenti = new Movimenti(this);
+		tabMovimenti.getTabMovUscite().setSize(980, 500);
+		tabMovimenti.getTabMovEntrate().setSize(980, 500);
+		tabMovimenti.getTabMovUscite().posizionaSottoA(pannelloBottoni, 0, 0);
+		tabMovimenti.getTabMovEntrate().posizionaSottoA(pannelloBottoni, 0, 0);
 
 		this.add(tabMovimenti.getTabMovEntrate());
 		this.add(tabMovimenti.getTabMovUscite());
 		listaPannelli.add(tabMovimenti.getTabMovEntrate());
 		listaPannelli.add(tabMovimenti.getTabMovUscite());
-		
+
 
 		for (final JPanel pannello : listaPannelli) {
 			pannello.setVisible(false);
@@ -96,12 +85,12 @@ public class GeneralFrame extends PannelloBase {
 	}
 
 	private PannelloBottoni createPannelloBottoni() {
-		final PannelloBottoni pannelloBottoni = new PannelloBottoni();
+		final PannelloBottoni pannelloBottoni = new PannelloBottoni(this);
 		final ImageIcon iconaMovimenti = new ImageIcon(AltreUtil.IMGUTILPATH+"controlli.gif");
 		final ImageIcon iconaMovimentiPic = new ImageIcon(AltreUtil.IMGUTILPATH+"controlli_pic.gif");
 		final ToggleBtn toggleMovimenti = new ToggleBtn(Controllore.getSingleton().getMessaggio("transactions"), iconaMovimenti);
 		toggleMovimenti.settaggioBottoneStandard();
-		final Bottone bottoneMovimenti = new Bottone(toggleMovimenti);
+		final Bottone bottoneMovimenti = new Bottone(toggleMovimenti, this);
 		toggleMovimenti.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
@@ -116,7 +105,7 @@ public class GeneralFrame extends PannelloBase {
 		final String uscite = Controllore.getSingleton().getMessaggio("withdrawal");
 		final ToggleBtn toggleMovimentiUscite = new ToggleBtn(uscite, iconaMovimentiPic, -1, 20);
 		toggleMovimentiUscite.settaggioBottoneStandard();
-		final Bottone bottoneMovimentiUscite = new Bottone(toggleMovimentiUscite);
+		final Bottone bottoneMovimentiUscite = new Bottone(toggleMovimentiUscite, this);
 		toggleMovimentiUscite.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
@@ -131,7 +120,7 @@ public class GeneralFrame extends PannelloBase {
 		final String entrate = Controllore.getSingleton().getMessaggio("income");
 		final ToggleBtn toggleMovimentiEntrate = new ToggleBtn(entrate, iconaMovimentiPic, -1, 20);
 		toggleMovimentiEntrate.settaggioBottoneStandard();
-		final Bottone bottoneMovimentiEntrate = new Bottone(toggleMovimentiEntrate);
+		final Bottone bottoneMovimentiEntrate = new Bottone(toggleMovimentiEntrate,this);
 		toggleMovimentiEntrate.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
@@ -146,7 +135,7 @@ public class GeneralFrame extends PannelloBase {
 			}
 		});
 
-		final PannelloBottoniInterno pp = new PannelloBottoniInterno();
+		final PannelloBottoniInterno pp = new PannelloBottoniInterno(this);
 		final ArrayList<Bottone> dueButton = new ArrayList<Bottone>();
 		dueButton.add(bottoneMovimentiUscite);
 		dueButton.add(bottoneMovimentiEntrate);
@@ -160,7 +149,7 @@ public class GeneralFrame extends PannelloBase {
 
 		final ToggleBtn toggleMesi = new ToggleBtn(mesi, iconaUscite);
 		toggleMesi.settaggioBottoneStandard();
-		final Bottone bottoneMesi = new Bottone(toggleMesi);
+		final Bottone bottoneMesi = new Bottone(toggleMesi,this);
 		toggleMesi.setPadre(bottoneMesi);
 		toggleMesi.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
@@ -170,8 +159,9 @@ public class GeneralFrame extends PannelloBase {
 					pannello.setVisible(false);
 				}
 				if(tabPermesi == null){
-					tabPermesi = new PerMesiF();
-					tabPermesi.setBounds(20, 58, 950, 500);
+					tabPermesi = new PerMesiF(GeneralFrame.this);
+					tabPermesi.setSize(950, 500);
+					tabPermesi.posizionaSottoA(pannelloBottoni, 0, -65);
 					GeneralFrame.this.add(tabPermesi);
 					listaPannelli.add(tabPermesi);
 
@@ -183,7 +173,7 @@ public class GeneralFrame extends PannelloBase {
 		final ImageIcon iconaSQL = new ImageIcon(AltreUtil.IMGUTILPATH+"sql.gif");
 		final ToggleBtn toggleSql = new ToggleBtn("ConsolleSQL", iconaSQL);
 		toggleSql.settaggioBottoneStandard();
-		final Bottone bottoneSql = new Bottone(toggleSql);
+		final Bottone bottoneSql = new Bottone(toggleSql,this);
 		toggleSql.setPadre(bottoneSql);
 		toggleSql.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
@@ -193,8 +183,9 @@ public class GeneralFrame extends PannelloBase {
 					pannello.setVisible(false);
 				}
 				if(consolle == null){
-					consolle = new NewSql();
-					consolle.setBounds(20, 58, 980, 500);
+					consolle = new NewSql(GeneralFrame.this);
+					consolle.setSize(980, 500);
+					consolle.posizionaSottoA(pannelloBottoni, 0, -55);
 					GeneralFrame.this.add(consolle);
 					listaPannelli.add(consolle);
 				}
@@ -209,14 +200,14 @@ public class GeneralFrame extends PannelloBase {
 		final ToggleBtn toggleEntrateUscite = new ToggleBtn(addtransaction, iconaSoldi);
 
 		toggleEntrateUscite.settaggioBottoneStandard();
-		final Bottone bottoneEntrateUscite = new Bottone(toggleEntrateUscite);
+		final Bottone bottoneEntrateUscite = new Bottone(toggleEntrateUscite,this);
 		toggleEntrateUscite.setPadre(bottoneEntrateUscite);
 
 		final String charge = Controllore.getSingleton().getMessaggio("charge");
 		final ToggleBtn toggleInsUscite = new ToggleBtn(charge, iconaSoldiPic, -1, 20);
 
 		toggleInsUscite.settaggioBottoneStandard();
-		final Bottone bottoneInsUscite = new Bottone(toggleInsUscite);
+		final Bottone bottoneInsUscite = new Bottone(toggleInsUscite,this);
 		toggleInsUscite.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
@@ -238,7 +229,7 @@ public class GeneralFrame extends PannelloBase {
 		final ToggleBtn toggleInsEntrate = new ToggleBtn(income, iconaSoldiPic, -1, 20);
 
 		toggleInsEntrate.settaggioBottoneStandard();
-		final Bottone bottoneInsEntrate = new Bottone(toggleInsEntrate);
+		final Bottone bottoneInsEntrate = new Bottone(toggleInsEntrate,this);
 		toggleInsEntrate.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
@@ -252,7 +243,7 @@ public class GeneralFrame extends PannelloBase {
 			}
 		});
 
-		final PannelloBottoniInterno EntrateUsciteContenuto = new PannelloBottoniInterno();
+		final PannelloBottoniInterno EntrateUsciteContenuto = new PannelloBottoniInterno(this);
 		final ArrayList<Bottone> dueBottoni = new ArrayList<Bottone>();
 		dueBottoni.add(bottoneInsUscite);
 		dueBottoni.add(bottoneInsEntrate);
@@ -266,7 +257,7 @@ public class GeneralFrame extends PannelloBase {
 		return pannelloBottoni;
 	}
 
-	public void relocateFinestreLaterali(FrameBase view) {
+	public void relocateFinestreLaterali(final FrameBase view) {
 		if (Controllore.getSingleton().getInitFinestre().getFinestraVisibile() != null) {
 			final Point p = view.getLocation();
 			final Dimension d = view.getSize();

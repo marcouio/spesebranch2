@@ -1,5 +1,8 @@
 package business.aggiornatori;
 
+import grafica.componenti.contenitori.ScrollPaneBase;
+import grafica.componenti.table.table.TableBase;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -17,7 +20,6 @@ import view.componenti.componentiPannello.SottoPannelloMesi;
 import view.componenti.componentiPannello.SottoPannelloTotali;
 import view.componenti.movimenti.AscoltatoreBottoniEntrata;
 import view.componenti.movimenti.AscoltatoreBottoniUscita;
-import view.font.TableF;
 import view.impostazioni.CategorieView;
 import view.tabelleMesi.TabellaEntrata;
 import view.tabelleMesi.TabellaUscita;
@@ -111,11 +113,11 @@ public class AggiornatoreManager {
 	 * @param nomiColonne
 	 * @param numUscite
 	 */
-	public static boolean aggiornaMovimentiUsciteDaFiltro(final Object[] nomiColonne, final String[][] movimenti) {
+	public static boolean aggiornaMovimentiUsciteDaFiltro(final String[] nomiColonne, final String[][] movimenti) {
 		try {
-			TableF table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getTable();
-			table1 = new TableF(movimenti, nomiColonne);
+			TableBase table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getTable();
 			final JScrollPane scrollPane = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getScrollPane();
+			table1 = new TableBase(movimenti, nomiColonne,scrollPane);
 			scrollPane.setViewportView(table1);
 			table1.addMouseListener(new AscoltatoreBottoniUscita(table1));
 			return true;
@@ -134,12 +136,12 @@ public class AggiornatoreManager {
 	 * @param nomiColonne
 	 * @param numUscite
 	 */
-	public static boolean aggiornaMovimentiUsciteDaEsterno(final Object[] nomiColonne, final int numUscite) {
+	public static boolean aggiornaMovimentiUsciteDaEsterno(final String[] nomiColonne, final int numUscite) {
 		try {
 			final String[][] movimenti = Model.getSingleton().movimentiUscite(numUscite, WrapSingleSpesa.NOME_TABELLA);
-			TableF table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getTable();
-			table1 = new TableF(movimenti, nomiColonne);
+			TableBase table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getTable();
 			final JScrollPane scrollPane = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getScrollPane();
+			table1 = new TableBase(movimenti, nomiColonne, scrollPane);
 			scrollPane.setViewportView(table1);
 			table1.addMouseListener(new AscoltatoreBottoniUscita(table1));
 			return true;
@@ -157,11 +159,11 @@ public class AggiornatoreManager {
 	 * @param nomiColonne
 	 * @param numEntry
 	 */
-	public static boolean aggiornaMovimentiEntrateDaFiltro(final Object[] nomiColonne, final String[][] movimenti) {
+	public static boolean aggiornaMovimentiEntrateDaFiltro(final String[] nomiColonne, final String[][] movimenti) {
 		try {
-			TableF table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getTable();
-			table1 = new TableF(movimenti, nomiColonne);
+			TableBase table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getTable();
 			final JScrollPane scrollPane = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getScrollPane();
+			table1 = new TableBase(movimenti, nomiColonne, scrollPane);
 			scrollPane.setViewportView(table1);
 			table1.addMouseListener(new AscoltatoreBottoniEntrata(table1));
 			return true;
@@ -179,13 +181,13 @@ public class AggiornatoreManager {
 	 * @param nomiColonne
 	 * @param numEntry
 	 */
-	public static boolean aggiornaMovimentiEntrateDaEsterno(final Object[] nomiColonne, final int numEntry) {
+	public static boolean aggiornaMovimentiEntrateDaEsterno(final String[] nomiColonne, final int numEntry) {
 		try {
 			final String[][] movimenti = Model.getSingleton().movimentiEntrate(numEntry, WrapEntrate.NOME_TABELLA);
 			if(Controllore.getSingleton().getView()!=null){
-				TableF table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getTable();
-				table1 = new TableF(movimenti, nomiColonne);
 				final JScrollPane scrollPane = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getScrollPane();
+				TableBase table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getTable();
+				table1 = new TableBase(movimenti, nomiColonne,scrollPane);
 				scrollPane.setViewportView(table1);
 				table1.addMouseListener(new AscoltatoreBottoniEntrata(table1));
 				return true;
@@ -206,7 +208,7 @@ public class AggiornatoreManager {
 	 * @throws Exception
 	 */
 	public static boolean aggiornamentoGenerale(final String tipo)
-	    throws Exception {
+			throws Exception {
 
 		if (tipo.equals(WrapSingleSpesa.NOME_TABELLA)) {
 			final String[] nomiColonne = (String[]) AltreUtil.generaNomiColonne(WrapSingleSpesa.NOME_TABELLA);
@@ -299,7 +301,7 @@ public class AggiornatoreManager {
 				DBUtil.closeConnection();
 			}
 		}
-		
+
 		DBUtil.closeConnection();
 
 	}
@@ -350,7 +352,7 @@ public class AggiornatoreManager {
 				DBUtil.closeConnection();
 			}
 		}
-		
+
 		DBUtil.closeConnection();
 	}
 
@@ -366,7 +368,7 @@ public class AggiornatoreManager {
 		try {
 			final JScrollPane pane = TabellaUscitaGruppi.getScrollPane();
 			if(pane != null){
-				final JTable table = TabellaUscitaGruppi.getDatiPerTabella();
+				final JTable table = TabellaUscitaGruppi.getDatiPerTabella(pane);
 				pane.setViewportView(table);
 			}
 			return true;
@@ -389,10 +391,10 @@ public class AggiornatoreManager {
 
 		try {
 			TableModelUscite model = new TableModelUscite(null);
-			
+
 			final JScrollPane pane = TabellaUscita.getScrollPane();
 			if(pane != null){
-				final TableF table = TabellaUscita.createTable(model); 
+				final TableBase table = TabellaUscita.createTable(model,pane); 
 				pane.setViewportView(table);
 			}
 			return true;
@@ -412,10 +414,10 @@ public class AggiornatoreManager {
 	 */
 	public static boolean aggiornaTabellaEntrate() {
 		try {
-			final JScrollPane pane = TabellaEntrata.getScrollPane();
+			final ScrollPaneBase pane = TabellaEntrata.getScrollPane();
 			if(pane != null){
 				TableModelEntrate model = new TableModelEntrate(null);
-				final TableF table = TabellaEntrata.createTable(model);
+				final TableBase table = TabellaEntrata.createTable(model, pane);
 				pane.setViewportView(table);
 			}
 			return true;

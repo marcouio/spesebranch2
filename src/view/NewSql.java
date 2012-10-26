@@ -4,6 +4,7 @@ import grafica.componenti.alert.Alert;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -15,11 +16,9 @@ import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.WindowConstants;
 
 import view.font.ButtonF;
 import view.font.LabelTitolo;
@@ -49,16 +48,8 @@ public class NewSql extends OggettoVistaBase {
 
 	private String            riga;
 
-	public static void main(final String[] args) {
-		final JFrame frame = new JFrame();
-		frame.getContentPane().add(new NewSql());
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
-
-	public NewSql() {
-		super();
+	public NewSql(final Container container) {
+		super(container);
 		initGUI();
 	}
 
@@ -106,7 +97,7 @@ public class NewSql extends OggettoVistaBase {
 			buttonF.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 				@Override
-				protected void actionPerformedOverride(ActionEvent e) throws Exception {
+				protected void actionPerformedOverride(final ActionEvent e) throws Exception {
 					super.actionPerformedOverride(e);
 					final StringBuffer sb = new StringBuffer();
 					sb.append(Controllore.getSingleton().getMessaggio("tables")+": \n");

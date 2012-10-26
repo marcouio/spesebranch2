@@ -1,36 +1,43 @@
 package view.bottoni;
 
+import grafica.componenti.contenitori.PannelloBase;
+
 import java.awt.BorderLayout;
+import java.awt.Container;
 
 import javax.swing.AbstractButton;
-import javax.swing.JPanel;
 
-public class Bottone extends JPanel {
+public class Bottone extends PannelloBase {
 
 	private static final long serialVersionUID = 1L;
 	private AbstractButton    bottone;
-	private PannelloBottoni   contenuto        = new PannelloBottoni();
+	private PannelloBottoni   contenuto        = null;
 	private boolean           isEspanso;
 
 	public static final int   RIEMPITO         = 0;
 
-	public Bottone() {
-		init();
-	}
+	//	public Bottone(final Container contenitore) {
+	//		super(contenitore);
+	//		init();
+	//	}
 
-	public Bottone(AbstractButton bottone) {
+	public Bottone(final AbstractButton bottone, final Container contenitore) {
+		super(contenitore);
 		init();
 		this.bottone = bottone;
+		this.contenuto = new PannelloBottoni(contenitore);
 		this.add(bottone, BorderLayout.NORTH);
 	}
 
-	public Bottone(PannelloBottoni contenuto) {
+	public Bottone(final PannelloBottoni contenuto, final Container contenitore) {
+		super(contenitore);
 		init();
 		this.contenuto = contenuto;
 		this.add(this.contenuto, BorderLayout.SOUTH);
 	}
 
-	public Bottone(PannelloBottoni contenuto, AbstractButton bottone) {
+	public Bottone(final PannelloBottoni contenuto, final AbstractButton bottone, final Container contenitore) {
+		super(contenitore);
 		init();
 		this.contenuto = contenuto;
 		this.bottone = bottone;
@@ -63,7 +70,7 @@ public class Bottone extends JPanel {
 		return bottone;
 	}
 
-	protected void setBottone(AbstractButton bottone) {
+	protected void setBottone(final AbstractButton bottone) {
 		this.bottone = bottone;
 	}
 
@@ -71,13 +78,13 @@ public class Bottone extends JPanel {
 		return contenuto;
 	}
 
-	public void setContenuto(PannelloBottoni contenuto) {
+	public void setContenuto(final PannelloBottoni contenuto) {
 		this.contenuto = contenuto;
 		add(this.contenuto);
 		this.contenuto.setVisible(false);
 	}
 
-	public void setEspanso(boolean isEspanso) {
+	public void setEspanso(final boolean isEspanso) {
 		this.isEspanso = isEspanso;
 	}
 

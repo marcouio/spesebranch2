@@ -1,39 +1,25 @@
 package view;
 
+import grafica.componenti.ExceptionGraphics;
+import grafica.componenti.contenitori.PannelloBase;
+
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-public class OggettoVistaBase extends JPanel {
+public class OggettoVistaBase extends PannelloBase {
 	protected Font titolo;
 
-	public OggettoVistaBase(final GridLayout gridLayout) {
-		super(gridLayout);
+	public OggettoVistaBase(final GridLayout gridLayout, final Container container) throws ExceptionGraphics {
+		super(gridLayout, container);
 	}
 
-	public OggettoVistaBase() {
-		super();
+	public OggettoVistaBase(final Container container) {
+		super(container);
 		titolo = new Font("Tahoma", Font.BOLD | Font.ITALIC, 14);
 
 	}
 	protected static final long serialVersionUID = 1L;
 
-	public static void main(final String[] args) {
-
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				final JFrame inst = new JFrame();
-				inst.setSize(950, 700);
-				inst.getContentPane().add(new OggettoVistaBase());
-				inst.setLocationRelativeTo(null);
-				inst.setVisible(true);
-
-			}
-		});
-	}
 
 }

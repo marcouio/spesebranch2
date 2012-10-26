@@ -1,5 +1,6 @@
 package view.componenti.movimenti;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -20,8 +21,8 @@ public class ListaMovimentiUscite extends AbstractListaMov {
 
 	private static final long serialVersionUID = 1L;
 
-	public ListaMovimentiUscite() {
-		super();
+	public ListaMovimentiUscite(final Container container) {
+		super(container);
 		pulsanteNMovimenti.addActionListener(new AscoltatoreNumeroMovimenti(WrapSingleSpesa.NOME_TABELLA, createNomiColonne(), campo));
 	}
 

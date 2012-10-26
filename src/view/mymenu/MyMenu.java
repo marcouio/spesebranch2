@@ -1,5 +1,8 @@
 package view.mymenu;
 
+import grafica.componenti.menu.MenuBarBase;
+
+import java.awt.Container;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,9 +11,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
 
 import view.FinestraListaComandi;
 import view.componenti.componentiPannello.PannelloAScomparsa2;
@@ -43,16 +44,17 @@ import domain.wrapper.WrapEntrate;
 import domain.wrapper.WrapGruppi;
 import domain.wrapper.WrapSingleSpesa;
 
-public class MyMenu extends JMenuBar {
+public class MyMenu extends MenuBarBase {
 
 	private static final long serialVersionUID = 1L;
 
-	public MyMenu() {
+	public MyMenu(final Container container) {
+		super(container);
 		init();
 	}
 
 	private void init() {
-		this.setBounds(0, 0, 1000, 20);
+		//		this.setBounds(0, 0, 1000, 20);
 
 		// crea un menu
 		final JMenu file = new JMenu("File");
@@ -361,22 +363,6 @@ public class MyMenu extends JMenuBar {
 		final JMenuItem manuale = new JMenuItem(Controllore.getSingleton().getMessaggio("userguide"));
 		help.add(manuale);
 
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(final String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				final JFrame frame = new JFrame();
-				frame.setSize(1000, 50);
-				frame.getContentPane().add(new MyMenu());
-				frame.setVisible(true);
-			}
-		});
 	}
 
 }
