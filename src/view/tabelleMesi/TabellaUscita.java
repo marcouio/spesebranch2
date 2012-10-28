@@ -7,6 +7,7 @@ import grafica.componenti.contenitori.ScrollPaneBase;
 import grafica.componenti.table.TableModel;
 import grafica.componenti.table.table.TableBase;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -32,6 +33,7 @@ public class TabellaUscita extends OggettoVistaBase {
 		try {
 			TableModelUscite model = new TableModelUscite(null);
 			table = createTable(model, scrollPane);
+			table.setColoreBackground(Color.LIGHT_GRAY);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

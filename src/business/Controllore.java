@@ -1,5 +1,6 @@
 package business;
 
+import grafica.componenti.ExceptionGraphics;
 import grafica.componenti.alert.Alert;
 import grafica.componenti.contenitori.FrameBase;
 
@@ -41,7 +42,7 @@ public class Controllore extends ControlloreBase{
 	public static String lookUsato;
 
 	@Override
-	public void mainOverridato(FrameBase frame) throws Exception {
+	public void mainOverridato(final FrameBase frame) throws Exception {
 		init();
 		Database.DB_URL = Database.DB_URL_WORKSPACE;
 		verificaPresenzaDb();
@@ -58,40 +59,40 @@ public class Controllore extends ControlloreBase{
 		view.setResizable(false);
 		view.setTitle(getMessaggio("title"));
 		view.setVisible(true);
-		
-		
-		
+
+
+
 	}
-	
+
 	public String getMessaggio(final String chiave) {
 		return I18NManager.getSingleton().getMessaggio(chiave);
 	}
-	
+
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(final String[] args) {
-//		Database.DB_URL = Database.DB_URL_WORKSPACE;
-//		verificaPresenzaDb();
-//
-//		settaLookFeel();
-//
-//		SwingUtilities.invokeLater(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				DBUtil.closeConnection();
-//				Controllore.getSingleton();
-//				view = GeneralFrame.getSingleton();
-//				view.setResizable(false);
-//				setStartUtenteLogin();
-//				view.setTitle(Controllore.getSingleton().getMessaggio("title"));
-//				view.setLocationByPlatform(true);
-//				view.setVisible(true);
-//
-//			}
-//		});
-//	}
+	//	public static void main(final String[] args) {
+	//		Database.DB_URL = Database.DB_URL_WORKSPACE;
+	//		verificaPresenzaDb();
+	//
+	//		settaLookFeel();
+	//
+	//		SwingUtilities.invokeLater(new Runnable() {
+	//
+	//			@Override
+	//			public void run() {
+	//				DBUtil.closeConnection();
+	//				Controllore.getSingleton();
+	//				view = GeneralFrame.getSingleton();
+	//				view.setResizable(false);
+	//				setStartUtenteLogin();
+	//				view.setTitle(Controllore.getSingleton().getMessaggio("title"));
+	//				view.setLocationByPlatform(true);
+	//				view.setVisible(true);
+	//
+	//			}
+	//		});
+	//	}
 
 	private static void settaLookFeel() {
 		try {
@@ -120,7 +121,7 @@ public class Controllore extends ControlloreBase{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(final String[] args) {
 		Controllore.getSingleton().myMain(Controllore.getSingleton(), true, "myApplication");
 	}
@@ -148,7 +149,11 @@ public class Controllore extends ControlloreBase{
 
 	public static GeneralFrame getPannello() {
 		if(pannello == null){
-			pannello = GeneralFrame.getSingleton(view);
+			try {
+				pannello = GeneralFrame.getSingleton(view);
+			} catch (ExceptionGraphics e) {
+				e.printStackTrace();
+			}
 		}
 		return pannello;
 	}
@@ -187,6 +192,7 @@ public class Controllore extends ControlloreBase{
 		return singleton;
 	}
 
+	@Override
 	public Object getUtenteLogin() {
 		return utenteLogin;
 	}
@@ -202,6 +208,7 @@ public class Controllore extends ControlloreBase{
 		return aggiornatoreManager;
 	}
 
+	@Override
 	public CommandManager getCommandManager() {
 		if (commandManager == null) {
 			commandManager = CommandManager.getIstance();
@@ -213,6 +220,7 @@ public class Controllore extends ControlloreBase{
 		return view;
 	}
 
+	@Override
 	public void quit() {
 		view.setVisible(false);
 		view.dispose();

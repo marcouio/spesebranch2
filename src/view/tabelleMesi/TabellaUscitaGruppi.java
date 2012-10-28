@@ -4,6 +4,7 @@ import grafica.componenti.ExceptionGraphics;
 import grafica.componenti.contenitori.ScrollPaneBase;
 import grafica.componenti.table.table.TableBase;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -17,7 +18,7 @@ import business.generatori.TableModelUsciteGruppi;
 public class TabellaUscitaGruppi extends OggettoVistaBase {
 
 	private static final long serialVersionUID = 1L;
-	private static JTable table;
+	private static TableBase table;
 
 	private static String[][] primo;
 	private static JScrollPane scrollPane;
@@ -39,7 +40,7 @@ public class TabellaUscitaGruppi extends OggettoVistaBase {
 
 	}
 
-	public static JTable getDatiPerTabella(final Container container) throws Exception {
+	public static TableBase getDatiPerTabella(final Container container) throws Exception {
 
 		TableModelUsciteGruppi model = new TableModelUsciteGruppi(null);
 
@@ -47,6 +48,7 @@ public class TabellaUscitaGruppi extends OggettoVistaBase {
 		table.setRowHeight(27);
 		table.setPreferredScrollableViewportSize(new Dimension(700, 300));
 		table.setFillsViewportHeight(true);
+		table.setColoreBackground(Color.LIGHT_GRAY);
 		return table;
 	}
 
@@ -62,7 +64,7 @@ public class TabellaUscitaGruppi extends OggettoVistaBase {
 		return table;
 	}
 
-	public static void setTable(final JTable table) {
+	public static void setTable(final TableBase table) {
 		TabellaUscitaGruppi.table = table;
 	}
 

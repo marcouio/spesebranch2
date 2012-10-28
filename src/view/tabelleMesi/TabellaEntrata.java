@@ -7,6 +7,7 @@ import grafica.componenti.ExceptionGraphics;
 import grafica.componenti.contenitori.ScrollPaneBase;
 import grafica.componenti.table.table.TableBase;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 
@@ -39,6 +40,7 @@ public class TabellaEntrata extends OggettoVistaBase {
 		try{
 			TableModelEntrate model = new TableModelEntrate(null);
 			table = createTable(model, scrollPane);
+			table.setColoreBackground(Color.LIGHT_GRAY);
 			scrollPane.setSize(300, 300);
 		}catch (final Exception e) {
 			e.printStackTrace();

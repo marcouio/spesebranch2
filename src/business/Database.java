@@ -41,15 +41,6 @@ public class Database {
 
 	}
 
-//	public static void main(final String[] args) {
-//		try {
-//			Database.getSingleton().generaDB();
-//			System.out.println("Db generato");
-//		} catch (final SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 	public static final Database getSingleton() {
 		if (singleton == null) {
 			synchronized (Database.class) {
@@ -238,7 +229,7 @@ public class Database {
 
 	private boolean gestioneIstruzioneUpdate(final String tabella, final HashMap<String, String> campi,
 			final HashMap<String, String> clausole, boolean ok, final StringBuffer sql, final String command)
-	throws Exception {
+					throws Exception {
 		final Iterator<String> iterUpdate = campi.keySet().iterator();
 		sql.append(command).append(" " + tabella).append(" SET ");
 		while (iterUpdate.hasNext()) {
@@ -569,22 +560,22 @@ public class Database {
 		String sql = "";
 		if (tabella.equals(WrapEntrate.NOME_TABELLA)) {
 			sql = "SELECT " + WrapEntrate.NOME_TABELLA + "." + WrapEntrate.DATA + ", " + WrapEntrate.NOME_TABELLA + "."
-			+ WrapEntrate.NOME + ", " + WrapEntrate.NOME_TABELLA + "." + WrapEntrate.DESCRIZIONE + ", "
-			+ WrapEntrate.NOME_TABELLA + "." + WrapEntrate.INEURO + " as euro, " + WrapEntrate.NOME_TABELLA + "."
-			+ WrapEntrate.FISSEOVAR + " as categoria, " + WrapEntrate.NOME_TABELLA + "." + WrapEntrate.ID + ", "
-			+ WrapEntrate.NOME_TABELLA + "." + WrapEntrate.DATAINS + " as inserimento" + " FROM " + tabella
-			+ " order by " + WrapEntrate.ID + " desc";
+					+ WrapEntrate.NOME + ", " + WrapEntrate.NOME_TABELLA + "." + WrapEntrate.DESCRIZIONE + ", "
+					+ WrapEntrate.NOME_TABELLA + "." + WrapEntrate.INEURO + " as euro, " + WrapEntrate.NOME_TABELLA + "."
+					+ WrapEntrate.FISSEOVAR + " as categoria, " + WrapEntrate.NOME_TABELLA + "." + WrapEntrate.ID + ", "
+					+ WrapEntrate.NOME_TABELLA + "." + WrapEntrate.DATAINS + " as inserimento" + " FROM " + tabella
+					+ " order by " + WrapEntrate.ID + " desc";
 		} else if (tabella.equals(WrapSingleSpesa.NOME_TABELLA)) {
 			sql = "SELECT " + WrapSingleSpesa.NOME_TABELLA + "." + WrapSingleSpesa.DATA + " as data, "
-			+ WrapSingleSpesa.NOME_TABELLA + "." + WrapSingleSpesa.NOME + ", " + WrapSingleSpesa.NOME_TABELLA + "."
-			+ WrapSingleSpesa.DESCRIZIONE + ", " + WrapSingleSpesa.NOME_TABELLA + "." + WrapSingleSpesa.INEURO
-			+ " as euro, " + WrapCatSpese.NOME_TABELLA + "." + WrapCatSpese.NOME + " as categoria, "
-			+ WrapSingleSpesa.NOME_TABELLA + "." + WrapSingleSpesa.ID + ", " + WrapSingleSpesa.NOME_TABELLA + "."
-			+ WrapSingleSpesa.DATAINS + " as inserimento" + " FROM " + tabella + ", " + WrapCatSpese.NOME_TABELLA
-			+ ", " + WrapUtenti.NOME_TABELLA + " where " + WrapSingleSpesa.NOME_TABELLA + "." + WrapSingleSpesa.IDCATEGORIE
-			+ " = " + WrapCatSpese.NOME_TABELLA + "." + WrapCatSpese.ID + " and " + WrapSingleSpesa.NOME_TABELLA + "."
-			+ WrapSingleSpesa.IDUTENTE + " = " + WrapUtenti.NOME_TABELLA + "." + WrapUtenti.ID + " order by "
-			+ WrapSingleSpesa.ID + " desc";
+					+ WrapSingleSpesa.NOME_TABELLA + "." + WrapSingleSpesa.NOME + ", " + WrapSingleSpesa.NOME_TABELLA + "."
+					+ WrapSingleSpesa.DESCRIZIONE + ", " + WrapSingleSpesa.NOME_TABELLA + "." + WrapSingleSpesa.INEURO
+					+ " as euro, " + WrapCatSpese.NOME_TABELLA + "." + WrapCatSpese.NOME + " as categoria, "
+					+ WrapSingleSpesa.NOME_TABELLA + "." + WrapSingleSpesa.ID + ", " + WrapSingleSpesa.NOME_TABELLA + "."
+					+ WrapSingleSpesa.DATAINS + " as inserimento" + " FROM " + tabella + ", " + WrapCatSpese.NOME_TABELLA
+					+ ", " + WrapUtenti.NOME_TABELLA + " where " + WrapSingleSpesa.NOME_TABELLA + "." + WrapSingleSpesa.IDCATEGORIE
+					+ " = " + WrapCatSpese.NOME_TABELLA + "." + WrapCatSpese.ID + " and " + WrapSingleSpesa.NOME_TABELLA + "."
+					+ WrapSingleSpesa.IDUTENTE + " = " + WrapUtenti.NOME_TABELLA + "." + WrapUtenti.ID + " order by "
+					+ WrapSingleSpesa.ID + " desc";
 		}
 
 		final Connection cn = DBUtil.getConnection();
