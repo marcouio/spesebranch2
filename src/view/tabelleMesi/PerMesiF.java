@@ -29,18 +29,18 @@ public class PerMesiF extends OggettoVistaBase {
 			tabUscite  = new TabellaUscita(container);
 			tabUG      = new TabellaUscitaGruppi(container);
 
-			this.setPreferredSize(new Dimension(983, 545));
+			this.setPreferredSize(new Dimension(983, 500));
 			this.setLayout(null);
 
 			tabGenerale = new JTabbedPane();
-			tabGenerale.setBounds(12, 65, 930, 468);
+			tabGenerale.setBounds(12, 65, 930, 488);
 			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("income"), tabEntrate);
 			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("withdrawal"), tabUscite);
 			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("groupscharge"), tabUG);
 
-			TabellaUscita.getScrollPane().setSize(400, 400);
-			TabellaEntrata.getScrollPane().setSize(400, 400);
-			tabUG.getScrollPane().setSize(400, 400);
+			TabellaUscita.getScrollPane().setSize(950, 350);
+			TabellaEntrata.getScrollPane().setSize(950, 350);
+			TabellaUscitaGruppi.getScrollPane().setSize(950, 350);
 			this.add(tabGenerale);
 
 		} catch (final Exception e) {

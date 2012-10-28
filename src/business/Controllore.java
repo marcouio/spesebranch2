@@ -68,32 +68,6 @@ public class Controllore extends ControlloreBase{
 		return I18NManager.getSingleton().getMessaggio(chiave);
 	}
 
-	/**
-	 * Launch the application.
-	 */
-	//	public static void main(final String[] args) {
-	//		Database.DB_URL = Database.DB_URL_WORKSPACE;
-	//		verificaPresenzaDb();
-	//
-	//		settaLookFeel();
-	//
-	//		SwingUtilities.invokeLater(new Runnable() {
-	//
-	//			@Override
-	//			public void run() {
-	//				DBUtil.closeConnection();
-	//				Controllore.getSingleton();
-	//				view = GeneralFrame.getSingleton();
-	//				view.setResizable(false);
-	//				setStartUtenteLogin();
-	//				view.setTitle(Controllore.getSingleton().getMessaggio("title"));
-	//				view.setLocationByPlatform(true);
-	//				view.setVisible(true);
-	//
-	//			}
-	//		});
-	//	}
-
 	private static void settaLookFeel() {
 		try {
 			final CacheLookAndFeel cacheLook = CacheLookAndFeel.getSingleton();

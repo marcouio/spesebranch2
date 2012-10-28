@@ -28,7 +28,7 @@ public class Movimenti extends OggettoVistaBase {
 			tabMovEntrate = new ListaMovimentiEntrate(container);
 
 			tabGenerale = new JTabbedPane();
-			tabGenerale.setBounds(65, 65, 800, 600);
+			tabGenerale.setBounds(65, 65, 800, 500);
 			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("income")+" "+Controllore.getSingleton().getMessaggio("transactions"), tabMovEntrate);
 
 			tabMovEntrate.setBounds(20, 10, 700, 500);

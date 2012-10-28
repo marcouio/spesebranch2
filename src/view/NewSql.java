@@ -80,7 +80,7 @@ public class NewSql extends OggettoVistaBase {
 			result.setBounds(1, 245, 847, 103);
 			this.add(result);
 			final JScrollPane scroll = new JScrollPane(result);
-			scroll.setBounds(37, 161, 889, 350);
+			scroll.setBounds(37, 161, 889, 300);
 			this.add(scroll);
 			labelResult = new LabelTitolo();
 			labelResult.setBounds(420, 135, 70, 21);
