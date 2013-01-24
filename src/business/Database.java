@@ -35,7 +35,7 @@ public class Database {
 	private static Database singleton;
 	public static final String DB_URL_WORKSPACE = "../GestioneSpese.sqlite";
 	public static final String DB_URL_JAR = "./GestioneSpese.sqlite";
-	public static String DB_URL = DB_URL_WORKSPACE;
+	public static String DB_URL = DB_URL_JAR;
 
 	private Database() {
 
