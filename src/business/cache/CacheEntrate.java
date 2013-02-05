@@ -57,7 +57,7 @@ public class CacheEntrate extends AbstractCacheBase {
 			for (int i = 0; i < entrate.size(); i++) {
 				final Entrate entrata = (Entrate) entrate.get(i);
 				final int id = entrata.getIdEntrate();
-				if (cache.get(id) == null) {
+				if (cache.get(Integer.toString(id)) == null) {
 					cache.put(Integer.toString(id), entrata);
 				}
 			}
@@ -120,8 +120,8 @@ public class CacheEntrate extends AbstractCacheBase {
 	public int getMaxId() {
 		int maxId = 0;
 		final Map<String, AbstractOggettoEntita> mappa = getAllEntrate();
-		final Iterator<String> chiavi = mappa.keySet().iterator();
 		if (mappa != null) {
+			final Iterator<String> chiavi = mappa.keySet().iterator();
 			while (chiavi.hasNext()) {
 				final Entrate entrata = (Entrate) mappa.get(chiavi.next());
 				if (entrata != null) {

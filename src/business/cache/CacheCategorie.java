@@ -57,7 +57,7 @@ public class CacheCategorie extends AbstractCacheBase {
 			for (int i = 0; i < categorie.size(); i++) {
 				final CatSpese categoria = (CatSpese) categorie.get(i);
 				final int id = categoria.getIdCategoria();
-				if (cache.get(id) == null) {
+				if (cache.get(Integer.toString(id)) == null) {
 					cache.put(Integer.toString(id), categoria);
 				}
 			}
@@ -147,8 +147,8 @@ public class CacheCategorie extends AbstractCacheBase {
 	public int getMaxId() {
 		int maxId = 0;
 		final Map<String, AbstractOggettoEntita> mappa = getAllCategorie();
-		final Iterator<String> chiavi = mappa.keySet().iterator();
 		if (mappa != null) {
+			final Iterator<String> chiavi = mappa.keySet().iterator();
 			while (chiavi.hasNext()) {
 				final CatSpese categoria = (CatSpese) mappa.get(chiavi.next());
 				if (categoria != null) {

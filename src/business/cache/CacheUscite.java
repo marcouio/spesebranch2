@@ -56,7 +56,7 @@ public class CacheUscite extends AbstractCacheBase {
 			for (int i = 0; i < uscite.size(); i++) {
 				final SingleSpesa uscita = (SingleSpesa) uscite.get(i);
 				final int id = uscita.getIdSpesa();
-				if (cache.get(id) == null) {
+				if (cache.get(Integer.toString(id)) == null) {
 					cache.put(Integer.toString(id), uscita);
 				}
 			}
@@ -78,9 +78,9 @@ public class CacheUscite extends AbstractCacheBase {
 	public ArrayList<SingleSpesa> getAllUsciteForUtente() {
 		final ArrayList<SingleSpesa> listaUscite = new ArrayList<SingleSpesa>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllUscite();
-		final Iterator<String> chiavi = mappa.keySet().iterator();
 		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
 		if (mappa != null && utente != null) {
+			final Iterator<String> chiavi = mappa.keySet().iterator();
 			while (chiavi.hasNext()) {
 				final SingleSpesa uscita = (SingleSpesa) mappa.get(chiavi.next());
 				if (uscita != null && uscita.getUtenti() != null) {
@@ -96,11 +96,11 @@ public class CacheUscite extends AbstractCacheBase {
 	public ArrayList<SingleSpesa> getAllUsciteForUtenteEAnno() {
 		final ArrayList<SingleSpesa> listaUscite = new ArrayList<SingleSpesa>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllUscite();
-		final Iterator<String> chiavi = mappa.keySet().iterator();
 		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
 		final String annoDaText = Impostazioni.getSingleton().getAnnotextField().getText();
 
 		if (mappa != null && utente != null) {
+			final Iterator<String> chiavi = mappa.keySet().iterator();
 			while (chiavi.hasNext()) {
 				final SingleSpesa uscita = (SingleSpesa) mappa.get(chiavi.next());
 				if (uscita != null && uscita.getUtenti() != null) {
@@ -117,8 +117,8 @@ public class CacheUscite extends AbstractCacheBase {
 	public int getMaxId() {
 		int maxId = 0;
 		final Map<String, AbstractOggettoEntita> mappa = getAllUscite();
-		final Iterator<String> chiavi = mappa.keySet().iterator();
 		if (mappa != null) {
+		final Iterator<String> chiavi = mappa.keySet().iterator();
 			while (chiavi.hasNext()) {
 				final SingleSpesa uscita = (SingleSpesa) mappa.get(chiavi.next());
 				if (uscita != null) {

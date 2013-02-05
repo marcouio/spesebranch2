@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import command.javabeancommand.AbstractOggettoEntita;
+
 import domain.Budget;
 import domain.wrapper.WrapBudget;
 
@@ -72,7 +73,7 @@ public class CacheBudget extends AbstractCacheBase{
 				for(int i=0; i<budgets.size();i++){
 					Budget budget = (Budget) budgets.get(i);
 					int id = budget.getIdBudget();
-					if(cache.get(id) == null){
+					if(cache.get(Integer.toString(id)) == null){
 						cache.put(Integer.toString(id), budget);
 					}
 				}

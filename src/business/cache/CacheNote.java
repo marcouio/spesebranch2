@@ -57,7 +57,7 @@ public class CacheNote extends AbstractCacheBase {
 			for (int i = 0; i < note.size(); i++) {
 				final Note nota = (Note) note.get(i);
 				final int id = nota.getIdNote();
-				if (cache.get(id) == null) {
+				if (cache.get(Integer.toString(id)) == null) {
 					cache.put(Integer.toString(id), nota);
 				}
 			}

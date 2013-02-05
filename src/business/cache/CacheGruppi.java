@@ -68,7 +68,7 @@ public class CacheGruppi extends AbstractCacheBase {
 			for (int i = 0; i < gruppi.size(); i++) {
 				final Gruppi gruppo = (Gruppi) gruppi.get(i);
 				final int id = gruppo.getIdGruppo();
-				if (cache.get(id) == null) {
+				if (cache.get(Integer.toString(id)) == null) {
 					cache.put(Integer.toString(id), gruppo);
 				}
 			}
@@ -123,8 +123,8 @@ public class CacheGruppi extends AbstractCacheBase {
 	public int getMaxId() {
 		int maxId = 0;
 		final Map<String, AbstractOggettoEntita> mappa = getAllGruppi();
-		final Iterator<String> chiavi = mappa.keySet().iterator();
 		if (mappa != null) {
+			final Iterator<String> chiavi = mappa.keySet().iterator();
 			while (chiavi.hasNext()) {
 				final Gruppi gruppo = (Gruppi) mappa.get(chiavi.next());
 				if (gruppo != null) {

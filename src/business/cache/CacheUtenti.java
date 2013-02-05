@@ -64,7 +64,7 @@ public class CacheUtenti extends AbstractCacheBase{
 			for(int i=0; i<utenti.size();i++){
 				Utenti utente = (Utenti) utenti.get(i);
 				int id = utente.getIdUtente();
-				if(cache.get(id) == null){
+				if(cache.get(Integer.toString(id)) == null){
 					cache.put(Integer.toString(id), utente);
 				}
 			}
@@ -83,7 +83,7 @@ public class CacheUtenti extends AbstractCacheBase{
 	public Vector<Utenti> getVettoreUtenti(){
 		Vector<Utenti> utenti = new Vector<Utenti>();
 		Map<String, AbstractOggettoEntita> mappa = this.getAllUtenti();
-		Utenti[] lista = (Utenti[]) mappa.values().toArray();
+		Utenti[] lista = (Utenti[]) mappa.values().toArray(new Utenti[mappa.values().size()]);
 		for(int i=0;i<lista.length;i++){
 			utenti.add(lista[i]);
 		}

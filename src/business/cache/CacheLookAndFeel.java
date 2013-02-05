@@ -36,7 +36,7 @@ public class CacheLookAndFeel extends AbstractCacheBase{
 			for(int i=0; i<looks.size();i++){
 				Lookandfeel lookFeel = (Lookandfeel) looks.get(i);
 				int id = lookFeel.getIdLook();
-				if(cache.get(id) == null){
+				if(cache.get(Integer.toString(id)) == null){
 					cache.put(Integer.toString(id), lookFeel);
 				}
 			}

@@ -23,15 +23,15 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 				JFrame inst = null;
 				try {
 					inst = new PannelloAScomparsa2();
+					inst.setBounds(0, 0, 250, 425);
+					inst.setPreferredSize(new Dimension(250, 425));
+					inst.setLocationRelativeTo(null);
+					inst.setVisible(true);
+					inst.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}
-				inst.setBounds(0, 0, 250, 425);
-				inst.setPreferredSize(new Dimension(250, 425));
-				inst.setLocationRelativeTo(null);
-				inst.setVisible(true);
-				inst.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 		});
 	}
