@@ -94,8 +94,7 @@ public class Database {
 
 	public void generaDB() throws Exception {
 		@SuppressWarnings("unused")
-		final
-		File db = new File(Database.DB_URL);
+		final File db = new File(Database.DB_URL);
 		String sql = new String();
 		final Connection cn = DBUtil.getConnection();
 		sql = "CREATE TABLE \"Utenti\" (\"idUtente\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , \"nome\" TEXT NOT NULL , \"cognome\" TEXT NOT NULL , \"username\" TEXT NOT NULL  UNIQUE , \"password\" TEXT NOT NULL );";
@@ -118,7 +117,7 @@ public class Database {
 		sql = "CREATE TABLE \"note\" (\"idNote\" INTEGER PRIMARY KEY  NOT NULL ,\"nome\" TEXT NOT NULL ,\"descrizione\" TEXT NOT NULL ,\"idUtente\" INTEGER NOT NULL ,\"data\" TEXT NOT NULL ,\"dataIns\" TEXT NOT NULL );";
 		st.execute(sql.toString());
 		cn.close();
-
+		st.close();
 		generaDatiTabellaLook();
 	}
 
@@ -133,7 +132,7 @@ public class Database {
 	 * @param campi
 	 * @param clausole
 	 * @return boolean
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public boolean eseguiIstruzioneSql(final String comando, final String tabella, final HashMap<String, String> campi,
 			final HashMap<String, String> clausole) throws Exception {
@@ -223,13 +222,14 @@ public class Database {
 				ok = true;
 			}
 			cn.close();
+			st.close();
 		}
 		return ok;
 	}
 
 	private boolean gestioneIstruzioneUpdate(final String tabella, final HashMap<String, String> campi,
 			final HashMap<String, String> clausole, boolean ok, final StringBuffer sql, final String command)
-					throws Exception {
+			throws Exception {
 		final Iterator<String> iterUpdate = campi.keySet().iterator();
 		sql.append(command).append(" " + tabella).append(" SET ");
 		while (iterUpdate.hasNext()) {
@@ -320,7 +320,7 @@ public class Database {
 	 * 
 	 * @param sql
 	 * @return HashMap<String, ArrayList>
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@SuppressWarnings("rawtypes")
 	public HashMap<String, ArrayList> terminaleSql(final String sql) throws Exception {
@@ -378,8 +378,8 @@ public class Database {
 
 	// questo metodo riempie tabella uscite
 	/**
-	 * Restuisce un double che rappresenta la somma delle uscite per tipologia
-	 * e mese di appartenenza
+	 * Restuisce un double che rappresenta la somma delle uscite per tipologia e
+	 * mese di appartenenza
 	 * 
 	 * @param mese
 	 * @param categoria
@@ -553,7 +553,7 @@ public class Database {
 	 * 
 	 * @param tabella
 	 * @return Vector<String>
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Vector<String> nomiColonne(final String tabella) throws Exception {
 		Vector<String> colonne = null;

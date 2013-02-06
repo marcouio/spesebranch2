@@ -24,13 +24,14 @@ import command.AbstractCommand;
 import command.CommandManager;
 
 import controller.ControlloreBase;
+import db.ConnectionPool;
 import domain.IUtenti;
 import domain.Lookandfeel;
 import domain.Utenti;
 import domain.wrapper.WrapLookAndFeel;
 import domain.wrapper.WrapUtenti;
 
-public class Controllore extends ControlloreBase{
+public class Controllore extends ControlloreBase {
 
 	private static FrameBase view;
 	private static GeneralFrame pannello;
@@ -54,16 +55,15 @@ public class Controllore extends ControlloreBase{
 		view.addWindowFocusListener(windowListener);
 		view.addMouseListener(windowListener);
 		settaLookFeel();
-		Container contentPane = view.getContentPane();
+		final Container contentPane = view.getContentPane();
 		contentPane.add(getPannello());
 		view.setResizable(false);
 		view.setTitle(getMessaggio("title"));
 		view.setVisible(true);
 
-
-
 	}
 
+	@Override
 	public String getMessaggio(final String chiave) {
 		return I18NManager.getSingleton().getMessaggio(chiave);
 	}
@@ -76,7 +76,7 @@ public class Controllore extends ControlloreBase{
 			Lookandfeel lookDaUsare = null;
 			for (int i = 0; i < vettore.size(); i++) {
 				look = vettore.get(i);
-				//verifico se sul database quale look era scelto
+				// verifico se sul database quale look era scelto
 				if (look.getUsato() == 1) {
 					lookDaUsare = look;
 					break;
@@ -86,7 +86,7 @@ public class Controllore extends ControlloreBase{
 				UIManager.setLookAndFeel(lookDaUsare.getValore());
 				lookUsato = lookDaUsare.getValore();
 			} else {
-				//se non c'era un look selezionato setto quello di sistema
+				// se non c'era un look selezionato setto quello di sistema
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				lookUsato = UIManager.getSystemLookAndFeelClassName();
 			}
@@ -101,13 +101,12 @@ public class Controllore extends ControlloreBase{
 	}
 
 	private static void verificaPresenzaDb() throws Exception {
+		final Connection cn = DBUtil.getConnection();
 		try {
-			final Connection cn = DBUtil.getConnection();
 			final String sql = "SELECT * FROM " + WrapLookAndFeel.NOME_TABELLA;
 			final Statement st = cn.createStatement();
 			@SuppressWarnings("unused")
-			final
-			ResultSet rs = st.executeQuery(sql);
+			final ResultSet rs = st.executeQuery(sql);
 		} catch (final SQLException e) {
 			try {
 				Database.getSingleton().generaDB();
@@ -116,16 +115,17 @@ public class Controllore extends ControlloreBase{
 				Controllore.getLog().severe("Database non creato: " + e.getMessage());
 			}
 		}
+		ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 	}
 
 	private Controllore() {
 	}
 
 	public static GeneralFrame getPannello() {
-		if(pannello == null){
+		if (pannello == null) {
 			try {
 				pannello = GeneralFrame.getSingleton(view);
-			} catch (ExceptionGraphics e) {
+			} catch (final ExceptionGraphics e) {
 				e.printStackTrace();
 			}
 		}

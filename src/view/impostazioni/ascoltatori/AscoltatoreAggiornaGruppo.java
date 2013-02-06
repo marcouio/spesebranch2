@@ -36,9 +36,8 @@ public class AscoltatoreAggiornaGruppo extends AscoltatoreAggiornatoreTutto {
 		if (gruppi != null) {
 			final Gruppi oldGruppo = CacheGruppi.getSingleton().getGruppo(Integer.toString(gruppi.getIdGruppo()));
 			gruppiView.setGruppo("Aggiorna");
-			if (gruppi != null) {
-				modelGruppi.setIdGruppo(gruppi.getIdGruppo());
-			}
+			modelGruppi.setIdGruppo(gruppi.getIdGruppo());
+
 			try {
 				if (Controllore.invocaComando(new CommandUpdateGruppo(oldGruppo, (IGruppi) modelGruppi.getEntitaPadre()))) {
 

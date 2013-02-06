@@ -33,18 +33,18 @@ import domain.CatSpese;
 public class GrGenerale extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private static HashMap<Integer, ArrayList<Double>> mappaGennaio;
-	private static HashMap<Integer, ArrayList<Double>> mappaFebbraio;
-	private static HashMap<Integer, ArrayList<Double>> mappaMarzo;
-	private static HashMap<Integer, ArrayList<Double>> mappaAprile;
-	private static HashMap<Integer, ArrayList<Double>> mappaMaggio;
-	private static HashMap<Integer, ArrayList<Double>> mappaGiugno;
-	private static HashMap<Integer, ArrayList<Double>> mappaLuglio;
-	private static HashMap<Integer, ArrayList<Double>> mappaAgosto;
-	private static HashMap<Integer, ArrayList<Double>> mappaSettembre;
-	private static HashMap<Integer, ArrayList<Double>> mappaOttobre;
-	private static HashMap<Integer, ArrayList<Double>> mappaNovembre;
-	private static HashMap<Integer, ArrayList<Double>> mappaDicembre;
+	private HashMap<Integer, ArrayList<Double>> mappaGennaio;
+	private HashMap<Integer, ArrayList<Double>> mappaFebbraio;
+	private HashMap<Integer, ArrayList<Double>> mappaMarzo;
+	private HashMap<Integer, ArrayList<Double>> mappaAprile;
+	private HashMap<Integer, ArrayList<Double>> mappaMaggio;
+	private HashMap<Integer, ArrayList<Double>> mappaGiugno;
+	private HashMap<Integer, ArrayList<Double>> mappaLuglio;
+	private HashMap<Integer, ArrayList<Double>> mappaAgosto;
+	private HashMap<Integer, ArrayList<Double>> mappaSettembre;
+	private HashMap<Integer, ArrayList<Double>> mappaOttobre;
+	private HashMap<Integer, ArrayList<Double>> mappaNovembre;
+	private HashMap<Integer, ArrayList<Double>> mappaDicembre;
 	Vector<CatSpese> categorie = CacheCategorie.getSingleton().getVettoreCategorie();
 
 	/**

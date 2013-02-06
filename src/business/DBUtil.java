@@ -3,9 +3,11 @@ package business;
 import java.sql.Connection;
 import java.util.Date;
 
+import testo.UtilText;
 import db.ConnectionPool;
 import db.UtilDb;
 
+@Deprecated
 public class DBUtil {
 
 	// per connessione da jar
@@ -20,18 +22,12 @@ public class DBUtil {
 	 * 
 	 * @param campo
 	 * @param dimensione
+	 * @deprecated
 	 * @return String
 	 */
-	public static String creaStringStessaDimensione(String campo, final int dimensione) {
-		if (campo.length() < dimensione) {
-			for (int i = campo.length(); i < dimensione + 1; i++) {
-				campo = campo + " ";
-			}
-		} else {
-			campo = campo.substring(0, dimensione);
-			campo = campo + " ";
-		}
-		return campo;
+	@Deprecated
+	public static String creaStringStessaDimensione(final String campo, final int dimensione) {
+		return UtilText.creaStringStessaDimensione(campo, dimensione);
 	}
 
 	// CONVERSIONE FORMATO STRINGA --> DATA
@@ -43,7 +39,9 @@ public class DBUtil {
 	 * @param date
 	 * @param format
 	 * @return Date
+	 * @deprecated
 	 */
+	@Deprecated
 	public static Date stringToDate(final String date, final String format) {
 		return UtilDb.stringToDate(date, format);
 	}
@@ -55,8 +53,10 @@ public class DBUtil {
 	 * 
 	 * @param date
 	 * @param format
+	 * @deprecated
 	 * @return String
 	 */
+	@Deprecated
 	public static String dataToString(final Date date, final String format) {
 		return UtilDb.dataToString(date, format);
 	}
@@ -72,9 +72,9 @@ public class DBUtil {
 	public static void closeConnection() {
 		try {
 			ConnectionPool.getSingleton().chiudiOggettiDb(connection);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 
 }

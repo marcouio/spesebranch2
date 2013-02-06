@@ -16,7 +16,7 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -29,20 +29,20 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 					inst.setVisible(true);
 					inst.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-				} catch (Throwable e) {
+				} catch (final Throwable e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
 
-	private final ArrayList<JPanel>  pannelli = new ArrayList<JPanel>();
-	private JComboBox                combo;
-	private SottoPannelloDatiSpese   pannelloSpese;
+	private final ArrayList<JPanel> pannelli = new ArrayList<JPanel>();
+	private JComboBox combo;
+	private SottoPannelloDatiSpese pannelloSpese;
 	private SottoPannelloDatiEntrate pannelloEntrate;
-	private SottoPannelloMesi        pannelloMesi;
-	private SottoPannelloCategorie   pannelloCategorie;
-	private SottoPannelloTotali      pannelloTotali;
+	private SottoPannelloMesi pannelloMesi;
+	private SottoPannelloCategorie pannelloCategorie;
+	private SottoPannelloTotali pannelloTotali;
 	CostruttoreSottoPannello[] arrayPannelli;
 
 	public PannelloAScomparsa2() {
@@ -61,7 +61,7 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 		pannelloTotali = new SottoPannelloTotali();
 
 		initArrayPannello();
-		
+
 		combo = new JComboBox();
 		this.add(combo);
 		combo.setBounds(65, 50, 120, 40);
@@ -76,17 +76,17 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 	}
 
 	@Override
-	public void itemStateChanged(ItemEvent e) {
+	public void itemStateChanged(final ItemEvent e) {
 
-		JPanel p = new JPanel();
+		final JPanel p = new JPanel();
 
-		for (JPanel pannello : pannelli) {
+		for (final JPanel pannello : pannelli) {
 			pannello.setVisible(false);
 			this.remove(pannello);
 		}
 		pannelli.clear();
 		CostruttoreSottoPannello sottoPannello = null;
-		if(combo.getSelectedIndex() != 0 && e.getStateChange() == ItemEvent.SELECTED){
+		if (combo.getSelectedIndex() != 0 && e.getStateChange() == ItemEvent.SELECTED) {
 			sottoPannello = arrayPannelli[combo.getSelectedIndex()];
 			mostra(p, sottoPannello);
 		}
@@ -95,17 +95,17 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 
 	}
 
-	private void mostra(JPanel p, CostruttoreSottoPannello sottoPannello) {
+	private void mostra(final JPanel p, final CostruttoreSottoPannello sottoPannello) {
 		this.add(p);
 		pannelli.add(p);
 		p.add(sottoPannello);
 		p.setVisible(true);
 		p.setBounds(50, 90, sottoPannello.getPreferredSize().width, sottoPannello.getPreferredSize().height);
 	}
-	
+
 	private void initArrayPannello() {
-		arrayPannelli = new CostruttoreSottoPannello[]{
-				new CostruttoreSottoPannello(), 
+		arrayPannelli = new CostruttoreSottoPannello[] {
+				new CostruttoreSottoPannello(),
 				pannelloSpese.getPannello(),
 				pannelloCategorie.getPannello(),
 				pannelloEntrate.getPannello(),
@@ -113,6 +113,5 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 				pannelloTotali.getPannello()
 		};
 	}
-
 
 }

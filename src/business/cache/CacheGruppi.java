@@ -89,10 +89,10 @@ public class CacheGruppi extends AbstractCacheBase {
 		final Vector<Gruppi> gruppi = new Vector<Gruppi>();
 		final Map<String, AbstractOggettoEntita> mappa = this.getAllGruppi();
 		final Object[] lista = mappa.values().toArray();
-		for (int i = 0; i < lista.length; i++) {
-			final Gruppi gruppo = (Gruppi) lista[i];
+		for (final Object element : lista) {
+			final Gruppi gruppo = (Gruppi) element;
 			if (gruppo != null && gruppo.getNome() != null) {
-				gruppi.add((Gruppi) lista[i]);
+				gruppi.add((Gruppi) element);
 			}
 		}
 		return gruppi;
@@ -113,8 +113,8 @@ public class CacheGruppi extends AbstractCacheBase {
 		final Object[] lista = mappa.values().toArray();
 		final Gruppi gruppo = new Gruppi();
 		gruppo.setNome("");
-		for (int i = 0; i < lista.length; i++) {
-			gruppi.add((Gruppi) lista[i]);
+		for (final Object element : lista) {
+			gruppi.add((Gruppi) element);
 		}
 		gruppi.add(0, gruppo);
 		return gruppi;
