@@ -1,5 +1,7 @@
 package view.grafici.dialogGraph;
 
+import grafica.componenti.button.ButtonBase;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -19,7 +21,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import view.componenti.movimenti.DialogHandler;
-import view.font.ButtonF;
 import business.Database;
 
 public class GrEntrate2 extends JDialog implements ActionListener {
@@ -66,7 +67,7 @@ public class GrEntrate2 extends JDialog implements ActionListener {
 
 		final ImageIcon image = new ImageIcon("./immagini/Entrate2" + dataMinuti + ".png");
 		final JLabel immagine = new JLabel(image);
-		final JButton chiudi = new ButtonF("Chiudi");
+		final JButton chiudi = new ButtonBase("Chiudi", this);
 		immagine.setBounds(12, 22, 618, 546);
 		chiudi.setBounds(269, 580, 97, 30);
 		setBounds(100, 100, 650, 650);

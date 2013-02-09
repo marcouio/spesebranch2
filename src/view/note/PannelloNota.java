@@ -1,5 +1,7 @@
 package view.note;
 
+import grafica.componenti.button.ButtonBase;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-import view.font.ButtonF;
 import view.font.TextAreaF;
 import domain.Note;
 import domain.wrapper.WrapNote;
@@ -23,7 +24,7 @@ public class PannelloNota extends JPanel {
 	private final Note        nota;
 	private final JFrame      padre;
 
-	public PannelloNota(final Note note2, JFrame padre) {
+	public PannelloNota(final Note note2, final JFrame padre) {
 		this.nota = note2;
 		this.padre = padre;
 		setLayout(null);
@@ -52,14 +53,14 @@ public class PannelloNota extends JPanel {
 		lData.setBounds(6, 36, 148, 15);
 		add(lData);
 
-		JButton eliminaNota = new ButtonF();
+		JButton eliminaNota = new ButtonBase(this);
 		eliminaNota.setText("-");
 		eliminaNota.addActionListener(new AscoltatoreEliminaNota(this, nota));
 
 		eliminaNota.setBounds(149, 17, 44, 15);
 		add(eliminaNota);
 
-		ButtonF btnfAggiorna = new ButtonF();
+		ButtonBase btnfAggiorna = new ButtonBase(this);
 		btnfAggiorna.addActionListener(new AscoltatoreApriPannelloUpdateNote(this.padre, new WrapNote(nota)));
 
 		btnfAggiorna.setText("!=");
@@ -67,7 +68,7 @@ public class PannelloNota extends JPanel {
 		add(btnfAggiorna);
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override

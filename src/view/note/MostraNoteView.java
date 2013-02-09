@@ -1,5 +1,7 @@
 package view.note;
 
+import grafica.componenti.button.ButtonBase;
+
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -9,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
-import view.font.ButtonF;
 import business.cache.CacheNote;
 import domain.Note;
 
@@ -36,7 +37,7 @@ public class MostraNoteView extends JFrame {
 
 		this.setTitle("Note");
 
-		final JButton inserisci = new ButtonF();
+		final JButton inserisci = new ButtonBase(this);
 		inserisci.setText("+");
 		getContentPane().add(inserisci);
 

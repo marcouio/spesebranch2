@@ -1,5 +1,7 @@
 package view.grafici.dialogGraph;
 
+import grafica.componenti.button.ButtonBase;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -19,7 +21,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
 import view.componenti.movimenti.DialogHandler;
-import view.font.ButtonF;
 import business.DBUtil;
 import business.Database;
 import domain.wrapper.WrapEntrate;
@@ -50,7 +51,7 @@ public class GrEntrate1 extends JDialog implements ActionListener {
 	}
 
 	public GrEntrate1(final JFrame frame, final String title, final boolean modal)
-	throws SQLException, IOException {
+			throws SQLException, IOException {
 		super();
 
 		dataset = new DefaultPieDataset();
@@ -62,7 +63,7 @@ public class GrEntrate1 extends JDialog implements ActionListener {
 		final GregorianCalendar data = new GregorianCalendar();
 
 		final String dataMinuti = "" + data.get(Calendar.HOUR_OF_DAY)
-		+ data.get(Calendar.MINUTE);
+				+ data.get(Calendar.MINUTE);
 
 		ChartUtilities.saveChartAsPNG(new java.io.File("./immagini/torta"
 				+ dataMinuti + ".png"), chart, 560, 530);
@@ -74,7 +75,7 @@ public class GrEntrate1 extends JDialog implements ActionListener {
 		final JLabel immagine = new JLabel();
 		immagine.setIcon(image);
 		getContentPane().add(immagine);
-		final JButton chiudi = new ButtonF("Chiudi");
+		final JButton chiudi = new ButtonBase("Chiudi", this);
 		chiudi.setActionCommand("chiudi");
 		immagine.setBounds(12, 22, 618, 546);
 		chiudi.setBounds(269, 580, 97, 30);

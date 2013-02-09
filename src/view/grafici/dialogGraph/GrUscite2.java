@@ -1,5 +1,7 @@
 package view.grafici.dialogGraph;
 
+import grafica.componenti.button.ButtonBase;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -20,7 +22,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import view.componenti.movimenti.DialogHandler;
-import view.font.ButtonF;
 import business.Database;
 
 public class GrUscite2 extends JDialog implements ActionListener {
@@ -56,7 +57,7 @@ public class GrUscite2 extends JDialog implements ActionListener {
 		final GregorianCalendar data = new GregorianCalendar();
 
 		final String dataMinuti = "" + data.get(Calendar.HOUR_OF_DAY)
-		+ data.get(Calendar.MINUTE);
+				+ data.get(Calendar.MINUTE);
 
 		try {
 			ChartUtilities.saveChartAsPNG(new java.io.File("./immagini/LineChartUscite2"
@@ -69,7 +70,7 @@ public class GrUscite2 extends JDialog implements ActionListener {
 				+ dataMinuti + ".png");
 		final JLabel label = new JLabel(image);
 
-		final JButton chiudi = new ButtonF("Chiudi");
+		final JButton chiudi = new ButtonBase("Chiudi", this);
 		chiudi.setActionCommand("chiudi");
 
 		label.setBounds(12, 22, 618, 546);

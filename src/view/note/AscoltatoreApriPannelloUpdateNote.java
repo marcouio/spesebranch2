@@ -18,7 +18,7 @@ public class AscoltatoreApriPannelloUpdateNote implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(final ActionEvent e) {
 		NoteView dialog = new NoteView(note, f);
 		dialog.setLocationRelativeTo(null);
 		dialog.setBounds(0, 0, 350, 260);

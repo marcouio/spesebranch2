@@ -1,13 +1,13 @@
 package view.login;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.LabelTitolo;
 import view.font.TextFieldF;
@@ -21,8 +21,8 @@ public class Registrazione extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private TextFieldF username;
-	private TextFieldF password;
+	private final TextFieldF username;
+	private final TextFieldF password;
 
 	public Registrazione() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -52,7 +52,7 @@ public class Registrazione extends JDialog {
 		lblLogin.setText("REGISTRATI");
 		getContentPane().add(lblLogin);
 
-		final ButtonF btnEntra = new ButtonF("Entra");
+		final ButtonBase btnEntra = new ButtonBase("Entra",this);
 		btnEntra.setBounds(138, 203, 102, 23);
 		btnEntra.setText("Registrati");
 		getContentPane().add(btnEntra);

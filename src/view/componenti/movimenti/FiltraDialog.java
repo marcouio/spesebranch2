@@ -1,5 +1,7 @@
 package view.componenti.movimenti;
 
+import grafica.componenti.button.ButtonBase;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
 import business.AltreUtil;
@@ -32,7 +33,7 @@ public abstract class FiltraDialog extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		try {
 			FiltraDialog dialog = new FiltraDialog() {
 
@@ -63,13 +64,13 @@ public abstract class FiltraDialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane);
 			{
-				ButtonF okButton = new ButtonF("OK");
+				ButtonBase okButton = new ButtonBase("OK", this);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				okButton.addActionListener(new ActionListener() {
 
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(final ActionEvent e) {
 						getMovimenti();
 						dispose();
 					}
@@ -78,13 +79,13 @@ public abstract class FiltraDialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				ButtonF cancelButton = new ButtonF(Controllore.getSingleton().getMessaggio("cancel"));
+				ButtonBase cancelButton = new ButtonBase(Controllore.getSingleton().getMessaggio("cancel"), this);
 				cancelButton.setActionCommand(Controllore.getSingleton().getMessaggio("cancel"));
 				buttonPane.add(cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
 
 					@Override
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(final ActionEvent e) {
 						dispose();
 					}
 				});
@@ -150,7 +151,7 @@ public abstract class FiltraDialog extends JDialog {
 		return dataDa;
 	}
 
-	protected void setDataDa(String dataDa) {
+	protected void setDataDa(final String dataDa) {
 		this.dataDa = dataDa;
 	}
 
@@ -161,7 +162,7 @@ public abstract class FiltraDialog extends JDialog {
 		return dataA;
 	}
 
-	protected void setDataA(String dataA) {
+	protected void setDataA(final String dataA) {
 		this.dataA = dataA;
 	}
 
@@ -172,7 +173,7 @@ public abstract class FiltraDialog extends JDialog {
 		return nome;
 	}
 
-	protected void setNome(String nome) {
+	protected void setNome(final String nome) {
 		this.nome = nome;
 	}
 
@@ -183,7 +184,7 @@ public abstract class FiltraDialog extends JDialog {
 		return euro;
 	}
 
-	protected void setEuro(double euro) {
+	protected void setEuro(final double euro) {
 		this.euro = euro;
 	}
 
@@ -191,7 +192,7 @@ public abstract class FiltraDialog extends JDialog {
 		return categoria;
 	}
 
-	protected void setCategoria(String categoria) {
+	protected void setCategoria(final String categoria) {
 		this.categoria = categoria;
 	}
 }

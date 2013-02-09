@@ -1,6 +1,7 @@
 package view.componenti.movimenti;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import view.entrateuscite.AbstractEntrateView;
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
 import business.AltreUtil;
@@ -33,23 +33,23 @@ import domain.wrapper.WrapEntrate;
 public class DialogEntrateMov extends AbstractEntrateView {
 
 	private static final long serialVersionUID = 1L;
-	private JLabel labelEuro = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("eur"));
-	private JLabel labelData = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("date"));
-	private JLabel labelTipoEntrate = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("incometype"));
-	private JLabel labelDescrizione = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("descr"));
-	private JLabel labelNome = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("name"));
-	private JLabel labelDataIns = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("insertdate"));
-	private JLabel labelIdEntrate = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("key"));
+	private final JLabel labelEuro = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("eur"));
+	private final JLabel labelData = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("date"));
+	private final JLabel labelTipoEntrate = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("incometype"));
+	private final JLabel labelDescrizione = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("descr"));
+	private final JLabel labelNome = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("name"));
+	private final JLabel labelDataIns = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("insertdate"));
+	private final JLabel labelIdEntrate = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("key"));
 
 	private JTextField tfEuro = new TextFieldF();
 	private JTextField tfDataIns = new TextFieldF();
 	private JTextField tfData = new TextFieldF();
-	private JComboBox cbTipoEntrata = new JComboBox(Model.getNomiColonneEntrate());
+	private JComboBox<String> cbTipoEntrata = new JComboBox<String>(Model.getNomiColonneEntrate());
 	private JTextField taDescrizione = new TextFieldF();
 	private JTextField tfNome = new TextFieldF();
 	private JTextField idEntrate = new TextFieldF();
-	private final JButton update = new ButtonF(Controllore.getSingleton().getMessaggio("update"));
-	private final JButton delete = new ButtonF(Controllore.getSingleton().getMessaggio("delete"));
+	private final JButton update = new ButtonBase(Controllore.getSingleton().getMessaggio("update"), this);
+	private final JButton delete = new ButtonBase(Controllore.getSingleton().getMessaggio("delete"),this);
 
 	/**
 	 * Auto-generated main method to display this JDialog
@@ -139,11 +139,11 @@ public class DialogEntrateMov extends AbstractEntrateView {
 		return taDescrizione;
 	}
 
-	public void setTipoEntrata(final JComboBox tipoEntrata) {
+	public void setTipoEntrata(final JComboBox<String> tipoEntrata) {
 		this.cbTipoEntrata = tipoEntrata;
 	}
 
-	public JComboBox getTipoEntrata() {
+	public JComboBox<String> getTipoEntrata() {
 		return cbTipoEntrata;
 	}
 

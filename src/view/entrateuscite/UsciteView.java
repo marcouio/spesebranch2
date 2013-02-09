@@ -1,6 +1,7 @@
 package view.entrateuscite;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -12,7 +13,6 @@ import java.util.Observable;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextAreaF;
 import view.font.TextFieldF;
@@ -118,7 +118,7 @@ public class UsciteView extends AbstractUsciteView {
 		getContentPane().add(tfEuro);
 
 		// Bottone Elimina
-		final ButtonF eliminaUltima = new ButtonF();
+		final ButtonBase eliminaUltima = new ButtonBase(this);
 		eliminaUltima.addActionListener(new AscoltatoreAggiornatoreUscite() {
 
 			@Override
@@ -139,7 +139,7 @@ public class UsciteView extends AbstractUsciteView {
 		eliminaUltima.setBounds(184, 325, 147, 27);
 		getContentPane().add(eliminaUltima);
 
-		final ButtonF inserisci = new ButtonF();
+		final ButtonBase inserisci = new ButtonBase(this);
 		inserisci.setText("Inserisci");
 		inserisci.setBounds(13, 325, 150, 27);
 		getContentPane().add(inserisci);

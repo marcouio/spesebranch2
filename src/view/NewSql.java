@@ -1,6 +1,7 @@
 package view;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,7 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import view.font.ButtonF;
 import view.font.LabelTitolo;
 import view.font.TextAreaF;
 import business.AltreUtil;
@@ -66,12 +66,12 @@ public class NewSql extends OggettoVistaBase {
 			jsp.setBounds(134, 54, 715, 74);
 			this.add(jsp);
 
-			bottoneSvuota = new ButtonF();
+			bottoneSvuota = new ButtonBase(this);
 			bottoneSvuota.setBounds(37, 94, 75, 34);
 			this.add(bottoneSvuota);
 			bottoneSvuota.setText(Controllore.getSingleton().getMessaggio("svuota"));
 
-			bottone = new ButtonF();
+			bottone = new ButtonBase(this);
 			bottone.setBounds(37, 54, 75, 34);
 			this.add(bottone);
 			bottone.setText(Controllore.getSingleton().getMessaggio("esegui"));
@@ -88,13 +88,13 @@ public class NewSql extends OggettoVistaBase {
 			this.add(labelResult);
 			labelResult.setText(Controllore.getSingleton().getMessaggio("result"));
 
-			final ButtonF buttonF = new ButtonF();
-			buttonF.setBackground(Color.WHITE);
+			final ButtonBase ButtonBase = new ButtonBase(this);
+			ButtonBase.setBackground(Color.WHITE);
 			final ImageIcon image = new ImageIcon(AltreUtil.IMGUTILPATH+"info.gif");
-			buttonF.setIcon(image);
-			buttonF.setBounds(870, 80, 56, 48);
-			add(buttonF);
-			buttonF.addActionListener(new AscoltatoreAggiornatoreNiente() {
+			ButtonBase.setIcon(image);
+			ButtonBase.setBounds(870, 80, 56, 48);
+			add(ButtonBase);
+			ButtonBase.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 				@Override
 				protected void actionPerformedOverride(final ActionEvent e) throws Exception {
@@ -124,7 +124,7 @@ public class NewSql extends OggettoVistaBase {
 					lt.setText(sb.toString());
 					lt.setEditable(false);
 					d.add(lt, BorderLayout.NORTH);
-					final ButtonF b = new ButtonF();
+					final ButtonBase b = new ButtonBase(d);
 					d.add(b, BorderLayout.CENTER);
 					b.setText(Controllore.getSingleton().getMessaggio("close"));
 					b.setBounds(0, 150, d.getWidth(), 30);

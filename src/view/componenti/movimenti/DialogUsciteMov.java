@@ -1,6 +1,7 @@
 package view.componenti.movimenti;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,6 @@ import javax.swing.SwingUtilities;
 
 import view.GeneralFrame;
 import view.entrateuscite.AbstractUsciteView;
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
 import business.AltreUtil;
@@ -49,8 +49,8 @@ public class DialogUsciteMov extends AbstractUsciteView {
 	private JTextField tfNome = new TextFieldF();
 	private final JTextField tfDataIns = new TextFieldF();
 	private JTextField idSpesa = new TextFieldF();
-	private final JButton update = new ButtonF(Controllore.getSingleton().getMessaggio("update"));
-	private final JButton delete = new ButtonF(Controllore.getSingleton().getMessaggio("delete"));
+	private final JButton update = new ButtonBase(Controllore.getSingleton().getMessaggio("update"), this);
+	private final JButton delete = new ButtonBase(Controllore.getSingleton().getMessaggio("delete"), this);
 
 	/**
 	 * Auto-generated main method to display this JDialog

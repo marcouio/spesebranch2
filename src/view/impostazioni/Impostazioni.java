@@ -1,6 +1,7 @@
 package view.impostazioni;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -20,7 +21,6 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
 import view.impostazioni.ascoltatori.AscoltatoreLanguage;
@@ -100,7 +100,7 @@ public class Impostazioni extends JDialog {
 			lblImpostaAnno.setBounds(278, 79, 97, 27);
 			getContentPane().add(lblImpostaAnno);
 
-			final ButtonF btnChange = new ButtonF();
+			final ButtonBase btnChange = new ButtonBase(this);
 			btnChange.setText("Cambia");
 			btnChange.setBounds(504, 78, 91, 27);
 			btnChange.addActionListener(new AscoltatoreAggiornatoreTutto() {
@@ -120,7 +120,7 @@ public class Impostazioni extends JDialog {
 			lblCaricaDatabase.setBounds(22, 183, 113, 14);
 			getContentPane().add(lblCaricaDatabase);
 
-			final ButtonF btnCarica = new ButtonF();
+			final ButtonBase btnCarica = new ButtonBase(this);
 			btnCarica.setText("Carica");
 			btnCarica.setBounds(333, 179, 91, 27);
 			getContentPane().add(btnCarica);
@@ -137,12 +137,12 @@ public class Impostazioni extends JDialog {
 			caricaDatabase.setText(posDatabase);
 			getContentPane().add(caricaDatabase);
 
-			final ButtonF button = new ButtonF();
+			final ButtonBase button = new ButtonBase(this);
 			button.setText("...");
 			button.setBounds(287, 179, 29, 27);
 			getContentPane().add(button);
 
-			final ButtonF elimina = new ButtonF();
+			final ButtonBase elimina = new ButtonBase(this);
 			elimina.setText("Elimina");
 			elimina.addActionListener(new AscoltatoreAggiornatoreTutto() {
 				@Override
@@ -223,8 +223,8 @@ public class Impostazioni extends JDialog {
 			for (int i = 0; i < languages.length; i++) {
 				String lingua = CoreXMLManager.getSingleton().getLanguage();
 				if (languages[i].equals(lingua)) {
-//					comboLanguage.setSelectedIndex(i);
-//					break;
+					//					comboLanguage.setSelectedIndex(i);
+					//					break;
 				}
 			}
 

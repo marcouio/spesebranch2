@@ -1,5 +1,7 @@
 package view.impostazioni;
 
+import grafica.componenti.button.ButtonBase;
+
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -13,7 +15,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextAreaF;
 import view.font.TextFieldF;
@@ -82,7 +83,7 @@ public class CategorieView extends AbstractCategorieView {
 			cbImportanza.setBounds(26, 210, 206, 25);
 
 			// bottone invia
-			final ButtonF inserisci = new ButtonF();
+			final ButtonBase inserisci = new ButtonBase(this);
 			inserisci.setBounds(26, 305, 206, 25);
 			inserisci.setText("Inserisci Categoria");
 
@@ -128,7 +129,7 @@ public class CategorieView extends AbstractCategorieView {
 			});
 
 			// bottone Update
-			final ButtonF aggiorna = new ButtonF();
+			final ButtonBase aggiorna = new ButtonBase(this);
 			aggiorna.setBounds(26, 421, 100, 25);
 			aggiorna.setText("Aggiorna");
 			aggiorna.addActionListener(new AscoltatoreAggiornaCategoria(this));
@@ -137,7 +138,7 @@ public class CategorieView extends AbstractCategorieView {
 			inserisci.addActionListener(new AscoltatoreInserisciCategoria(this));
 
 			// bottone cancella
-			final ButtonF cancella = new ButtonF();
+			final ButtonBase cancella = new ButtonBase(this);
 			cancella.setText("Cancella");
 			cancella.setBounds(132, 421, 100, 25);
 			cancella.addActionListener(new AscoltatoreCancellaCategoria(this));

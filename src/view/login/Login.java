@@ -1,12 +1,12 @@
 package view.login;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.JDialog;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.LabelTitolo;
 import view.font.TextFieldF;
@@ -51,7 +51,7 @@ public class Login extends JDialog {
 		lblLogin.setBounds(171, 25, 57, 32);
 		getContentPane().add(lblLogin);
 
-		final ButtonF btnEntra = new ButtonF("Entra");
+		final ButtonBase btnEntra = new ButtonBase("Entra", this);
 		btnEntra.setBounds(148, 148, 91, 23);
 		getContentPane().add(btnEntra);
 

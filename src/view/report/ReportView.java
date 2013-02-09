@@ -1,6 +1,7 @@
 package view.report;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
@@ -10,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
-import view.font.ButtonF;
 import view.font.CheckBoxF;
 import view.font.LabelListaGruppi;
 import business.Controllore;
@@ -109,14 +109,14 @@ public class ReportView extends AbstractReportView {
 		chckbxAvanzo.setBounds(22, 309, 197, 23);
 		getContentPane().add(chckbxAvanzo);
 
-		final JButton btnGeneraReport = new ButtonF(Controllore.getSingleton().getMessaggio("reports"));
+		final JButton btnGeneraReport = new ButtonBase(Controllore.getSingleton().getMessaggio("reports"), this);
 		btnGeneraReport.setBounds(22, 366, 197, 25);
 		getContentPane().add(btnGeneraReport);
 
 		btnGeneraReport.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
-			protected void actionPerformedOverride(ActionEvent e) throws Exception {
+			protected void actionPerformedOverride(final ActionEvent e) throws Exception {
 				super.actionPerformedOverride(e);
 
 				settaValoriReportDati(chckbxSpeseVariabili_1, chckbxEntrateMensCategorie, chckbxSpeseMensCat,

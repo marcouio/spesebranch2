@@ -1,5 +1,6 @@
 package view.componenti.movimenti;
 
+import grafica.componenti.button.ButtonBase;
 import grafica.componenti.contenitori.ScrollPaneBase;
 import grafica.componenti.table.table.TableBase;
 
@@ -15,7 +16,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
 import business.Controllore;
@@ -27,10 +27,10 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 	private ScrollPaneBase scrollPane;
 	protected JTextField campo;
 	String[][] movimenti;
-	protected ButtonF pulsanteNMovimenti;
+	protected ButtonBase pulsanteNMovimenti;
 	protected JDialog dialog;
-	protected ButtonF updateButton;
-	protected ButtonF deleteButton;
+	protected ButtonBase updateButton;
+	protected ButtonBase deleteButton;
 
 	private AscoltatoreBottoniEntrata ascoltatore;
 
@@ -64,7 +64,7 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 			campo.setText("20");
 			numMovimenti = Integer.parseInt(campo.getText());
 			this.add(campo);
-			pulsanteNMovimenti = new ButtonF();
+			pulsanteNMovimenti = new ButtonBase(this);
 			pulsanteNMovimenti.setText(Controllore.getSingleton().getMessaggio("change"));
 			pulsanteNMovimenti.setBounds(178, 7, 89, 25);
 			this.add(pulsanteNMovimenti);
@@ -90,7 +90,7 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 			this.add(scrollPane);
 			scrollPane.setBounds(21, 38, 948, 386);
 
-			final ButtonF btnFiltraMovimenti = new ButtonF();
+			final ButtonBase btnFiltraMovimenti = new ButtonBase(this);
 			btnFiltraMovimenti.setText(Controllore.getSingleton().getMessaggio("filtertrans"));
 			btnFiltraMovimenti.setBounds(292, 6, 179, 25);
 			btnFiltraMovimenti.addActionListener(getListener());

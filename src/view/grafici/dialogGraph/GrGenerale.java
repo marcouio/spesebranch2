@@ -1,5 +1,7 @@
 package view.grafici.dialogGraph;
 
+import grafica.componenti.button.ButtonBase;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -23,7 +25,6 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import view.componenti.movimenti.DialogHandler;
-import view.font.ButtonF;
 import business.AltreUtil;
 import business.DBUtil;
 import business.Database;
@@ -33,18 +34,18 @@ import domain.CatSpese;
 public class GrGenerale extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private HashMap<Integer, ArrayList<Double>> mappaGennaio;
-	private HashMap<Integer, ArrayList<Double>> mappaFebbraio;
-	private HashMap<Integer, ArrayList<Double>> mappaMarzo;
-	private HashMap<Integer, ArrayList<Double>> mappaAprile;
-	private HashMap<Integer, ArrayList<Double>> mappaMaggio;
-	private HashMap<Integer, ArrayList<Double>> mappaGiugno;
-	private HashMap<Integer, ArrayList<Double>> mappaLuglio;
-	private HashMap<Integer, ArrayList<Double>> mappaAgosto;
-	private HashMap<Integer, ArrayList<Double>> mappaSettembre;
-	private HashMap<Integer, ArrayList<Double>> mappaOttobre;
-	private HashMap<Integer, ArrayList<Double>> mappaNovembre;
-	private HashMap<Integer, ArrayList<Double>> mappaDicembre;
+	private final HashMap<Integer, ArrayList<Double>> mappaGennaio;
+	private final HashMap<Integer, ArrayList<Double>> mappaFebbraio;
+	private final HashMap<Integer, ArrayList<Double>> mappaMarzo;
+	private final HashMap<Integer, ArrayList<Double>> mappaAprile;
+	private final HashMap<Integer, ArrayList<Double>> mappaMaggio;
+	private final HashMap<Integer, ArrayList<Double>> mappaGiugno;
+	private final HashMap<Integer, ArrayList<Double>> mappaLuglio;
+	private final HashMap<Integer, ArrayList<Double>> mappaAgosto;
+	private final HashMap<Integer, ArrayList<Double>> mappaSettembre;
+	private final HashMap<Integer, ArrayList<Double>> mappaOttobre;
+	private final HashMap<Integer, ArrayList<Double>> mappaNovembre;
+	private final HashMap<Integer, ArrayList<Double>> mappaDicembre;
 	Vector<CatSpese> categorie = CacheCategorie.getSingleton().getVettoreCategorie();
 
 	/**
@@ -128,7 +129,7 @@ public class GrGenerale extends JDialog implements ActionListener {
 		final JLabel label = new JLabel(image);
 		label.setBounds(12, 12, 630, 498);
 
-		final JButton chiudi = new ButtonF("Chiudi");
+		final JButton chiudi = new ButtonBase("Chiudi", this);
 		chiudi.setActionCommand("chiudi");
 
 		label.setBounds(12, 22, 618, 546);

@@ -1,6 +1,7 @@
 package view.entrateuscite;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -12,7 +13,6 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextAreaF;
 import view.font.TextFieldF;
@@ -104,12 +104,12 @@ public class EntrateView extends AbstractEntrateView {
 		tfEuro.setBounds(182, 191, 150, 27);
 		getContentPane().add(tfEuro);
 
-		final ButtonF inserisci = new ButtonF();
+		final ButtonBase inserisci = new ButtonBase(this);
 		inserisci.setText(Controllore.getSingleton().getMessaggio("insert"));
 		inserisci.setBounds(13, 238, 149, 27);
 		getContentPane().add(inserisci);
 
-		final ButtonF eliminaUltima = new ButtonF();
+		final ButtonBase eliminaUltima = new ButtonBase(this);
 		eliminaUltima.setText(Controllore.getSingleton().getMessaggio("deletelast"));
 		eliminaUltima.setBounds(184, 238, 144, 27);
 		getContentPane().add(eliminaUltima);
@@ -117,7 +117,7 @@ public class EntrateView extends AbstractEntrateView {
 		eliminaUltima.addActionListener(new AscoltatoreAggiornatoreEntrate() {
 
 			@Override
-			protected void actionPerformedOverride(ActionEvent e) throws Exception {
+			protected void actionPerformedOverride(final ActionEvent e) throws Exception {
 				super.actionPerformedOverride(e);
 
 				try {
@@ -141,7 +141,7 @@ public class EntrateView extends AbstractEntrateView {
 
 	public boolean nonEsistonoCampiNonValorizzati() {
 		return getcNome() != null && getcDescrizione() != null && getcData() != null && getDataIns() != null
-		                && getFisseOVar() != null && getdEuro() != 0.0 && getUtenti() != null;
+				&& getFisseOVar() != null && getdEuro() != 0.0 && getUtenti() != null;
 	}
 
 	private void initLabel() {

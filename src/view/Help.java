@@ -1,6 +1,7 @@
 package view;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -10,7 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import business.AltreUtil;
 import business.Controllore;
@@ -50,13 +50,13 @@ public class Help extends JDialog {
 
 		add(help);
 
-		ButtonF btnHelp = new ButtonF();
+		ButtonBase btnHelp = new ButtonBase(this);
 		btnHelp.setText(Controllore.getSingleton().getMessaggio("help"));
 		btnHelp.setBounds(389, 166, 91, 23);
 		btnHelp.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
-			protected void actionPerformedOverride(ActionEvent e) throws Exception {
+			protected void actionPerformedOverride(final ActionEvent e) throws Exception {
 				super.actionPerformedOverride(e);
 				Desktop desktop = Desktop.getDesktop();
 				try {

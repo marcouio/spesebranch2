@@ -1,6 +1,7 @@
 package view.note;
 
 import grafica.componenti.alert.Alert;
+import grafica.componenti.button.ButtonBase;
 
 import java.awt.event.ActionEvent;
 import java.util.Date;
@@ -8,7 +9,6 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextAreaF;
 import view.font.TextFieldF;
@@ -28,7 +28,7 @@ public class NoteView extends AbstractNoteView {
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -43,7 +43,7 @@ public class NoteView extends AbstractNoteView {
 	private final TextFieldF nota;
 	private final TextAreaF  descrizione;
 	private final TextFieldF data;
-	private ButtonF          btnInserisci;
+	private ButtonBase          btnInserisci;
 
 	public NoteView(final WrapNote note, final JFrame padre) {
 		super(note);
@@ -85,14 +85,14 @@ public class NoteView extends AbstractNoteView {
 		data.setText(DBUtil.dataToString(new Date(), "yyyy/MM/dd"));
 		getContentPane().add(data);
 
-		btnInserisci = new ButtonF();
+		btnInserisci = new ButtonBase(this);
 		btnInserisci.setText("Inserisci");
 		btnInserisci.setBounds(13, 175, 318, 25);
 		getContentPane().add(btnInserisci);
 		btnInserisci.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
-			public void actionPerformedOverride(ActionEvent e) throws Exception {
+			public void actionPerformedOverride(final ActionEvent e) throws Exception {
 				int id = CacheNote.getSingleton().getAllNoteForUtenteEAnno().size();
 				if (e.getActionCommand().equals("Aggiorna")) {
 					aggiornaModelDaVista(null);
@@ -123,10 +123,10 @@ public class NoteView extends AbstractNoteView {
 
 	private boolean nonEsistonoCampiNonValorizzati() {
 		return getNome() != null && getDescrizione() != null && getData() != null && getDataIns() != null
-		                && getUtenti() != null;
+				&& getUtenti() != null;
 	}
 
-	private void aggiornaModelDaVista(WrapNote wNote) {
+	private void aggiornaModelDaVista(final WrapNote wNote) {
 		if (wNote != null) {
 			wrapNote = wNote;
 		}
@@ -144,15 +144,15 @@ public class NoteView extends AbstractNoteView {
 		setDataIns(DBUtil.dataToString(new Date(), "yyyy/MM/dd"));
 	}
 
-	public void setNota(String stringNota) {
+	public void setNota(final String stringNota) {
 		nota.setText(stringNota);
 	}
 
-	public void setTaDescrizione(String stringaDescrizione) {
+	public void setTaDescrizione(final String stringaDescrizione) {
 		descrizione.setText(stringaDescrizione);
 	}
 
-	public void settfData(String stringaData) {
+	public void settfData(final String stringaData) {
 		data.setText(stringaData);
 	}
 
@@ -168,11 +168,11 @@ public class NoteView extends AbstractNoteView {
 		return data;
 	}
 
-	public ButtonF getBtnInserisci() {
+	public ButtonBase getBtnInserisci() {
 		return btnInserisci;
 	}
 
-	public void setBtnInserisci(ButtonF btnInserisci) {
+	public void setBtnInserisci(final ButtonBase btnInserisci) {
 		this.btnInserisci = btnInserisci;
 	}
 }

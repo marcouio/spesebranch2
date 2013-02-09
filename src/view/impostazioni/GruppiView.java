@@ -1,5 +1,7 @@
 package view.impostazioni;
 
+import grafica.componenti.button.ButtonBase;
+
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -9,7 +11,6 @@ import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
-import view.font.ButtonF;
 import view.font.LabelListaGruppi;
 import view.font.TextAreaF;
 import view.font.TextFieldF;
@@ -54,7 +55,7 @@ public class GruppiView extends AbstractGruppiView {
 		descrizione.setBounds(25, 103, 206, 88);
 		getContentPane().add(descrizione);
 
-		final ButtonF inserisci = new ButtonF();
+		final ButtonBase inserisci = new ButtonBase(this);
 		inserisci.setText("Inserisci");
 		inserisci.setBounds(26, 214, 206, 25);
 		getContentPane().add(inserisci);
@@ -83,12 +84,12 @@ public class GruppiView extends AbstractGruppiView {
 			}
 		});
 
-		final ButtonF aggiorna = new ButtonF();
+		final ButtonBase aggiorna = new ButtonBase(this);
 		aggiorna.setText("Aggiorna");
 		aggiorna.setBounds(25, 320, 100, 25);
 		getContentPane().add(aggiorna);
 
-		final ButtonF cancella = new ButtonF();
+		final ButtonBase cancella = new ButtonBase(this);
 		cancella.setText("Cancella");
 		cancella.setBounds(131, 320, 100, 25);
 		getContentPane().add(cancella);
