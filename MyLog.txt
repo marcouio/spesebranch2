@@ -1,4 +1,4 @@
-ott 26, 2012 11:47:52 PM log.LoggerOggetto creaLog
+feb 10, 2013 11:23:35 PM log.LoggerOggetto creaLog
 INFO: Start programma!
-ott 26, 2012 11:47:52 PM grafica.componenti.alert.Alert segnalazioneErroreGrave
-SEVERE: Operazione SQL non eseguita:near "Inserisci": syntax error
+feb 10, 2013 11:23:35 PM grafica.componenti.alert.Alert segnalazioneErroreGrave
+SEVERE: Login non effettuato: username o password non corretti
