@@ -101,7 +101,7 @@ public class Controllore extends ControlloreBase {
 	}
 
 	private static void verificaPresenzaDb() throws Exception {
-		final Connection cn = DBUtil.getConnection();
+		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		try {
 			final String sql = "SELECT * FROM " + WrapLookAndFeel.NOME_TABELLA;
 			final Statement st = cn.createStatement();
