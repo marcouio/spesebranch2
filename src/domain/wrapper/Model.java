@@ -4,27 +4,27 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
 
-import business.DBUtil;
 import business.Database;
 import business.cache.CacheCategorie;
 import business.cache.CacheGruppi;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
+import db.ConnectionPool;
 import domain.CatSpese;
 import domain.Entrate;
 import domain.SingleSpesa;
 
 public class Model {
 
-	private WrapCatSpese modelCategorie;
-	private WrapGruppi modelGruppi;
-	private WrapBudget modelBudget;
+//	private WrapCatSpese modelCategorie;
+//	private WrapGruppi modelGruppi;
+//	private WrapBudget modelBudget;
 	private WrapEntrate modelEntrate;
-	private WrapRisparmio modelRisparmio;
+//	private WrapRisparmio modelRisparmio;
 	private WrapSingleSpesa modelUscita;
-	private WrapUtenti modelUtenti;
-	private WrapLookAndFeel modelLookAndFeel;
+//	private WrapUtenti modelUtenti;
+//	private WrapLookAndFeel modelLookAndFeel;
 	private static Model singleton;
 	private static String[][] primoUscite;
 	private static String[][] primoEntrate;
@@ -36,85 +36,18 @@ public class Model {
 	private static Vector<CatSpese> catSpese = CacheCategorie.getSingleton().getVettoreCategorie();
 
 	public static Model getSingleton() {
-		if (singleton == null) {
-			synchronized (CacheCategorie.class) {
-				if (singleton == null) {
-					singleton = new Model();
-				}
+		synchronized (CacheCategorie.class) {
+			if (singleton == null) {
+				singleton = new Model();
 			} // if
 		} // if
 		return singleton;
 	}
 
 	private Model() {
-		modelCategorie = new WrapCatSpese();
-		modelGruppi = new WrapGruppi();
-		modelBudget = new WrapBudget();
 		modelEntrate = new WrapEntrate();
-		modelRisparmio = new WrapRisparmio();
 		modelUscita = new WrapSingleSpesa();
-		modelUtenti = new WrapUtenti();
 	}
-
-	public WrapCatSpese getModelCategorie() {
-		return modelCategorie;
-	}
-
-	public void setModelCategorie(final WrapCatSpese modelCategorie) {
-		this.modelCategorie = modelCategorie;
-	}
-
-	public WrapGruppi getModelGruppi() {
-		return modelGruppi;
-	}
-
-	public void setModelGruppi(final WrapGruppi modelGruppi) {
-		this.modelGruppi = modelGruppi;
-	}
-
-	public WrapBudget getModelBudget() {
-		return modelBudget;
-	}
-
-	public void setModelBudget(final WrapBudget modelBudget) {
-		this.modelBudget = modelBudget;
-	}
-
-	public WrapEntrate getModelEntrate() {
-		return modelEntrate;
-	}
-
-	public void setModelEntrate(final WrapEntrate modelEntrate) {
-		this.modelEntrate = modelEntrate;
-	}
-
-	public WrapRisparmio getModelRisparmio() {
-		return modelRisparmio;
-	}
-
-	public void setModelRisparmio(final WrapRisparmio modelRisparmio) {
-		this.modelRisparmio = modelRisparmio;
-	}
-
-	public WrapSingleSpesa getModelUscita() {
-		return modelUscita;
-	}
-
-	public void setModelUscita(final WrapSingleSpesa modelUscita) {
-		this.modelUscita = modelUscita;
-	}
-
-	public WrapUtenti getModelUtenti() {
-		return modelUtenti;
-	}
-
-	public void setModelUtenti(final WrapUtenti modelUtenti) {
-		this.modelUtenti = modelUtenti;
-	}
-
-	// public void setSingleton(Model singleton) {
-	// Model.singleton = singleton;
-	// }
 
 	// *************************************TABELLA-USCITE******************************************
 
@@ -297,7 +230,7 @@ public class Model {
 				}
 			}
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return movimentiEntrate;
 	}
 
@@ -355,7 +288,7 @@ public class Model {
 				}
 			}
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return movimentiEntrate;
 	}
 
@@ -408,7 +341,7 @@ public class Model {
 			}
 
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return movimentiUscite;
 
 	}
@@ -469,17 +402,8 @@ public class Model {
 			}
 
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return movimentiUscite;
 
 	}
-
-	public void setModelLookAndFeel(final WrapLookAndFeel modelLookAndFeel) {
-		this.modelLookAndFeel = modelLookAndFeel;
-	}
-
-	public WrapLookAndFeel getModelLookAndFeel() {
-		return modelLookAndFeel;
-	}
-
 }
