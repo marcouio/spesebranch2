@@ -36,7 +36,7 @@ public class TabellaEntrata extends OggettoVistaBase {
 		try {
 			final TableModelEntrate model = new TableModelEntrate(null);
 			table = createTable(model, scrollPane);
-			table.setColoreBackground(Color.LIGHT_GRAY);
+			table.setBackgroundPrimaColonna(Color.GRAY);
 			scrollPane.setSize(300, 300);
 		} catch (final Exception e) {
 			e.printStackTrace();

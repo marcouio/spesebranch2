@@ -33,7 +33,7 @@ public class TabellaUscita extends OggettoVistaBase {
 		try {
 			TableModelUscite model = new TableModelUscite(null);
 			table = createTable(model, scrollPane);
-			table.setColoreBackground(Color.LIGHT_GRAY);
+			table.setBackgroundPrimaColonna(Color.GRAY);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

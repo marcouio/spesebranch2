@@ -48,7 +48,7 @@ public class TabellaUscitaGruppi extends OggettoVistaBase {
 		table.setRowHeight(27);
 		table.setPreferredScrollableViewportSize(new Dimension(700, 300));
 		table.setFillsViewportHeight(true);
-		table.setColoreBackground(Color.LIGHT_GRAY);
+		table.setBackgroundPrimaColonna(Color.GRAY);
 		return table;
 	}
 
