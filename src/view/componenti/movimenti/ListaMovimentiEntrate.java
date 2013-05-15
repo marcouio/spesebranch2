@@ -62,7 +62,7 @@ public class ListaMovimentiEntrate extends AbstractListaMov {
 
 						@Override
 						public String[][] getMovimenti() {
-							final Vector<Entrate> entrate = Model.getSingleton().getModelEntrate()
+							final Vector<Entrate> entrate = new WrapEntrate()
 									.movimentiEntrateFiltrati(getDataDa(), getDataA(), getNome(), getEuro(), getCategoria());
 							String[][] mov = null;
 							try {

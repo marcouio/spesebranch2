@@ -11,18 +11,22 @@ public class TableModelEntrate extends TableModel{
 	public static HashMap<Integer, String> mapMesi = new HashMap<Integer, String>();
 
 	static{
-		mapMesi.put(1, Controllore.getSingleton().getMessaggio("january"));
-		mapMesi.put(2, Controllore.getSingleton().getMessaggio("february"));
-		mapMesi.put(3, Controllore.getSingleton().getMessaggio("march"));
-		mapMesi.put(4, Controllore.getSingleton().getMessaggio("april"));
-		mapMesi.put(5, Controllore.getSingleton().getMessaggio("may"));
-		mapMesi.put(6, Controllore.getSingleton().getMessaggio("june"));
-		mapMesi.put(7, Controllore.getSingleton().getMessaggio("july"));
-		mapMesi.put(8, Controllore.getSingleton().getMessaggio("august"));
-		mapMesi.put(9, Controllore.getSingleton().getMessaggio("september"));
-		mapMesi.put(10, Controllore.getSingleton().getMessaggio("october"));
-		mapMesi.put(11, Controllore.getSingleton().getMessaggio("november"));
-		mapMesi.put(12, Controllore.getSingleton().getMessaggio("december"));
+		mapMesi.put(1, getMessaggio("january"));
+		mapMesi.put(2, getMessaggio("february"));
+		mapMesi.put(3, getMessaggio("march"));
+		mapMesi.put(4, getMessaggio("april"));
+		mapMesi.put(5, getMessaggio("may"));
+		mapMesi.put(6, getMessaggio("june"));
+		mapMesi.put(7, getMessaggio("july"));
+		mapMesi.put(8, getMessaggio("august"));
+		mapMesi.put(9, getMessaggio("september"));
+		mapMesi.put(10, getMessaggio("october"));
+		mapMesi.put(11, getMessaggio("november"));
+		mapMesi.put(12, getMessaggio("december"));
+	}
+
+	private static String getMessaggio(String msg) {
+		return Controllore.getSingleton().getMessaggio(msg);
 	}
 
 	String[] listaColonne;
@@ -54,7 +58,7 @@ public class TableModelEntrate extends TableModel{
 		for (int i = 0; i < getListaColonne().length; i++) {
 			addColumn(getListaColonne()[i]);
 		}
-		return nomiColonne;
+		return getNomiColonne();
 	}
 
 	public String[] getListaColonne() {

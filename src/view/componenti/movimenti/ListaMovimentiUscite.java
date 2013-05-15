@@ -63,7 +63,7 @@ public class ListaMovimentiUscite extends AbstractListaMov {
 
 						@Override
 						public String[][] getMovimenti() {
-							final Vector<SingleSpesa> uscite = Model.getSingleton().getModelUscita()
+							final Vector<SingleSpesa> uscite = new WrapSingleSpesa()
 									.movimentiUsciteFiltrate(getDataDa(), getDataA(), getNome(), getEuro(), getCategoria());
 							String[][] mov = null;
 							try {

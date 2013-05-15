@@ -34,7 +34,6 @@ import business.ascoltatori.AscoltatoreAggiornatoreTutto;
 import business.cache.CacheLookAndFeel;
 import domain.Lookandfeel;
 import domain.Utenti;
-import domain.wrapper.Model;
 import domain.wrapper.WrapEntrate;
 import domain.wrapper.WrapSingleSpesa;
 
@@ -147,8 +146,8 @@ public class Impostazioni extends JDialog {
 			elimina.addActionListener(new AscoltatoreAggiornatoreTutto() {
 				@Override
 				public void actionPerformedOverride(final ActionEvent arg0) {
-					if (Model.getSingleton().getModelEntrate().deleteAll()
-							&& Model.getSingleton().getModelUscita().deleteAll()) {
+					if (new WrapEntrate().deleteAll()
+							&& new WrapSingleSpesa().deleteAll()) {
 						// TODO creare comando per eliminare tutto
 						Alert.segnalazioneInfo("Ok, tutti i dati sono stati cancellati: puoi ripartire!");
 						try {
