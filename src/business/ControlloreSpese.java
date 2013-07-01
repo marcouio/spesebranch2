@@ -124,7 +124,7 @@ public class ControlloreSpese extends ControlloreBase {
 	public static GeneralFrame getPannello() {
 		if (pannello == null) {
 			try {
-				pannello = GeneralFrame.getSingleton(view);
+				pannello = GeneralFrame.getSingleton();
 			} catch (final ExceptionGraphics e) {
 				e.printStackTrace();
 			}

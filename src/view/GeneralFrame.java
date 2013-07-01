@@ -35,17 +35,20 @@ import domain.wrapper.WrapSingleSpesa;
 public class GeneralFrame extends PannelloBase {
 
 	private static final long serialVersionUID = 1L;
-	private static PerMesiF tabPermesi;
-	private static Movimenti tabMovimenti;
-	private static NewSql consolle;
+	
+	private PerMesiF tabPermesi;
+	private Movimenti tabMovimenti;
+	private NewSql consolle;
+	
 	private static GeneralFrame singleton;
 	private final ArrayList<JPanel> listaPannelli = new ArrayList<JPanel>();
 
-	public static final GeneralFrame getSingleton(final Container contenitore) throws ExceptionGraphics {
+	public static final GeneralFrame getSingleton() throws ExceptionGraphics {
 		if (singleton == null) {
 			synchronized (GeneralFrame.class) {
 				if (singleton == null) {
-					singleton = new GeneralFrame(contenitore);
+					FrameBase view = ControlloreSpese.getSingleton().getView();
+					singleton = new GeneralFrame(view);
 				}
 			} // if
 		} // if
@@ -266,15 +269,15 @@ public class GeneralFrame extends PannelloBase {
 	}
 
 	public void setTabPermesi(final PerMesiF tabPermesi) {
-		GeneralFrame.tabPermesi = tabPermesi;
+		this.tabPermesi = tabPermesi;
 	}
 
 	public Movimenti getTabMovimenti() {
 		return tabMovimenti;
 	}
 
-	public void setTabMovimenti(final Movimenti tabMovimenti) {
-		GeneralFrame.tabMovimenti = tabMovimenti;
+	public void setTabMovimenti(Movimenti tabMovimenti) {
+		this.tabMovimenti = tabMovimenti;
 	}
 
 	public NewSql getConsolle() {
@@ -282,7 +285,7 @@ public class GeneralFrame extends PannelloBase {
 	}
 
 	public void setConsolle(final NewSql consolle) {
-		GeneralFrame.consolle = consolle;
+		this.consolle = consolle;
 	}
 
 }

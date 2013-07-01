@@ -11,17 +11,16 @@ import javax.swing.UIManager;
 
 import view.GeneralFrame;
 import view.impostazioni.Impostazioni;
-import business.ControlloreSpese;
 import business.Database;
 import domain.Lookandfeel;
 import domain.wrapper.WrapLookAndFeel;
 
 public class AscoltatoreLook implements ActionListener {
 
-	JComboBox comboLook;
+	JComboBox<?> comboLook;
 	Vector<Lookandfeel> vettore;
 
-	public AscoltatoreLook(final JComboBox comboLook, final Vector<Lookandfeel> vettore) {
+	public AscoltatoreLook(final JComboBox<?> comboLook, final Vector<Lookandfeel> vettore) {
 		this.comboLook = comboLook;
 		this.vettore = vettore;
 	}
@@ -63,7 +62,7 @@ public class AscoltatoreLook implements ActionListener {
 		}
 		try {
 			UIManager.setLookAndFeel(look);
-			SwingUtilities.updateComponentTreeUI(GeneralFrame.getSingleton(ControlloreSpese.getSingleton().getView()));
+			SwingUtilities.updateComponentTreeUI(GeneralFrame.getSingleton());
 			SwingUtilities.updateComponentTreeUI(Impostazioni.getSingleton());
 		} catch (final Exception e1) {
 			comboLook.setSelectedIndex(0);

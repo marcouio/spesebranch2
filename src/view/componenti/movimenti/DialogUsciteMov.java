@@ -44,27 +44,13 @@ public class DialogUsciteMov extends AbstractUsciteView {
 
 	private JTextField tfEuro = new TextFieldF();
 	private JTextField tfData = new TextFieldF();
-	private JComboBox cbCategorie;
+	private JComboBox<CatSpese> cbCategorie;
 	private JTextField taDescrizione = new TextFieldF();
 	private JTextField tfNome = new TextFieldF();
 	private final JTextField tfDataIns = new TextFieldF();
 	private JTextField idSpesa = new TextFieldF();
 	private final JButton update = new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("update"), this);
 	private final JButton delete = new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("delete"), this);
-
-	/**
-	 * Auto-generated main method to display this JDialog
-	 */
-
-	public void main(final String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				final DialogUsciteMov inst = new DialogUsciteMov(new WrapSingleSpesa());
-				inst.setVisible(true);
-			}
-		});
-	}
 
 	public DialogUsciteMov(final WrapSingleSpesa uscita) {
 		super(uscita);
