@@ -27,11 +27,11 @@ import view.impostazioni.ascoltatori.AscoltatoreLanguage;
 import view.impostazioni.ascoltatori.AscoltatoreLook;
 import xml.CoreXMLManager;
 import business.ControlloreSpese;
-import business.DBUtil;
 import business.aggiornatori.AggiornatoreManager;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import business.ascoltatori.AscoltatoreAggiornatoreTutto;
 import business.cache.CacheLookAndFeel;
+import db.UtilDb;
 import domain.Lookandfeel;
 import domain.Utenti;
 import domain.wrapper.WrapEntrate;
@@ -39,9 +39,9 @@ import domain.wrapper.WrapSingleSpesa;
 
 public class Impostazioni extends JDialog {
 
-	private static final long serialVersionUID = 1L;
-	private static Impostazioni singleton;
-	private static String posDatabase = "";
+	private static final long	serialVersionUID	= 1L;
+	private static Impostazioni	singleton;
+	private static String		posDatabase			= "";
 
 	public static void main(final String[] args) {
 		final Impostazioni dialog = new Impostazioni();
@@ -50,23 +50,21 @@ public class Impostazioni extends JDialog {
 	}
 
 	public static final Impostazioni getSingleton() {
-		if (singleton == null) {
-			synchronized (Impostazioni.class) {
-				if (singleton == null) {
-					singleton = new Impostazioni();
-				}
-			} // if
+		synchronized (Impostazioni.class) {
+			if (singleton == null) {
+				singleton = new Impostazioni();
+			}
 		} // if
 		return singleton;
 	} // getSingleton()
 
-	private JTextField dataOdierna;
-	private JTextField utente;
-	private ArrayList<String> listaLook;
-	private JComboBox<Lookandfeel> comboLook;
-	private TextFieldF annotextField;
-	private static int anno = new GregorianCalendar().get(Calendar.YEAR);
-	private static JTextField caricaDatabase;
+	private JTextField				dataOdierna;
+	private JTextField				utente;
+	private ArrayList<String>		listaLook;
+	private JComboBox<Lookandfeel>	comboLook;
+	private TextFieldF				annotextField;
+	private static int				anno	= new GregorianCalendar().get(Calendar.YEAR);
+	private static JTextField		caricaDatabase;
 
 	public Impostazioni() {
 		initGUI();
@@ -85,7 +83,7 @@ public class Impostazioni extends JDialog {
 			dataOdierna.setBounds(140, 82, 113, 27);
 			dataOdierna.setEditable(false);
 			final GregorianCalendar gc = new GregorianCalendar();
-			dataOdierna.setText(DBUtil.dataToString(gc.getTime(), "dd-MM-yyyy"));
+			dataOdierna.setText(UtilDb.dataToString(gc.getTime(), "dd-MM-yyyy"));
 			getContentPane().add(dataOdierna);
 			getContentPane().add(calendario);
 
@@ -108,7 +106,8 @@ public class Impostazioni extends JDialog {
 				public void actionPerformedOverride(final ActionEvent e) {
 					try {
 						anno = Integer.parseInt(annotextField.getText());
-					} catch (final Exception e1) {
+					}
+					catch (final Exception e1) {
 						e1.printStackTrace();
 					}
 				}
@@ -146,14 +145,14 @@ public class Impostazioni extends JDialog {
 			elimina.addActionListener(new AscoltatoreAggiornatoreTutto() {
 				@Override
 				public void actionPerformedOverride(final ActionEvent arg0) {
-					if (new WrapEntrate().deleteAll()
-							&& new WrapSingleSpesa().deleteAll()) {
+					if (new WrapEntrate().deleteAll() && new WrapSingleSpesa().deleteAll()) {
 						// TODO creare comando per eliminare tutto
 						Alert.segnalazioneInfo("Ok, tutti i dati sono stati cancellati: puoi ripartire!");
 						try {
 							AggiornatoreManager.aggiornamentoGenerale(WrapEntrate.NOME_TABELLA);
 							AggiornatoreManager.aggiornamentoGenerale(WrapSingleSpesa.NOME_TABELLA);
-						} catch (final Exception e) {
+						}
+						catch (final Exception e) {
 							e.getMessage();
 						}
 					}
@@ -222,8 +221,8 @@ public class Impostazioni extends JDialog {
 			for (int i = 0; i < languages.length; i++) {
 				String lingua = CoreXMLManager.getSingleton().getLanguage();
 				if (languages[i].equals(lingua)) {
-					//					comboLanguage.setSelectedIndex(i);
-					//					break;
+					// comboLanguage.setSelectedIndex(i);
+					// break;
 				}
 			}
 
@@ -248,7 +247,8 @@ public class Impostazioni extends JDialog {
 				}
 			});
 
-		} catch (final Exception e) {
+		}
+		catch (final Exception e) {
 			e.printStackTrace();
 		}
 	}

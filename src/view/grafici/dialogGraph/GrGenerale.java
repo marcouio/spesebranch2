@@ -26,7 +26,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import view.componenti.movimenti.DialogHandler;
 import business.AltreUtil;
-import business.DBUtil;
 import business.Database;
 import business.cache.CacheCategorie;
 import domain.CatSpese;
@@ -123,7 +122,6 @@ public class GrGenerale extends JDialog implements ActionListener {
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		DBUtil.closeConnection();
 		final ImageIcon image = new ImageIcon("immagini/LineChartGen1" + dataMinuti + ".png");
 		getContentPane().setLayout(null);
 		final JLabel label = new JLabel(image);

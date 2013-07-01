@@ -16,24 +16,22 @@ import domain.wrapper.WrapSingleSpesa;
 
 public class CacheUscite extends AbstractCacheBase {
 
-	private static CacheUscite singleton;
+	private static CacheUscite	singleton;
 
 	private CacheUscite() {
 		cache = new HashMap<String, AbstractOggettoEntita>();
 	}
 
 	public static CacheUscite getSingleton() {
-		if (singleton == null) {
-			synchronized (CacheUscite.class) {
-				if (singleton == null) {
-					singleton = new CacheUscite();
-				}
-			} // if
+		synchronized (CacheUscite.class) {
+			if (singleton == null) {
+				singleton = new CacheUscite();
+			}
 		} // if
 		return singleton;
 	}
 
-	WrapSingleSpesa usciteDAO = new WrapSingleSpesa();
+	WrapSingleSpesa	usciteDAO	= new WrapSingleSpesa();
 
 	public SingleSpesa getSingleSpesa(final String id) {
 		SingleSpesa uscita = (SingleSpesa) cache.get(id);
@@ -61,7 +59,8 @@ public class CacheUscite extends AbstractCacheBase {
 				}
 			}
 			caricata = true;
-		} else {
+		}
+		else {
 			cache = new HashMap<String, AbstractOggettoEntita>();
 		}
 		return cache;
@@ -70,7 +69,8 @@ public class CacheUscite extends AbstractCacheBase {
 	public Map<String, AbstractOggettoEntita> getAllUscite() {
 		if (caricata) {
 			return cache;
-		} else {
+		}
+		else {
 			return chargeAllUscite();
 		}
 	}
@@ -118,7 +118,7 @@ public class CacheUscite extends AbstractCacheBase {
 		int maxId = 0;
 		final Map<String, AbstractOggettoEntita> mappa = getAllUscite();
 		if (mappa != null) {
-		final Iterator<String> chiavi = mappa.keySet().iterator();
+			final Iterator<String> chiavi = mappa.keySet().iterator();
 			while (chiavi.hasNext()) {
 				final SingleSpesa uscita = (SingleSpesa) mappa.get(chiavi.next());
 				if (uscita != null) {

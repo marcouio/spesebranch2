@@ -22,7 +22,7 @@ public class TabellaUscita extends OggettoVistaBase {
 	private static final long serialVersionUID = 1L;
 
 	private static String[][] primo;
-	private static ScrollPaneBase scrollPane;
+	private ScrollPaneBase scrollPane;
 
 
 
@@ -68,11 +68,11 @@ public class TabellaUscita extends OggettoVistaBase {
 		return table;
 	}
 
-	public static JScrollPane getScrollPane() {
+	public JScrollPane getScrollPane() {
 		return scrollPane;
 	}
 
 	public void setScrollPane(final ScrollPaneBase scrollPane) {
-		TabellaUscita.scrollPane = scrollPane;
+		this.scrollPane = scrollPane;
 	}
 }

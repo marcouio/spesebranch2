@@ -117,7 +117,7 @@ public class MyMenu extends MenuBarBase {
 				try {
 					pas = ((PannelloAScomparsa2) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_PANNELLODATI, null));
 					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(pas, finestre, chckbxmntmDati);
-					ControlloreSpese.getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
+					ControlloreSpese.getSingleton().getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
 				} catch (final Exception e1) {
 					e1.printStackTrace();
 				}
@@ -135,7 +135,7 @@ public class MyMenu extends MenuBarBase {
 				try {
 					note = ((MostraNoteView) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_NOTE, null));
 					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(note, finestre, mntmNote);
-					ControlloreSpese.getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
+					ControlloreSpese.getSingleton().getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
 				} catch (final Exception e1) {
 					e1.printStackTrace();
 				}
@@ -149,7 +149,7 @@ public class MyMenu extends MenuBarBase {
 				try {
 					report = ((ReportView) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_REPORT, null));
 					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(report, finestre, mntmReport);
-					ControlloreSpese.getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
+					ControlloreSpese.getSingleton().getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
 				} catch (final Exception e1) {
 					e1.printStackTrace();
 				}
@@ -163,7 +163,7 @@ public class MyMenu extends MenuBarBase {
 				try {
 					history = ((FinestraListaComandi) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_HISTORY, null));
 					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(history, finestre, listaComandi);
-					ControlloreSpese.getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
+					ControlloreSpese.getSingleton().getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
 				} catch (final Exception e1) {
 					e1.printStackTrace();
 				}

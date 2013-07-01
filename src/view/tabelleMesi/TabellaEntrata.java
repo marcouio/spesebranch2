@@ -27,7 +27,7 @@ public class TabellaEntrata extends OggettoVistaBase {
 		TabellaEntrata.nomiColonne = nomiColonne;
 	}
 
-	private static ScrollPaneBase scrollPane;
+	private ScrollPaneBase scrollPane;
 
 	public TabellaEntrata(final Container container) throws ExceptionGraphics {
 		super(new GridLayout(1, 0), container);
@@ -72,11 +72,11 @@ public class TabellaEntrata extends OggettoVistaBase {
 		TabellaEntrata.primo = primo;
 	}
 
-	public static ScrollPaneBase getScrollPane() {
+	public ScrollPaneBase getScrollPane() {
 		return scrollPane;
 	}
 
-	protected static void setScrollPane(final ScrollPaneBase scrollPane) {
-		TabellaEntrata.scrollPane = scrollPane;
+	protected void setScrollPane(final ScrollPaneBase scrollPane) {
+		this.scrollPane = scrollPane;
 	}
 }

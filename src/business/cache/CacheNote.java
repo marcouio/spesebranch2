@@ -16,7 +16,7 @@ import domain.wrapper.WrapNote;
 
 public class CacheNote extends AbstractCacheBase {
 
-	private static CacheNote singleton;
+	private static CacheNote	singleton;
 
 	private CacheNote() {
 		cache = new HashMap<String, AbstractOggettoEntita>();
@@ -24,17 +24,15 @@ public class CacheNote extends AbstractCacheBase {
 	}
 
 	public static CacheNote getSingleton() {
-		if (singleton == null) {
-			synchronized (CacheNote.class) {
-				if (singleton == null) {
-					singleton = new CacheNote();
-				}
-			} // if
+		synchronized (CacheNote.class) {
+			if (singleton == null) {
+				singleton = new CacheNote();
+			}
 		} // if
 		return singleton;
 	}
 
-	WrapNote noteDAO = new WrapNote();
+	WrapNote	noteDAO	= new WrapNote();
 
 	public Note getNote(final String id) {
 		Note note = (Note) cache.get(id);
@@ -69,7 +67,8 @@ public class CacheNote extends AbstractCacheBase {
 	public Map<String, AbstractOggettoEntita> getAllNote() {
 		if (caricata) {
 			return cache;
-		} else {
+		}
+		else {
 			return chargeAllNote();
 		}
 	}

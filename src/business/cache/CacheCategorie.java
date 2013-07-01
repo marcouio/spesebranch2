@@ -22,12 +22,10 @@ public class CacheCategorie extends AbstractCacheBase {
 	}
 
 	public static CacheCategorie getSingleton() {
-		if (singleton == null) {
-			synchronized (CacheCategorie.class) {
-				if (singleton == null) {
-					singleton = new CacheCategorie();
-				}
-			} // if
+		synchronized (CacheCategorie.class) {
+			if (singleton == null) {
+				singleton = new CacheCategorie();
+			}
 		} // if
 		return singleton;
 	}

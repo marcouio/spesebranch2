@@ -13,24 +13,22 @@ import domain.wrapper.WrapGruppi;
 
 public class CacheGruppi extends AbstractCacheBase {
 
-	private static CacheGruppi singleton;
+	private static CacheGruppi	singleton;
 
 	private CacheGruppi() {
 		cache = new HashMap<String, AbstractOggettoEntita>();
 	}
 
 	public static CacheGruppi getSingleton() {
-		if (singleton == null) {
-			synchronized (CacheGruppi.class) {
-				if (singleton == null) {
-					singleton = new CacheGruppi();
-				}
-			} // if
+		synchronized (CacheGruppi.class) {
+			if (singleton == null) {
+				singleton = new CacheGruppi();
+			}
 		} // if
 		return singleton;
 	}
 
-	WrapGruppi gruppiDAO = new WrapGruppi();
+	WrapGruppi	gruppiDAO	= new WrapGruppi();
 
 	public Gruppi getGruppo(final String id) {
 		Gruppi gruppo = (Gruppi) cache.get(id);
@@ -80,7 +78,8 @@ public class CacheGruppi extends AbstractCacheBase {
 	public Map<String, AbstractOggettoEntita> getAllGruppi() {
 		if (caricata) {
 			return cache;
-		} else {
+		}
+		else {
 			return chargeAllGruppi();
 		}
 	}

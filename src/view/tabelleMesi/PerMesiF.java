@@ -12,9 +12,9 @@ public class PerMesiF extends OggettoVistaBase {
 
 	private static final long serialVersionUID = 1L;
 
-	private static TabellaEntrata      tabEntrate = null;
-	private static TabellaUscita       tabUscite  = null;
-	private static TabellaUscitaGruppi tabUG      = null;
+	private TabellaEntrata      tabEntrate = null;
+	private TabellaUscita       tabUscite  = null;
+	private TabellaUscitaGruppi tabUG      = null;
 
 	private JTabbedPane                tabGenerale;
 
@@ -38,8 +38,8 @@ public class PerMesiF extends OggettoVistaBase {
 			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("withdrawal"), tabUscite);
 			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("groupscharge"), tabUG);
 
-			TabellaUscita.getScrollPane().setSize(950, 350);
-			TabellaEntrata.getScrollPane().setSize(950, 350);
+			tabUscite.getScrollPane().setSize(950, 350);
+			tabEntrate.getScrollPane().setSize(950, 350);
 			TabellaUscitaGruppi.getScrollPane().setSize(950, 350);
 			this.add(tabGenerale);
 
@@ -51,7 +51,7 @@ public class PerMesiF extends OggettoVistaBase {
 	/**
 	 * @return the tabEntrate
 	 */
-	public static TabellaEntrata getTabEntrate() {
+	public TabellaEntrata getTabEntrate() {
 		return tabEntrate;
 	}
 
@@ -59,14 +59,14 @@ public class PerMesiF extends OggettoVistaBase {
 	 * @param tabEntrate
 	 *            the tabEntrate to set
 	 */
-	public static void setTabEntrate(final TabellaEntrata tabEntrate) {
-		PerMesiF.tabEntrate = tabEntrate;
+	public void setTabEntrate(final TabellaEntrata tabEntrate) {
+		this.tabEntrate = tabEntrate;
 	}
 
 	/**
 	 * @return the tabUscite
 	 */
-	public static TabellaUscita getTabUscite() {
+	public TabellaUscita getTabUscite() {
 		return tabUscite;
 	}
 
@@ -74,8 +74,8 @@ public class PerMesiF extends OggettoVistaBase {
 	 * @param tabUscite
 	 *            the tabUscite to set
 	 */
-	public static void setTabUscite(final TabellaUscita tabUscite) {
-		PerMesiF.tabUscite = tabUscite;
+	public void setTabUscite(final TabellaUscita tabUscite) {
+		this.tabUscite = tabUscite;
 	}
 
 }

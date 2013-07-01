@@ -23,9 +23,9 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import view.componenti.movimenti.DialogHandler;
-import business.DBUtil;
 import business.Database;
 import business.cache.CacheCategorie;
+import db.ConnectionPool;
 import domain.CatSpese;
 
 public class GrUscite1 extends JDialog implements ActionListener {
@@ -50,14 +50,17 @@ public class GrUscite1 extends JDialog implements ActionListener {
 	 * 
 	 * @throws SQLException
 	 * @throws IOException
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public GrUscite1() throws SQLException, IOException {
+	public GrUscite1() throws SQLException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		final Vector<CatSpese> categorie = CacheCategorie.getSingleton().getVettoreCategorie();
 		Connection cn = null;
 		try {
-			cn = DBUtil.getConnection();
+			cn = ConnectionPool.getSingleton().getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,7 +85,7 @@ public class GrUscite1 extends JDialog implements ActionListener {
 		ChartUtilities.saveChartAsPNG(new java.io.File("./immagini/barUscite"
 				+ dataMinuti + ".png"), chart, 550, 550);
 		getContentPane().setLayout(null);
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		final ImageIcon image = new ImageIcon("./immagini/barUscite" + dataMinuti
 				+ ".png");
 		final JLabel immagine = new JLabel(image);
