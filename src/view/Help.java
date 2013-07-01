@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 
 import view.font.LabelListaGruppi;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 
 public class Help extends JDialog {
@@ -28,30 +28,30 @@ public class Help extends JDialog {
 		label.setBounds(36, 55, 138, 297);
 		add(label);
 
-		JLabel lblGestionespese = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("description"));
+		JLabel lblGestionespese = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("description"));
 		lblGestionespese.setBounds(184, 45, 391, 28);
 		add(lblGestionespese);
 
-		JLabel lblVersione = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("version"));
+		JLabel lblVersione = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("version"));
 		lblVersione.setBounds(184, 85, 240, 28);
 		add(lblVersione);
 
-		JLabel lblVersione2 = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("version"));
+		JLabel lblVersione2 = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("version"));
 		lblVersione2.setBounds(184, 85, 240, 28);
 		add(lblVersione2);
 
-		JLabel lblMarcoMolinari = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("copyright"));
+		JLabel lblMarcoMolinari = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("copyright"));
 		lblMarcoMolinari.setBounds(184, 124, 327, 28);
 		add(lblMarcoMolinari);
 
-		JLabel help = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("clickherehelp"));
-		help.setText(Controllore.getSingleton().getMessaggio("cliccahelp"));
+		JLabel help = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("clickherehelp"));
+		help.setText(ControlloreSpese.getSingleton().getMessaggio("cliccahelp"));
 		help.setBounds(184, 163, 215, 28);
 
 		add(help);
 
 		ButtonBase btnHelp = new ButtonBase(this);
-		btnHelp.setText(Controllore.getSingleton().getMessaggio("help"));
+		btnHelp.setText(ControlloreSpese.getSingleton().getMessaggio("help"));
 		btnHelp.setBounds(389, 166, 91, 23);
 		btnHelp.addActionListener(new AscoltatoreAggiornatoreNiente() {
 

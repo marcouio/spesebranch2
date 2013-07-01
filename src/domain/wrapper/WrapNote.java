@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 
-import business.Controllore;
+import business.ControlloreSpese;
 import business.DBUtil;
 
 import command.javabeancommand.AbstractOggettoEntita;
@@ -190,7 +190,7 @@ public class WrapNote extends Observable implements IDAO, INote {
 		boolean ok = false;
 		try {
 			final Connection cn = DBUtil.getConnection();
-			final String sql = "SELECT * FROM " + NOME_TABELLA + " WHERE " + IDUTENTE + " = " + ((Utenti) Controllore.getSingleton().getUtenteLogin()).getIdUtente() + " ORDER BY "
+			final String sql = "SELECT * FROM " + NOME_TABELLA + " WHERE " + IDUTENTE + " = " + ((Utenti) ControlloreSpese.getSingleton().getUtenteLogin()).getIdUtente() + " ORDER BY "
 				+ DATAINS + " DESC";
 
 			final Statement st = cn.createStatement();
@@ -206,7 +206,7 @@ public class WrapNote extends Observable implements IDAO, INote {
 
 		} catch (final Exception e) {
 			e.printStackTrace();
-			Controllore.getLog().severe("Operazione non eseguita: " + e.getMessage());
+			ControlloreSpese.getLog().severe("Operazione non eseguita: " + e.getMessage());
 		}
 		DBUtil.closeConnection();
 		return ok;

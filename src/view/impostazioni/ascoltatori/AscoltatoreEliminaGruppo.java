@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 
 import view.impostazioni.GruppiView;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.aggiornatori.AggiornatoreManager;
 import business.ascoltatori.AscoltatoreAggiornatoreTutto;
 import business.cache.CacheCategorie;
@@ -30,7 +30,7 @@ public class AscoltatoreEliminaGruppo extends AscoltatoreAggiornatoreTutto {
 
 		if (comboGruppi.getSelectedIndex() != 0 && gruppi != null) {
 			gruppiView.setGruppo("Cancella");
-			if (Controllore.invocaComando(new CommandDeleteGruppo(gruppiView.getModelGruppi()))) {
+			if (ControlloreSpese.invocaComando(new CommandDeleteGruppo(gruppiView.getModelGruppi()))) {
 				comboGruppi.removeItem(gruppi);
 				gruppiView.dispose();
 			}

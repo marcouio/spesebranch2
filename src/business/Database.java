@@ -589,7 +589,7 @@ public class Database {
 			}
 		} catch (final SQLException e) {
 			e.printStackTrace();
-			Controllore.getLog().severe(
+			ControlloreSpese.getLog().severe(
 					"Errore nel caricamento dal database dei nomi delle colonne di " + tabella + ": " + e.getMessage());
 		}
 		DBUtil.closeConnection();

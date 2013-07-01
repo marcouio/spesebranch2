@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 
 public abstract class FiltraDialog extends JDialog {
 
@@ -55,7 +55,7 @@ public abstract class FiltraDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public FiltraDialog() {
-		setTitle(Controllore.getSingleton().getMessaggio("filtertrans"));
+		setTitle(ControlloreSpese.getSingleton().getMessaggio("filtertrans"));
 		setBounds(100, 100, 663, 148);
 		getContentPane().setLayout(null);
 		{
@@ -79,8 +79,8 @@ public abstract class FiltraDialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				ButtonBase cancelButton = new ButtonBase(Controllore.getSingleton().getMessaggio("cancel"), this);
-				cancelButton.setActionCommand(Controllore.getSingleton().getMessaggio("cancel"));
+				ButtonBase cancelButton = new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("cancel"), this);
+				cancelButton.setActionCommand(ControlloreSpese.getSingleton().getMessaggio("cancel"));
 				buttonPane.add(cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
 
@@ -98,12 +98,12 @@ public abstract class FiltraDialog extends JDialog {
 			getContentPane().add(tfDa);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("from")+":");
+			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("from")+":");
 			label.setBounds(17, 28, 43, 15);
 			getContentPane().add(label);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("to")+":");
+			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("to")+":");
 			label.setBounds(18, 59, 43, 15);
 			getContentPane().add(label);
 		}
@@ -120,12 +120,12 @@ public abstract class FiltraDialog extends JDialog {
 			getContentPane().add(tfNome);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("name")+":");
+			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("name")+":");
 			label.setBounds(163, 26, 55, 15);
 			getContentPane().add(label);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("eur")+":");
+			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("eur")+":");
 			label.setBounds(307, 27, 55, 15);
 			getContentPane().add(label);
 		}
@@ -136,7 +136,7 @@ public abstract class FiltraDialog extends JDialog {
 			getContentPane().add(tfEuro);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("category")+":");
+			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("category")+":");
 			label.setBounds(443, 27, 82, 15);
 			getContentPane().add(label);
 		}

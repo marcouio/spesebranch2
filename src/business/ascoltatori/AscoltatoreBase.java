@@ -4,14 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import aggiornatori.IAggiornatore;
-import business.Controllore;
+import business.ControlloreSpese;
 
 public abstract class AscoltatoreBase implements ActionListener {
 
 	protected IAggiornatore aggiornatore;
 
 	public AscoltatoreBase(final String cosaAggiornare) {
-		aggiornatore = Controllore.getSingleton().getAggiornatoreManager().creaAggiornatore(cosaAggiornare);
+		aggiornatore = ControlloreSpese.getSingleton().getAggiornatoreManager().creaAggiornatore(cosaAggiornare);
 	}
 
 	public AscoltatoreBase(final IAggiornatore aggiornatore) {

@@ -26,7 +26,7 @@ import view.font.TextFieldF;
 import view.impostazioni.ascoltatori.AscoltatoreLanguage;
 import view.impostazioni.ascoltatori.AscoltatoreLook;
 import xml.CoreXMLManager;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.DBUtil;
 import business.aggiornatori.AggiornatoreManager;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
@@ -90,7 +90,7 @@ public class Impostazioni extends JDialog {
 			getContentPane().add(calendario);
 
 			utente = new TextFieldF();
-			Utenti utenteLogin = (Utenti) Controllore.getSingleton().getUtenteLogin();
+			Utenti utenteLogin = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 			utente.setText(utenteLogin.getUsername());
 			utente.setBounds(140, 126, 113, 27);
 			getContentPane().add(utente);

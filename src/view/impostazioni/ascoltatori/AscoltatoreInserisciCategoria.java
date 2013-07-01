@@ -5,7 +5,7 @@ import grafica.componenti.alert.Alert;
 import java.awt.event.ActionEvent;
 
 import view.impostazioni.CategorieView;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.ascoltatori.AscoltatoreAggiornatoreTutto;
 import business.cache.CacheCategorie;
 import business.comandi.categorie.CommandInserisciCategoria;
@@ -26,7 +26,7 @@ public class AscoltatoreInserisciCategoria extends AscoltatoreAggiornatoreTutto 
 		categorieView.aggiornaModelDaVista("Inserisci");
 		if (categorieView.nonEsistonoCampiNonValorizzati()) {
 
-			if (Controllore.invocaComando(new CommandInserisciCategoria(categorieView.getModelCatSpese()))) {
+			if (ControlloreSpese.invocaComando(new CommandInserisciCategoria(categorieView.getModelCatSpese()))) {
 				categoria1 = CacheCategorie.getSingleton().getCatSpese(Integer.toString(categorieView.getModelCatSpese().getIdCategoria()));
 				if (categoria1 != null) {
 					categorieView.getComboCategorie().addItem(categoria1);

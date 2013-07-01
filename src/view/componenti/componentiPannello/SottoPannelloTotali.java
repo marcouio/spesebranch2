@@ -9,7 +9,7 @@ import javax.swing.WindowConstants;
 import view.font.LabelTestoPiccolo;
 import view.font.TextFieldF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.Database;
 import domain.wrapper.WrapCatSpese;
 
@@ -51,18 +51,18 @@ public class SottoPannelloTotali {
 
 			jLabel2 = new LabelTestoPiccolo();
 			labels[0] = jLabel2;
-			jLabel2.setText("% " + Controllore.getSingleton().getMessaggio("spesefut"));
+			jLabel2.setText("% " + ControlloreSpese.getSingleton().getMessaggio("spesefut"));
 			jLabel2.setBounds(317, 67, 106, 14);
 			jLabel2.setOpaque(true);
 
 			jLabel3 = new LabelTestoPiccolo();
 			labels[1] = jLabel3;
-			jLabel3.setText("% " + Controllore.getSingleton().getMessaggio("spesevar"));
+			jLabel3.setText("% " + ControlloreSpese.getSingleton().getMessaggio("spesevar"));
 			jLabel3.setBounds(164, 66, 141, 15);
 
 			jLabel4 = new LabelTestoPiccolo();
 			labels[2] = jLabel4;
-			jLabel4.setText(Controllore.getSingleton().getMessaggio("avanzo")+"/"+Controllore.getSingleton().getMessaggio("disavanzo"));
+			jLabel4.setText(ControlloreSpese.getSingleton().getMessaggio("avanzo")+"/"+ControlloreSpese.getSingleton().getMessaggio("disavanzo"));
 			jLabel4.setBounds(16, 67, 128, 14);
 
 			avanzo = new TextFieldF();

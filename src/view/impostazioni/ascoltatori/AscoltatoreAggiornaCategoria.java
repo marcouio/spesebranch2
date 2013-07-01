@@ -5,7 +5,7 @@ import grafica.componenti.alert.Alert;
 import java.awt.event.ActionEvent;
 
 import view.impostazioni.CategorieView;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.aggiornatori.AggiornatoreManager;
 import business.ascoltatori.AscoltatoreAggiornatoreTutto;
 import business.cache.CacheCategorie;
@@ -32,7 +32,7 @@ public class AscoltatoreAggiornaCategoria extends AscoltatoreAggiornatoreTutto {
 				categorieView.getModelCatSpese().setIdCategoria(categorieView.getCategoria().getIdCategoria());
 			}
 			try {
-				if (Controllore.invocaComando(new CommandUpdateCategoria(oldCategoria, (ICatSpese) categorieView.getModelCatSpese().getEntitaPadre()))) {
+				if (ControlloreSpese.invocaComando(new CommandUpdateCategoria(oldCategoria, (ICatSpese) categorieView.getModelCatSpese().getEntitaPadre()))) {
 					AggiornatoreManager.aggiornaCategorie((CatSpese) categorieView.getModelCatSpese().getEntitaPadre(), categorieView.getComboCategorie());
 					categorieView.getModelCatSpese().setChanged();
 					categorieView.getModelCatSpese().notifyObservers();

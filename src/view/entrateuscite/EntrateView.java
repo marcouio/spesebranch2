@@ -17,7 +17,7 @@ import view.font.LabelListaGruppi;
 import view.font.TextAreaF;
 import view.font.TextFieldF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.CorreggiTesto;
 import business.DBUtil;
 import business.ascoltatori.AscoltatoreAggiornatoreEntrate;
@@ -32,8 +32,8 @@ public class EntrateView extends AbstractEntrateView {
 
 	static private ArrayList<String> lista = new ArrayList<String>();
 	static{
-		lista.add(Controllore.getSingleton().getMessaggio("variables"));
-		lista.add(Controllore.getSingleton().getMessaggio("fixity"));
+		lista.add(ControlloreSpese.getSingleton().getMessaggio("variables"));
+		lista.add(ControlloreSpese.getSingleton().getMessaggio("fixity"));
 	}
 
 	private final TextFieldF         tfNome;
@@ -61,13 +61,13 @@ public class EntrateView extends AbstractEntrateView {
 		super(entrate);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModalityType(ModalityType.APPLICATION_MODAL);
-		setTitle(Controllore.getSingleton().getMessaggio("insertentry"));
+		setTitle(ControlloreSpese.getSingleton().getMessaggio("insertentry"));
 		modelEntrate.addObserver(this);
 		getContentPane().setLayout(null);
 
 		initLabel();
 
-		taDescrizione = new TextAreaF(Controllore.getSingleton().getMessaggio("insertheredescrentry"));
+		taDescrizione = new TextAreaF(ControlloreSpese.getSingleton().getMessaggio("insertheredescrentry"));
 		taDescrizione.setBounds(13, 89, 318, 75);
 		getContentPane().add(taDescrizione);
 
@@ -105,12 +105,12 @@ public class EntrateView extends AbstractEntrateView {
 		getContentPane().add(tfEuro);
 
 		final ButtonBase inserisci = new ButtonBase(this);
-		inserisci.setText(Controllore.getSingleton().getMessaggio("insert"));
+		inserisci.setText(ControlloreSpese.getSingleton().getMessaggio("insert"));
 		inserisci.setBounds(13, 238, 149, 27);
 		getContentPane().add(inserisci);
 
 		final ButtonBase eliminaUltima = new ButtonBase(this);
-		eliminaUltima.setText(Controllore.getSingleton().getMessaggio("deletelast"));
+		eliminaUltima.setText(ControlloreSpese.getSingleton().getMessaggio("deletelast"));
 		eliminaUltima.setBounds(184, 238, 144, 27);
 		getContentPane().add(eliminaUltima);
 
@@ -122,8 +122,8 @@ public class EntrateView extends AbstractEntrateView {
 
 				try {
 					aggiornaModelDaVista();
-					if (Controllore.invocaComando(new CommandDeleteEntrata(modelEntrate))) {
-						String msg = Controllore.getSingleton().getMessaggio("okentrata")+" " + modelEntrate.getNome() + " "+ Controllore.getSingleton().getMessaggio("correctlydeleted");
+					if (ControlloreSpese.invocaComando(new CommandDeleteEntrata(modelEntrate))) {
+						String msg = ControlloreSpese.getSingleton().getMessaggio("okentrata")+" " + modelEntrate.getNome() + " "+ ControlloreSpese.getSingleton().getMessaggio("correctlydeleted");
 						Alert.segnalazioneInfo(msg);
 					}
 				} catch (final Exception e2) {
@@ -146,16 +146,16 @@ public class EntrateView extends AbstractEntrateView {
 
 	private void initLabel() {
 		final LabelListaGruppi lblNomeEntrata = new LabelListaGruppi("Nome Entrata");
-		lblNomeEntrata.setText(Controllore.getSingleton().getMessaggio("name"));
+		lblNomeEntrata.setText(ControlloreSpese.getSingleton().getMessaggio("name"));
 		lblNomeEntrata.setBounds(13, 12, 97, 27);
 		getContentPane().add(lblNomeEntrata);
 
-		final LabelListaGruppi lblEuro = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("eur"));
+		final LabelListaGruppi lblEuro = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("eur"));
 		lblEuro.setBounds(184, 165, 77, 27);
 		getContentPane().add(lblEuro);
 
 		final LabelListaGruppi lblCategorie = new LabelListaGruppi("Categorie");
-		lblCategorie.setText(Controllore.getSingleton().getMessaggio("type"));
+		lblCategorie.setText(ControlloreSpese.getSingleton().getMessaggio("type"));
 		lblCategorie.setBounds(181, 12, 77, 27);
 		getContentPane().add(lblCategorie);
 
@@ -164,7 +164,7 @@ public class EntrateView extends AbstractEntrateView {
 		getContentPane().add(lblData);
 
 		final LabelListaGruppi lblDescrizione = new LabelListaGruppi("Descrizione Spesa");
-		lblDescrizione.setText(Controllore.getSingleton().getMessaggio("descr"));
+		lblDescrizione.setText(ControlloreSpese.getSingleton().getMessaggio("descr"));
 		lblDescrizione.setBounds(14, 64, 123, 25);
 		getContentPane().add(lblDescrizione);
 	}
@@ -193,17 +193,17 @@ public class EntrateView extends AbstractEntrateView {
 		if (AltreUtil.checkData(tfData.getText())) {
 			setcData(tfData.getText());
 		} else {
-			final String messaggio = Controllore.getSingleton().getMessaggio("datainformat");
+			final String messaggio = ControlloreSpese.getSingleton().getMessaggio("datainformat");
 			Alert.segnalazioneErroreGrave(messaggio);
 		}
 		if (AltreUtil.checkDouble(tfEuro.getText())) {
 			final Double euro = Double.parseDouble(tfEuro.getText());
 			setdEuro(AltreUtil.arrotondaDecimaliDouble(euro));
 		} else {
-			final String messaggio = Controllore.getSingleton().getMessaggio("valorenotcorrect");
+			final String messaggio = ControlloreSpese.getSingleton().getMessaggio("valorenotcorrect");
 			Alert.segnalazioneErroreGrave(messaggio);
 		}
-		setUtenti((Utenti) Controllore.getSingleton().getUtenteLogin());
+		setUtenti((Utenti) ControlloreSpese.getSingleton().getUtenteLogin());
 		setDataIns(DBUtil.dataToString(new Date(), "yyyy/MM/dd"));
 	}
 

@@ -11,7 +11,7 @@ import view.font.LabelListaGruppi;
 import view.font.LabelTitolo;
 import view.font.TextFieldF;
 import view.impostazioni.Impostazioni;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.aggiornatori.AggiornatoreManager;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import domain.Utenti;
@@ -64,7 +64,7 @@ public class Login extends JDialog {
 				if (utente != null) {
 					final Impostazioni impostazioni = Impostazioni.getSingleton();
 					try {
-						Controllore.setUtenteLogin(utente);
+						ControlloreSpese.setUtenteLogin(utente);
 						impostazioni.getUtente().setText(utente.getUsername());
 						// TODO creare comando per sostituire tutto con nuova
 						// gestione

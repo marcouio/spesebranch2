@@ -5,6 +5,7 @@ import grafica.componenti.table.table.TableBase;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
@@ -26,12 +27,12 @@ import view.tabelleMesi.TabellaUscita;
 import view.tabelleMesi.TabellaUscitaGruppi;
 import aggiornatori.IAggiornatore;
 import business.AltreUtil;
-import business.Controllore;
-import business.DBUtil;
+import business.ControlloreSpese;
 import business.Database;
 import business.cache.CacheCategorie;
 import business.generatori.TableModelEntrate;
 import business.generatori.TableModelUscite;
+import db.ConnectionPool;
 import domain.CatSpese;
 import domain.Gruppi;
 import domain.wrapper.Model;
@@ -97,7 +98,7 @@ public class AggiornatoreManager {
 				SottoPannelloTotali.getPercentoVariabili().setText(Double.toString(Database.percentoUscite(WrapCatSpese.IMPORTANZA_VARIABILE)));
 				SottoPannelloTotali.getAvanzo().setText(Double.toString(AltreUtil.arrotondaDecimaliDouble((Database.EAnnuale()) - (Database.Annuale()))));
 			}
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 			return true;
 		} catch (final Exception e) {
 			e.printStackTrace();
@@ -115,8 +116,8 @@ public class AggiornatoreManager {
 	 */
 	public static boolean aggiornaMovimentiUsciteDaFiltro(final String[] nomiColonne, final String[][] movimenti) {
 		try {
-			TableBase table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getTable();
-			final JScrollPane scrollPane = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getScrollPane();
+			TableBase table1 = ControlloreSpese.getPannello().getTabMovimenti().getTabMovUscite().getTable();
+			final JScrollPane scrollPane = ControlloreSpese.getPannello().getTabMovimenti().getTabMovUscite().getScrollPane();
 			table1 = new TableBase(movimenti, nomiColonne,scrollPane);
 			scrollPane.setViewportView(table1);
 			table1.addMouseListener(new AscoltatoreBottoniUscita(table1));
@@ -139,8 +140,8 @@ public class AggiornatoreManager {
 	public static boolean aggiornaMovimentiUsciteDaEsterno(final String[] nomiColonne, final int numUscite) {
 		try {
 			final String[][] movimenti = Model.getSingleton().movimentiUscite(numUscite, WrapSingleSpesa.NOME_TABELLA);
-			TableBase table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getTable();
-			final JScrollPane scrollPane = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getScrollPane();
+			TableBase table1 = ControlloreSpese.getPannello().getTabMovimenti().getTabMovUscite().getTable();
+			final JScrollPane scrollPane = ControlloreSpese.getPannello().getTabMovimenti().getTabMovUscite().getScrollPane();
 			table1 = new TableBase(movimenti, nomiColonne, scrollPane);
 			scrollPane.setViewportView(table1);
 			table1.addMouseListener(new AscoltatoreBottoniUscita(table1));
@@ -161,8 +162,8 @@ public class AggiornatoreManager {
 	 */
 	public static boolean aggiornaMovimentiEntrateDaFiltro(final String[] nomiColonne, final String[][] movimenti) {
 		try {
-			TableBase table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getTable();
-			final JScrollPane scrollPane = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getScrollPane();
+			TableBase table1 = ControlloreSpese.getPannello().getTabMovimenti().getTabMovEntrate().getTable();
+			final JScrollPane scrollPane = ControlloreSpese.getPannello().getTabMovimenti().getTabMovEntrate().getScrollPane();
 			table1 = new TableBase(movimenti, nomiColonne, scrollPane);
 			scrollPane.setViewportView(table1);
 			table1.addMouseListener(new AscoltatoreBottoniEntrata(table1));
@@ -184,9 +185,9 @@ public class AggiornatoreManager {
 	public static boolean aggiornaMovimentiEntrateDaEsterno(final String[] nomiColonne, final int numEntry) {
 		try {
 			final String[][] movimenti = Model.getSingleton().movimentiEntrate(numEntry, WrapEntrate.NOME_TABELLA);
-			if(Controllore.getSingleton().getView()!=null){
-				final JScrollPane scrollPane = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getScrollPane();
-				TableBase table1 = Controllore.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getTable();
+			if(ControlloreSpese.getSingleton().getView()!=null){
+				final JScrollPane scrollPane = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getScrollPane();
+				TableBase table1 = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getTable();
 				table1 = new TableBase(movimenti, nomiColonne,scrollPane);
 				scrollPane.setViewportView(table1);
 				table1.addMouseListener(new AscoltatoreBottoniEntrata(table1));
@@ -232,7 +233,7 @@ public class AggiornatoreManager {
 				SottoPannelloDatiEntrate.getEnAnCorso().setText(Double.toString(Database.EAnnuale()));
 				SottoPannelloDatiEntrate.getEnMeCorso().setText(Double.toString(Database.EMensileInCorso()));
 				SottoPannelloDatiEntrate.getEntrateMesePrec().setText(Double.toString(Database.Emensile()));
-				DBUtil.closeConnection();
+				ConnectionPool.getSingleton().chiudiOggettiDb(null);
 			}
 			return true;
 		} catch (final Exception e) {
@@ -247,7 +248,7 @@ public class AggiornatoreManager {
 				SottoPannelloDatiSpese.getMeseInCors().setText(Double.toString(Database.MensileInCorso()));
 				SottoPannelloDatiSpese.getMesePrecUsc().setText(Double.toString(Database.Mensile()));
 				SottoPannelloDatiSpese.getSpeseAnnuali().setText(Double.toString(Database.Annuale()));
-				DBUtil.closeConnection();
+				ConnectionPool.getSingleton().chiudiOggettiDb(null);
 			}
 			return true;
 		} catch (final Exception e) {
@@ -265,17 +266,21 @@ public class AggiornatoreManager {
 	 * quello eliminato
 	 * 
 	 * @param gruppo
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public static void aggiornaGruppi(final Gruppi gruppo, final CategorieView categoria) {
+	public static void aggiornaGruppi(final Gruppi gruppo, final CategorieView categoria) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		int max = 0;
 		final String sql = "SELECT MAX(" + WrapGruppi.ID + ") FROM " + WrapGruppi.NOME_TABELLA;
 		try {
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 
 			final Statement st = cn.createStatement();
 			final ResultSet rs = st.executeQuery(sql);
 			max = rs.getInt(1);
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
@@ -298,11 +303,11 @@ public class AggiornatoreManager {
 				// perché il parametro mantiene i vecchi settaggi e non si
 				// aggiorna
 				gruppi.insertItemAt(categoriaPresa, i);
-				DBUtil.closeConnection();
+				ConnectionPool.getSingleton().chiudiOggettiDb(null);
 			}
 		}
 
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 
 	}
 
@@ -321,12 +326,12 @@ public class AggiornatoreManager {
 		int max = 0;
 		final String sql = "SELECT MAX(" + WrapCatSpese.ID + ") FROM " + WrapCatSpese.NOME_TABELLA;
 		try {
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 
 			final Statement st = cn.createStatement();
 			final ResultSet rs = st.executeQuery(sql);
 			max = rs.getInt(1);
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
@@ -349,11 +354,8 @@ public class AggiornatoreManager {
 				// perché il parametro mantiene i vecchi settaggi e non si
 				// aggiorna
 				categorie1.insertItemAt(categoriaPresa, i);	
-				DBUtil.closeConnection();
 			}
 		}
-
-		DBUtil.closeConnection();
 	}
 
 	// aggiorno tabella uscite/mese in seguito a variazioni di altre tabelle

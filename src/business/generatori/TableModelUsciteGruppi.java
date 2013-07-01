@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import messaggi.I18NManager;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.Database;
 import business.cache.CacheCategorie;
 import business.cache.CacheGruppi;
@@ -48,7 +48,7 @@ public class TableModelUsciteGruppi extends TableModel{
 	
 	private void aggiungiNomiColonne(){
 		
-		addColumn(Controllore.getSingleton().getMessaggio("months"));
+		addColumn(ControlloreSpese.getSingleton().getMessaggio("months"));
 		for (int i = 0; i < getGruppi().size(); i++) {
 			addColumn(getGruppi().get(i).getNome());
 		}

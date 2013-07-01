@@ -5,7 +5,7 @@ import java.awt.Container;
 import javax.swing.JTabbedPane;
 
 import view.OggettoVistaBase;
-import business.Controllore;
+import business.ControlloreSpese;
 
 public class Movimenti extends OggettoVistaBase {
 
@@ -29,11 +29,11 @@ public class Movimenti extends OggettoVistaBase {
 
 			tabGenerale = new JTabbedPane();
 			tabGenerale.setBounds(65, 65, 800, 500);
-			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("income")+" "+Controllore.getSingleton().getMessaggio("transactions"), tabMovEntrate);
+			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("income")+" "+ControlloreSpese.getSingleton().getMessaggio("transactions"), tabMovEntrate);
 
 			tabMovEntrate.setBounds(20, 10, 700, 500);
 			tabMovUscite = new ListaMovimentiUscite(container);
-			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("withdrawal")+" "+Controllore.getSingleton().getMessaggio("transactions"), tabMovUscite);
+			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("withdrawal")+" "+ControlloreSpese.getSingleton().getMessaggio("transactions"), tabMovUscite);
 			tabMovUscite.setBounds(20, 10, 700, 500);
 
 			this.add(tabGenerale);

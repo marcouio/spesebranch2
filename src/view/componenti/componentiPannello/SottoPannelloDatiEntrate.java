@@ -9,7 +9,7 @@ import javax.swing.WindowConstants;
 import view.font.LabelTestoPiccolo;
 import view.font.TextFieldF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.Database;
 
 public class SottoPannelloDatiEntrate {
@@ -43,15 +43,15 @@ public class SottoPannelloDatiEntrate {
 
 	private void initGUI() {
 		try {
-			JLabel label_1 = new LabelTestoPiccolo(Controllore.getSingleton().getMessaggio("thisyear"));
+			JLabel label_1 = new LabelTestoPiccolo(ControlloreSpese.getSingleton().getMessaggio("thisyear"));
 			label_1.setBounds(164, 66, 141, 14);
 			labels[2] = label_1;
 
-			JLabel label_2 = new LabelTestoPiccolo(Controllore.getSingleton().getMessaggio("lastmonth"));
+			JLabel label_2 = new LabelTestoPiccolo(ControlloreSpese.getSingleton().getMessaggio("lastmonth"));
 			label_2.setBounds(16, 67, 136, 14);
 			labels[1] = label_2;
 
-			JLabel label_3 = new LabelTestoPiccolo(Controllore.getSingleton().getMessaggio("thismonth"));
+			JLabel label_3 = new LabelTestoPiccolo(ControlloreSpese.getSingleton().getMessaggio("thismonth"));
 			label_3.setBounds(317, 67, 113, 14);
 			labels[0] = label_3;
 

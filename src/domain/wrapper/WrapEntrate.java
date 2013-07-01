@@ -11,7 +11,7 @@ import java.util.Vector;
 
 import view.impostazioni.Impostazioni;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.DBUtil;
 
 import command.javabeancommand.AbstractOggettoEntita;
@@ -60,7 +60,7 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 
 	public Vector<Object> selectAllForUtente() {
 		final Vector<Object> entrate = new Vector<Object>();
-		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
+		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		try {
 			final Connection cn = DBUtil.getConnection();
 			final String sql = "SELECT * FROM " + WrapEntrate.NOME_TABELLA + " WHERE " + WrapEntrate.IDUTENTE + " = " + utente.getIdUtente();
@@ -158,7 +158,7 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 	 */
 	public Vector<Entrate> movimentiEntrateFiltrati(final String dataDa, final String dataA, final String nome, final Double euro, final String categoria) {
 		Vector<Entrate> entrate = null;
-		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
+		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		int idUtente = 0;
 		if (utente != null) {
 			idUtente = utente.getIdUtente();
@@ -216,7 +216,7 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 	 */
 	public Vector<Entrate> dieciEntrate(final int numEntry) {
 		Vector<Entrate> entrate = null;
-		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
+		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		int idUtente = 0;
 		if (utente != null) {
 			idUtente = utente.getIdUtente();
@@ -257,7 +257,7 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 		boolean ok = false;
 		try {
 			final Connection cn = DBUtil.getConnection();
-			final String sql = "SELECT * FROM " + WrapEntrate.NOME_TABELLA + " WHERE " + WrapEntrate.IDUTENTE + " = " + ((Utenti) Controllore.getSingleton().getUtenteLogin()).getIdUtente()
+			final String sql = "SELECT * FROM " + WrapEntrate.NOME_TABELLA + " WHERE " + WrapEntrate.IDUTENTE + " = " + ((Utenti) ControlloreSpese.getSingleton().getUtenteLogin()).getIdUtente()
 					+ " ORDER BY " + WrapEntrate.DATAINS + " DESC";
 
 			final Statement st = cn.createStatement();
@@ -273,7 +273,7 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 
 		} catch (final Exception e) {
 			e.printStackTrace();
-			Controllore.getLog().severe("Operazione non riuscita: " + e.getMessage());
+			ControlloreSpese.getLog().severe("Operazione non riuscita: " + e.getMessage());
 		}
 		DBUtil.closeConnection();
 		return ok;

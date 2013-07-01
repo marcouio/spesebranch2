@@ -14,7 +14,7 @@ import java.util.Vector;
 
 import view.impostazioni.Impostazioni;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.DBUtil;
 import business.cache.CacheCategorie;
 
@@ -60,7 +60,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 
 	public Vector<Object> selectAllForUtente() {
 		final Vector<Object> uscite = new Vector<Object>();
-		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
+		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		final Map<String, AbstractOggettoEntita> mappaCategorie = CacheCategorie.getSingleton().getAllCategorie();
 		try {
 			final Connection cn = DBUtil.getConnection();
@@ -166,7 +166,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 	public Vector<SingleSpesa> movimentiUsciteFiltrate(final String dataDa, final String dataA, final String nome, final Double euro, final String catSpese) {
 		Vector<SingleSpesa> sSpesa = null;
 
-		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
+		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		int idUtente = 0;
 		if (utente != null) {
 			idUtente = utente.getIdUtente();
@@ -208,7 +208,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 				sSpesa.add(ss);
 			}
 		} catch (final Exception e) {
-			Controllore.getLog().severe("Operazione non eseguita: " + e.getMessage());
+			ControlloreSpese.getLog().severe("Operazione non eseguita: " + e.getMessage());
 			e.printStackTrace();
 		}
 		DBUtil.closeConnection();
@@ -242,7 +242,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 		boolean ok = false;
 		try {
 			final Connection cn = DBUtil.getConnection();
-			final String sql = "SELECT * FROM " + NOME_TABELLA + " WHERE " + WrapSingleSpesa.IDUTENTE + " = " + ((Utenti) Controllore.getSingleton().getUtenteLogin()).getIdUtente()
+			final String sql = "SELECT * FROM " + NOME_TABELLA + " WHERE " + WrapSingleSpesa.IDUTENTE + " = " + ((Utenti) ControlloreSpese.getSingleton().getUtenteLogin()).getIdUtente()
 			+ " ORDER BY " + DATAINS + " DESC";
 
 			final Statement st = cn.createStatement();
@@ -263,7 +263,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 
 		} catch (final Exception e) {
 			e.printStackTrace();
-			Controllore.getLog().severe("Operazione non eseguita: " + e.getMessage());
+			ControlloreSpese.getLog().severe("Operazione non eseguita: " + e.getMessage());
 		}
 		
 		DBUtil.closeConnection();

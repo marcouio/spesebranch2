@@ -31,7 +31,7 @@ import domain.Utenti;
 import domain.wrapper.WrapLookAndFeel;
 import domain.wrapper.WrapUtenti;
 
-public class Controllore extends ControlloreBase {
+public class ControlloreSpese extends ControlloreBase {
 
 	private static FrameBase view;
 	private static GeneralFrame pannello;
@@ -39,7 +39,7 @@ public class Controllore extends ControlloreBase {
 	private static CommandManager commandManager;
 	private static AggiornatoreManager aggiornatoreManager;
 	private InizializzatoreFinestre initFinestre;
-	private static Controllore singleton;
+	private static ControlloreSpese singleton;
 	public static String lookUsato;
 
 	@Override
@@ -97,7 +97,7 @@ public class Controllore extends ControlloreBase {
 	}
 
 	public static void main(final String[] args) {
-		Controllore.getSingleton().myMain(Controllore.getSingleton(), true, "myApplication");
+		ControlloreSpese.getSingleton().myMain(ControlloreSpese.getSingleton(), true, "myApplication");
 	}
 
 	private static void verificaPresenzaDb() throws Exception {
@@ -112,13 +112,13 @@ public class Controllore extends ControlloreBase {
 				Database.getSingleton().generaDB();
 				Alert.info("Database non presente: è stato rigenerato", "");
 			} catch (final SQLException e1) {
-				Controllore.getLog().severe("Database non creato: " + e.getMessage());
+				ControlloreSpese.getLog().severe("Database non creato: " + e.getMessage());
 			}
 		}
 		ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 	}
 
-	private Controllore() {
+	private ControlloreSpese() {
 	}
 
 	public static GeneralFrame getPannello() {
@@ -133,7 +133,7 @@ public class Controllore extends ControlloreBase {
 	}
 
 	public static boolean invocaComando(final AbstractCommand comando) throws Exception {
-		return Controllore.getSingleton().getCommandManager().invocaComando(comando);
+		return ControlloreSpese.getSingleton().getCommandManager().invocaComando(comando);
 	}
 
 	/**
@@ -155,11 +155,11 @@ public class Controllore extends ControlloreBase {
 		utenteLogin = CacheUtenti.getSingleton().getUtente("1");
 	}
 
-	public static Controllore getSingleton() {
+	public static ControlloreSpese getSingleton() {
 		if (singleton == null) {
-			synchronized (Controllore.class) {
+			synchronized (ControlloreSpese.class) {
 				if (singleton == null) {
-					singleton = new Controllore();
+					singleton = new ControlloreSpese();
 				}
 			} // if
 		} // if
@@ -172,7 +172,7 @@ public class Controllore extends ControlloreBase {
 	}
 
 	public static void setUtenteLogin(final Utenti utenteLogin) {
-		Controllore.utenteLogin = utenteLogin;
+		ControlloreSpese.utenteLogin = utenteLogin;
 	}
 
 	public AggiornatoreManager getAggiornatoreManager() {

@@ -5,7 +5,7 @@ import grafica.componenti.table.TableModel;
 import java.util.HashMap;
 import java.util.Vector;
 
-import business.Controllore;
+import business.ControlloreSpese;
 import business.Database;
 import business.cache.CacheCategorie;
 import domain.CatSpese;
@@ -14,18 +14,18 @@ public class TableModelUscite extends TableModel{
 	public static HashMap<Integer, String> mapMesi = new HashMap<Integer, String>();
 	 
 	static{
-		mapMesi.put(1, Controllore.getSingleton().getMessaggio("january"));
-		mapMesi.put(2, Controllore.getSingleton().getMessaggio("february"));
-		mapMesi.put(3, Controllore.getSingleton().getMessaggio("march"));
-		mapMesi.put(4, Controllore.getSingleton().getMessaggio("april"));
-		mapMesi.put(5, Controllore.getSingleton().getMessaggio("may"));
-		mapMesi.put(6, Controllore.getSingleton().getMessaggio("june"));
-		mapMesi.put(7, Controllore.getSingleton().getMessaggio("july"));
-		mapMesi.put(8, Controllore.getSingleton().getMessaggio("august"));
-		mapMesi.put(9, Controllore.getSingleton().getMessaggio("september"));
-		mapMesi.put(10, Controllore.getSingleton().getMessaggio("october"));
-		mapMesi.put(11, Controllore.getSingleton().getMessaggio("november"));
-		mapMesi.put(12, Controllore.getSingleton().getMessaggio("december"));
+		mapMesi.put(1, ControlloreSpese.getSingleton().getMessaggio("january"));
+		mapMesi.put(2, ControlloreSpese.getSingleton().getMessaggio("february"));
+		mapMesi.put(3, ControlloreSpese.getSingleton().getMessaggio("march"));
+		mapMesi.put(4, ControlloreSpese.getSingleton().getMessaggio("april"));
+		mapMesi.put(5, ControlloreSpese.getSingleton().getMessaggio("may"));
+		mapMesi.put(6, ControlloreSpese.getSingleton().getMessaggio("june"));
+		mapMesi.put(7, ControlloreSpese.getSingleton().getMessaggio("july"));
+		mapMesi.put(8, ControlloreSpese.getSingleton().getMessaggio("august"));
+		mapMesi.put(9, ControlloreSpese.getSingleton().getMessaggio("september"));
+		mapMesi.put(10, ControlloreSpese.getSingleton().getMessaggio("october"));
+		mapMesi.put(11, ControlloreSpese.getSingleton().getMessaggio("november"));
+		mapMesi.put(12, ControlloreSpese.getSingleton().getMessaggio("december"));
 	}
 
 	Vector<CatSpese> categorie;
@@ -53,7 +53,7 @@ public class TableModelUscite extends TableModel{
 	
 	private void aggiungiNomiColonne(){
 		
-		addColumn(Controllore.getSingleton().getMessaggio("months"));
+		addColumn(ControlloreSpese.getSingleton().getMessaggio("months"));
 		for (int i = 0; i < getCategorie().size(); i++) {
 			addColumn(getCategorie().get(i).getNome());
 		}

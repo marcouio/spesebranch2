@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-import business.Controllore;
+import business.ControlloreSpese;
 import business.aggiornatori.AggiornatoreManager;
 import domain.wrapper.WrapEntrate;
 import domain.wrapper.WrapSingleSpesa;
@@ -30,13 +30,13 @@ public class AscoltatoreNumeroMovimenti implements ActionListener {
 			try {
 				AggiornatoreManager.aggiornaMovimentiEntrateDaEsterno(nomiColonne, Integer.parseInt(campo.getText()));
 			} catch (final Exception e1) {
-				Alert.segnalazioneErroreGrave(Controllore.getSingleton().getMessaggio("insertnumber")+": "+e1.getMessage());
+				Alert.segnalazioneErroreGrave(ControlloreSpese.getSingleton().getMessaggio("insertnumber")+": "+e1.getMessage());
 			}
 		} else if (tipo.equals(WrapSingleSpesa.NOME_TABELLA)) {
 			try {
 				AggiornatoreManager.aggiornaMovimentiUsciteDaEsterno(nomiColonne, Integer.parseInt(campo.getText()));
 			} catch (final Exception e1) {
-				Alert.segnalazioneErroreGrave(Controllore.getSingleton().getMessaggio("insertnumber")+": "+e1.getMessage());
+				Alert.segnalazioneErroreGrave(ControlloreSpese.getSingleton().getMessaggio("insertnumber")+": "+e1.getMessage());
 			}
 		}
 	}

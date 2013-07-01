@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JTabbedPane;
 
 import view.OggettoVistaBase;
-import business.Controllore;
+import business.ControlloreSpese;
 
 public class PerMesiF extends OggettoVistaBase {
 
@@ -34,9 +34,9 @@ public class PerMesiF extends OggettoVistaBase {
 
 			tabGenerale = new JTabbedPane();
 			tabGenerale.setBounds(12, 65, 930, 488);
-			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("income"), tabEntrate);
-			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("withdrawal"), tabUscite);
-			tabGenerale.addTab(Controllore.getSingleton().getMessaggio("groupscharge"), tabUG);
+			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("income"), tabEntrate);
+			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("withdrawal"), tabUscite);
+			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("groupscharge"), tabUG);
 
 			TabellaUscita.getScrollPane().setSize(950, 350);
 			TabellaEntrata.getScrollPane().setSize(950, 350);

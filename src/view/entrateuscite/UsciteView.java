@@ -17,7 +17,7 @@ import view.font.LabelListaGruppi;
 import view.font.TextAreaF;
 import view.font.TextFieldF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.CorreggiTesto;
 import business.DBUtil;
 import business.ascoltatori.AscoltatoreAggiornatoreUscite;
@@ -53,7 +53,7 @@ public class UsciteView extends AbstractUsciteView {
 	 */
 	public UsciteView(final WrapSingleSpesa spesa) {
 		super(spesa);
-		setTitle(Controllore.getSingleton().getMessaggio("insertcharge"));
+		setTitle(ControlloreSpese.getSingleton().getMessaggio("insertcharge"));
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		modelUscita.addObserver(this);
@@ -62,7 +62,7 @@ public class UsciteView extends AbstractUsciteView {
 		initLabel();
 
 		taDescrizione = new TextAreaF();
-		taDescrizione.setText(Controllore.getSingleton().getMessaggio("insertheredescr"));
+		taDescrizione.setText(ControlloreSpese.getSingleton().getMessaggio("insertheredescr"));
 		taDescrizione.setBounds(13, 87, 318, 75);
 		taDescrizione.setLineWrap(true);
 		taDescrizione.setWrapStyleWord(true);
@@ -70,7 +70,7 @@ public class UsciteView extends AbstractUsciteView {
 		getContentPane().add(taDescrizione);
 
 		final TextAreaF descCateg = new TextAreaF();
-		descCateg.setText(Controllore.getSingleton().getMessaggio("heredesc"));
+		descCateg.setText(ControlloreSpese.getSingleton().getMessaggio("heredesc"));
 		descCateg.setBounds(13, 242, 318, 75);
 		descCateg.setLineWrap(true);
 		descCateg.setWrapStyleWord(true);
@@ -125,7 +125,7 @@ public class UsciteView extends AbstractUsciteView {
 			protected void actionPerformedOverride(final ActionEvent e) throws Exception {
 				super.actionPerformedOverride(e);
 				try {
-					Controllore.invocaComando(new CommandDeleteSpesa(modelUscita));
+					ControlloreSpese.invocaComando(new CommandDeleteSpesa(modelUscita));
 					// TODO verificare se necessario ripristinare l'update
 					// update(modelUscita, null);
 				} catch (final Exception e1) {
@@ -153,27 +153,27 @@ public class UsciteView extends AbstractUsciteView {
 	}
 
 	private void initLabel() {
-		final LabelListaGruppi lblNomeSpesa = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("name"));
+		final LabelListaGruppi lblNomeSpesa = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("name"));
 		lblNomeSpesa.setBounds(13, 12, 118, 27);
 		getContentPane().add(lblNomeSpesa);
 
-		final LabelListaGruppi lblEuro = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("eur"));
+		final LabelListaGruppi lblEuro = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("eur"));
 		lblEuro.setBounds(184, 163, 77, 27);
 		getContentPane().add(lblEuro);
 
-		final LabelListaGruppi lblCategorie = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("categories"));
+		final LabelListaGruppi lblCategorie = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("categories"));
 		lblCategorie.setBounds(181, 12, 125, 27);
 		getContentPane().add(lblCategorie);
 
-		final LabelListaGruppi lblData = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("date"));
+		final LabelListaGruppi lblData = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("date"));
 		lblData.setBounds(13, 163, 77, 27);
 		getContentPane().add(lblData);
 
-		final LabelListaGruppi lblDescrizione = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("descr"));
+		final LabelListaGruppi lblDescrizione = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("descr"));
 		lblDescrizione.setBounds(14, 62, 212, 25);
 		getContentPane().add(lblDescrizione);
 
-		final LabelListaGruppi lblDescrizione_1 = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("descr")+" "+Controllore.getSingleton().getMessaggio("category"));
+		final LabelListaGruppi lblDescrizione_1 = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("descr")+" "+ControlloreSpese.getSingleton().getMessaggio("category"));
 		lblDescrizione_1.setBounds(13, 216, 232, 27);
 		getContentPane().add(lblDescrizione_1);
 	}
@@ -194,17 +194,17 @@ public class UsciteView extends AbstractUsciteView {
 		if (AltreUtil.checkData(tfData.getText())) {
 			setcData(tfData.getText());
 		} else {
-			final String messaggio = Controllore.getSingleton().getMessaggio("datainformat");
+			final String messaggio = ControlloreSpese.getSingleton().getMessaggio("datainformat");
 			Alert.segnalazioneErroreGrave(messaggio);
 		}
 		if (AltreUtil.checkDouble(tfEuro.getText())) {
 			final Double euro = Double.parseDouble(tfEuro.getText());
 			setdEuro(AltreUtil.arrotondaDecimaliDouble(euro));
 		} else {
-			final String messaggio = Controllore.getSingleton().getMessaggio("valorenotcorrect");
+			final String messaggio = ControlloreSpese.getSingleton().getMessaggio("valorenotcorrect");
 			Alert.segnalazioneErroreGrave(messaggio);
 		}
-		setUtenti((Utenti) Controllore.getSingleton().getUtenteLogin());
+		setUtenti((Utenti) ControlloreSpese.getSingleton().getUtenteLogin());
 		setDataIns(DBUtil.dataToString(new Date(), "yyyy/MM/dd"));
 	}
 

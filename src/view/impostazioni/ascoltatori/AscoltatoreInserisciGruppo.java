@@ -5,7 +5,7 @@ import grafica.componenti.alert.Alert;
 import java.awt.event.ActionEvent;
 
 import view.impostazioni.GruppiView;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.ascoltatori.AscoltatoreAggiornatoreTutto;
 import business.cache.CacheGruppi;
 import business.comandi.gruppi.CommandInserisciGruppo;
@@ -31,7 +31,7 @@ public class AscoltatoreInserisciGruppo extends AscoltatoreAggiornatoreTutto {
 
 		if (gruppiView.nonEsistonoCampiNonValorizzati()) {
 
-			if (Controllore.invocaComando(new CommandInserisciGruppo(modelGruppi))) {
+			if (ControlloreSpese.invocaComando(new CommandInserisciGruppo(modelGruppi))) {
 				gruppo1 = CacheGruppi.getSingleton().getGruppo(Integer.toString(modelGruppi.getIdGruppo()));
 				if (gruppo1 != null) {
 					gruppiView.getComboGruppi().addItem(gruppo1);

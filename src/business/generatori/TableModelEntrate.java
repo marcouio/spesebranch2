@@ -4,7 +4,7 @@ import grafica.componenti.table.TableModel;
 
 import java.util.HashMap;
 
-import business.Controllore;
+import business.ControlloreSpese;
 import business.Database;
 
 public class TableModelEntrate extends TableModel{
@@ -26,7 +26,7 @@ public class TableModelEntrate extends TableModel{
 	}
 
 	private static String getMessaggio(String msg) {
-		return Controllore.getSingleton().getMessaggio(msg);
+		return ControlloreSpese.getSingleton().getMessaggio(msg);
 	}
 
 	String[] listaColonne;
@@ -53,7 +53,7 @@ public class TableModelEntrate extends TableModel{
 
 	private Riga aggiungiNomiColonne(){
 
-		String mesi = Controllore.getSingleton().getMessaggio("months");
+		String mesi = ControlloreSpese.getSingleton().getMessaggio("months");
 		addColumn(mesi);
 		for (int i = 0; i < getListaColonne().length; i++) {
 			addColumn(getListaColonne()[i]);
@@ -63,8 +63,8 @@ public class TableModelEntrate extends TableModel{
 
 	public String[] getListaColonne() {
 		if(listaColonne == null){
-			String fisse = Controllore.getSingleton().getMessaggio("fixity");
-			String variabili = Controllore.getSingleton().getMessaggio("variables");
+			String fisse = ControlloreSpese.getSingleton().getMessaggio("fixity");
+			String variabili = ControlloreSpese.getSingleton().getMessaggio("variables");
 			listaColonne = new String[]{fisse, variabili};
 		}
 		return listaColonne;

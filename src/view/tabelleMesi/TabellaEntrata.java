@@ -9,7 +9,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 
 import view.OggettoVistaBase;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.generatori.TableModelEntrate;
 
 public class TabellaEntrata extends OggettoVistaBase {
@@ -17,7 +17,7 @@ public class TabellaEntrata extends OggettoVistaBase {
 	private static final long serialVersionUID = 1L;
 
 	private static String[][] primo;
-	private static String[] nomiColonne = { Controllore.getSingleton().getMessaggio("fixity"), Controllore.getSingleton().getMessaggio("variables") };
+	private static String[] nomiColonne = { ControlloreSpese.getSingleton().getMessaggio("fixity"), ControlloreSpese.getSingleton().getMessaggio("variables") };
 
 	public static String[] getNomiColonne() {
 		return nomiColonne;

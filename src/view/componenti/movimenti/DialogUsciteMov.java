@@ -19,7 +19,7 @@ import view.entrateuscite.AbstractUsciteView;
 import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.aggiornatori.AggiornatoreManager;
 import business.cache.CacheUscite;
 import business.comandi.singlespese.CommandDeleteSpesa;
@@ -34,13 +34,13 @@ import domain.wrapper.WrapSingleSpesa;
 public class DialogUsciteMov extends AbstractUsciteView {
 
 	private static final long serialVersionUID = 1L;
-	private final JLabel labelEuro = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("eur"));
-	private final JLabel labelData = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("date"));
-	private final JLabel labelCategoria = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("category"));
-	private final JLabel labelDescrizione = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("descr"));
-	private final JLabel labelNome = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("name"));
-	private final JLabel labelDataIns = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("insertdate"));
-	private final JLabel labelIdSpesa = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("key"));
+	private final JLabel labelEuro = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("eur"));
+	private final JLabel labelData = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("date"));
+	private final JLabel labelCategoria = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("category"));
+	private final JLabel labelDescrizione = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("descr"));
+	private final JLabel labelNome = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("name"));
+	private final JLabel labelDataIns = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("insertdate"));
+	private final JLabel labelIdSpesa = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("key"));
 
 	private JTextField tfEuro = new TextFieldF();
 	private JTextField tfData = new TextFieldF();
@@ -49,8 +49,8 @@ public class DialogUsciteMov extends AbstractUsciteView {
 	private JTextField tfNome = new TextFieldF();
 	private final JTextField tfDataIns = new TextFieldF();
 	private JTextField idSpesa = new TextFieldF();
-	private final JButton update = new ButtonBase(Controllore.getSingleton().getMessaggio("update"), this);
-	private final JButton delete = new ButtonBase(Controllore.getSingleton().getMessaggio("delete"), this);
+	private final JButton update = new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("update"), this);
+	private final JButton delete = new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("delete"), this);
 
 	/**
 	 * Auto-generated main method to display this JDialog
@@ -121,7 +121,7 @@ public class DialogUsciteMov extends AbstractUsciteView {
 		if (AltreUtil.checkInteger(idSpesa.getText())) {
 			getModelUscita().setIdSpesa(idSpesa.getText() != "" ? Integer.parseInt(idSpesa.getText()) : 0);
 		} else {
-			final String messaggio = Controllore.getSingleton().getMessaggio("idintero");
+			final String messaggio = ControlloreSpese.getSingleton().getMessaggio("idintero");
 			Alert.segnalazioneErroreGrave(messaggio);
 		}
 		setcNome(tfNome.getText());
@@ -130,17 +130,17 @@ public class DialogUsciteMov extends AbstractUsciteView {
 		if (AltreUtil.checkData(tfData.getText())) {
 			setcData(tfData.getText());
 		} else {
-			final String messaggio = Controllore.getSingleton().getMessaggio("datainformat");
+			final String messaggio = ControlloreSpese.getSingleton().getMessaggio("datainformat");
 			Alert.errore(messaggio, Alert.TITLE_ERROR);
 		}
 		if (AltreUtil.checkDouble(tfEuro.getText())) {
 			final Double euro = Double.parseDouble(tfEuro.getText());
 			setdEuro(AltreUtil.arrotondaDecimaliDouble(euro));
 		} else {
-			final String messaggio = Controllore.getSingleton().getMessaggio("valorenotcorrect");
+			final String messaggio = ControlloreSpese.getSingleton().getMessaggio("valorenotcorrect");
 			Alert.errore(messaggio, Alert.TITLE_ERROR);
 		}
-		setUtenti((Utenti) Controllore.getSingleton().getUtenteLogin());
+		setUtenti((Utenti) ControlloreSpese.getSingleton().getUtenteLogin());
 		setDataIns(tfDataIns.getText());
 	}
 
@@ -211,7 +211,7 @@ public class DialogUsciteMov extends AbstractUsciteView {
 
 		@Override
 		public void actionPerformed(final ActionEvent e) {
-			if (e.getActionCommand().equals(Controllore.getSingleton().getMessaggio("update"))) {
+			if (e.getActionCommand().equals(ControlloreSpese.getSingleton().getMessaggio("update"))) {
 				aggiornaModelDaVista();
 				String[] nomiColonne = null;
 				try {
@@ -219,12 +219,12 @@ public class DialogUsciteMov extends AbstractUsciteView {
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
-				final JTextField campo = ((GeneralFrame) Controllore.getSingleton().getView().getContentPane()).getTabMovimenti().getTabMovUscite().getCampo();
+				final JTextField campo = ((GeneralFrame) ControlloreSpese.getSingleton().getView().getContentPane()).getTabMovimenti().getTabMovUscite().getCampo();
 				final SingleSpesa oldSpesa = CacheUscite.getSingleton().getSingleSpesa(idSpesa.getText());
 
 				if (dialog.nonEsistonoCampiNonValorizzati()) {
 					try {
-						if (!Controllore.invocaComando(new CommandUpdateSpesa(oldSpesa, (ISingleSpesa) modelUscita.getEntitaPadre()))) {
+						if (!ControlloreSpese.invocaComando(new CommandUpdateSpesa(oldSpesa, (ISingleSpesa) modelUscita.getEntitaPadre()))) {
 							Alert.segnalazioneErroreGrave("Spesa " + oldSpesa.getNome() + " non aggiornata");
 						}
 					} catch (Exception e1) {
@@ -235,15 +235,15 @@ public class DialogUsciteMov extends AbstractUsciteView {
 					// chiude la dialog e rilascia le risorse
 					dispose();
 				} else {
-					final String msg = Controllore.getSingleton().getMessaggio("charge")+ oldSpesa.getNome() + " non aggiornata: tutti i dati devono essere valorizzati";
+					final String msg = ControlloreSpese.getSingleton().getMessaggio("charge")+ oldSpesa.getNome() + " non aggiornata: tutti i dati devono essere valorizzati";
 					Alert.segnalazioneErroreGrave(msg);
 				}
 
 			} else if (e.getActionCommand().equals("Cancella")) {
 				aggiornaModelDaVista();
 				try {
-					if (!Controllore.invocaComando(new CommandDeleteSpesa(modelUscita))) {
-						final String msg = Controllore.getSingleton().getMessaggio("charge")+ modelUscita.getNome() + " non aggiornata: tutti i dati devono essere valorizzati";
+					if (!ControlloreSpese.invocaComando(new CommandDeleteSpesa(modelUscita))) {
+						final String msg = ControlloreSpese.getSingleton().getMessaggio("charge")+ modelUscita.getNome() + " non aggiornata: tutti i dati devono essere valorizzati";
 						Alert.segnalazioneErroreGrave(msg);
 					}
 				} catch (Exception e1) {

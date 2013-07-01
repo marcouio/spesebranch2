@@ -24,7 +24,7 @@ import javax.swing.JTextArea;
 import view.font.LabelTitolo;
 import view.font.TextAreaF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.DBUtil;
 import business.Database;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
@@ -60,7 +60,7 @@ public class NewSql extends OggettoVistaBase {
 			areaSql = new TextAreaF();
 			areaSql.setBounds(1, 1, 727, 71);
 			this.add(areaSql);
-			areaSql.setText(Controllore.getSingleton().getMessaggio("inssql"));
+			areaSql.setText(ControlloreSpese.getSingleton().getMessaggio("inssql"));
 			areaSql.setWrapStyleWord(true);
 			jsp = new JScrollPane(areaSql);
 			jsp.setBounds(134, 54, 715, 74);
@@ -69,12 +69,12 @@ public class NewSql extends OggettoVistaBase {
 			bottoneSvuota = new ButtonBase(this);
 			bottoneSvuota.setBounds(37, 94, 75, 34);
 			this.add(bottoneSvuota);
-			bottoneSvuota.setText(Controllore.getSingleton().getMessaggio("svuota"));
+			bottoneSvuota.setText(ControlloreSpese.getSingleton().getMessaggio("svuota"));
 
 			bottone = new ButtonBase(this);
 			bottone.setBounds(37, 54, 75, 34);
 			this.add(bottone);
-			bottone.setText(Controllore.getSingleton().getMessaggio("esegui"));
+			bottone.setText(ControlloreSpese.getSingleton().getMessaggio("esegui"));
 
 			result = new TextAreaF();
 			result.setBounds(1, 245, 847, 103);
@@ -86,7 +86,7 @@ public class NewSql extends OggettoVistaBase {
 			labelResult.setBounds(420, 135, 70, 21);
 			labelResult.setFont(new Font("Eras Light ITC", Font.PLAIN, 14));
 			this.add(labelResult);
-			labelResult.setText(Controllore.getSingleton().getMessaggio("result"));
+			labelResult.setText(ControlloreSpese.getSingleton().getMessaggio("result"));
 
 			final ButtonBase ButtonBase = new ButtonBase(this);
 			ButtonBase.setBackground(Color.WHITE);
@@ -100,14 +100,14 @@ public class NewSql extends OggettoVistaBase {
 				protected void actionPerformedOverride(final ActionEvent e) throws Exception {
 					super.actionPerformedOverride(e);
 					final StringBuffer sb = new StringBuffer();
-					sb.append(Controllore.getSingleton().getMessaggio("tables")+": \n");
+					sb.append(ControlloreSpese.getSingleton().getMessaggio("tables")+": \n");
 					sb.append(WrapEntrate.NOME_TABELLA + ", " + WrapSingleSpesa.NOME_TABELLA + ", ");
 					sb.append(WrapCatSpese.NOME_TABELLA + ", " + WrapUtenti.NOME_TABELLA + ", " + WrapGruppi.NOME_TABELLA);
 					sb.append(", " + WrapNote.NOME_TABELLA);
 					sb.append("\n\n");
-					sb.append(Controllore.getSingleton().getMessaggio("infoconsolle"));
+					sb.append(ControlloreSpese.getSingleton().getMessaggio("infoconsolle"));
 					sb.append("\n\n");
-					sb.append(Controllore.getSingleton().getMessaggio("otherinfosql"));
+					sb.append(ControlloreSpese.getSingleton().getMessaggio("otherinfosql"));
 					final JDialog d = new JDialog();
 					d.setLayout(new BorderLayout());
 					d.setSize(400, 180);
@@ -126,7 +126,7 @@ public class NewSql extends OggettoVistaBase {
 					d.add(lt, BorderLayout.NORTH);
 					final ButtonBase b = new ButtonBase(d);
 					d.add(b, BorderLayout.CENTER);
-					b.setText(Controllore.getSingleton().getMessaggio("close"));
+					b.setText(ControlloreSpese.getSingleton().getMessaggio("close"));
 					b.setBounds(0, 150, d.getWidth(), 30);
 					b.addActionListener(new ActionListener() {
 

@@ -18,7 +18,7 @@ import view.entrateuscite.AbstractEntrateView;
 import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.aggiornatori.AggiornatoreManager;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import business.cache.CacheEntrate;
@@ -33,13 +33,13 @@ import domain.wrapper.WrapEntrate;
 public class DialogEntrateMov extends AbstractEntrateView {
 
 	private static final long serialVersionUID = 1L;
-	private final JLabel labelEuro = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("eur"));
-	private final JLabel labelData = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("date"));
-	private final JLabel labelTipoEntrate = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("incometype"));
-	private final JLabel labelDescrizione = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("descr"));
-	private final JLabel labelNome = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("name"));
-	private final JLabel labelDataIns = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("insertdate"));
-	private final JLabel labelIdEntrate = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("key"));
+	private final JLabel labelEuro = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("eur"));
+	private final JLabel labelData = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("date"));
+	private final JLabel labelTipoEntrate = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("incometype"));
+	private final JLabel labelDescrizione = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("descr"));
+	private final JLabel labelNome = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("name"));
+	private final JLabel labelDataIns = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("insertdate"));
+	private final JLabel labelIdEntrate = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("key"));
 
 	private JTextField tfEuro = new TextFieldF();
 	private JTextField tfDataIns = new TextFieldF();
@@ -48,8 +48,8 @@ public class DialogEntrateMov extends AbstractEntrateView {
 	private JTextField taDescrizione = new TextFieldF();
 	private JTextField tfNome = new TextFieldF();
 	private JTextField idEntrate = new TextFieldF();
-	private final JButton update = new ButtonBase(Controllore.getSingleton().getMessaggio("update"), this);
-	private final JButton delete = new ButtonBase(Controllore.getSingleton().getMessaggio("delete"),this);
+	private final JButton update = new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("update"), this);
+	private final JButton delete = new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("delete"),this);
 
 	/**
 	 * Auto-generated main method to display this JDialog
@@ -178,17 +178,17 @@ public class DialogEntrateMov extends AbstractEntrateView {
 		if (AltreUtil.checkData(tfData.getText())) {
 			setcData(tfData.getText());
 		} else {
-			final String messaggio = Controllore.getSingleton().getMessaggio("datainformat") ;
+			final String messaggio = ControlloreSpese.getSingleton().getMessaggio("datainformat") ;
 			Alert.segnalazioneErroreGrave(Alert.getMessaggioErrore(messaggio));
 		}
 		if (AltreUtil.checkDouble(tfEuro.getText())) {
 			final Double euro1 = Double.parseDouble(tfEuro.getText());
 			setdEuro(AltreUtil.arrotondaDecimaliDouble(euro1));
 		} else {
-			final String messaggio = Controllore.getSingleton().getMessaggio("valorenotcorrect");
+			final String messaggio = ControlloreSpese.getSingleton().getMessaggio("valorenotcorrect");
 			Alert.segnalazioneErroreGrave(Alert.getMessaggioErrore(messaggio));
 		}
-		setUtenti((Utenti) Controllore.getSingleton().getUtenteLogin());
+		setUtenti((Utenti) ControlloreSpese.getSingleton().getUtenteLogin());
 	}
 
 	protected JTextField getTfDataIns() {
@@ -210,15 +210,15 @@ public class DialogEntrateMov extends AbstractEntrateView {
 		@Override
 		protected void actionPerformedOverride(final ActionEvent e) throws Exception {
 			super.actionPerformedOverride(e);
-			if (e.getActionCommand().equals(Controllore.getSingleton().getMessaggio("update"))) {
+			if (e.getActionCommand().equals(ControlloreSpese.getSingleton().getMessaggio("update"))) {
 				aggiornaModelDaVista();
 				final String[] nomiColonne = (String[]) AltreUtil.generaNomiColonne(WrapEntrate.NOME_TABELLA);
-				final JTextField campo = Controllore.getPannello().getTabMovimenti().getTabMovEntrate().getCampo();
+				final JTextField campo = ControlloreSpese.getPannello().getTabMovimenti().getTabMovEntrate().getCampo();
 
 				final Entrate oldEntrata = CacheEntrate.getSingleton().getEntrate(idEntrate.getText());
 
 				if (nonEsistonoCampiNonValorizzati()) {
-					if (Controllore.invocaComando(new CommandUpdateEntrata(oldEntrata, (IEntrate) modelEntrate.getEntitaPadre()))) {
+					if (ControlloreSpese.invocaComando(new CommandUpdateEntrata(oldEntrata, (IEntrate) modelEntrate.getEntitaPadre()))) {
 						try {
 							AggiornatoreManager.aggiornaMovimentiEntrateDaEsterno(nomiColonne, Integer.parseInt(campo.getText()));
 						} catch (final Exception e22) {
@@ -228,16 +228,16 @@ public class DialogEntrateMov extends AbstractEntrateView {
 						dispose();
 					}
 				} else {
-					Alert.segnalazioneErroreGrave(Controllore.getSingleton().getMessaggio("fillinall"));
+					Alert.segnalazioneErroreGrave(ControlloreSpese.getSingleton().getMessaggio("fillinall"));
 				}
 				dialog.dispose();
-			} else if (e.getActionCommand().equals(Controllore.getSingleton().getMessaggio("delete"))) {
+			} else if (e.getActionCommand().equals(ControlloreSpese.getSingleton().getMessaggio("delete"))) {
 				final String[] nomiColonne = (String[]) AltreUtil.generaNomiColonne(WrapEntrate.NOME_TABELLA);
-				final JTextField campo = Controllore.getPannello().getTabMovimenti().getTabMovEntrate().getCampo();
+				final JTextField campo = ControlloreSpese.getPannello().getTabMovimenti().getTabMovEntrate().getCampo();
 				aggiornaModelDaVista();
 				if (idEntrate.getText() != null) {
-					if (!Controllore.invocaComando(new CommandDeleteEntrata(modelEntrate))) {
-						Alert.segnalazioneErroreGrave(Alert.getMessaggioErrore(Controllore.getSingleton().getMessaggio("insertcorrect")));
+					if (!ControlloreSpese.invocaComando(new CommandDeleteEntrata(modelEntrate))) {
+						Alert.segnalazioneErroreGrave(Alert.getMessaggioErrore(ControlloreSpese.getSingleton().getMessaggio("insertcorrect")));
 					}
 				}
 

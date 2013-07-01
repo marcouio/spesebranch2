@@ -2,7 +2,7 @@ package business.ascoltatoriMenu;
 
 import java.awt.event.ActionEvent;
 
-import business.Controllore;
+import business.ControlloreSpese;
 import business.ascoltatori.AscoltatoreAggiornatoreTutto;
 
 import command.CommandManager;
@@ -12,7 +12,7 @@ public class AscoltatoreAvanti extends AscoltatoreAggiornatoreTutto {
 
 	@Override
 	protected void actionPerformedOverride(final ActionEvent e) throws Exception {
-		final CommandManager managerComandi = Controllore.getSingleton().getCommandManager();
+		final CommandManager managerComandi = ControlloreSpese.getSingleton().getCommandManager();
 		managerComandi.invocaComando(new RedoCommand());
 	}
 }

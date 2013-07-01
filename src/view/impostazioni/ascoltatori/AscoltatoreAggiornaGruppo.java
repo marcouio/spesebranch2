@@ -8,7 +8,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 
 import view.impostazioni.GruppiView;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.aggiornatori.AggiornatoreManager;
 import business.ascoltatori.AscoltatoreAggiornatoreTutto;
 import business.cache.CacheCategorie;
@@ -39,7 +39,7 @@ public class AscoltatoreAggiornaGruppo extends AscoltatoreAggiornatoreTutto {
 			modelGruppi.setIdGruppo(gruppi.getIdGruppo());
 
 			try {
-				if (Controllore.invocaComando(new CommandUpdateGruppo(oldGruppo, (IGruppi) modelGruppi.getEntitaPadre()))) {
+				if (ControlloreSpese.invocaComando(new CommandUpdateGruppo(oldGruppo, (IGruppi) modelGruppi.getEntitaPadre()))) {
 
 					final Vector<Gruppi> vectorGruppi = CacheGruppi.getSingleton().getVettoreCategoriePerCombo(CacheGruppi.getSingleton().getAllGruppi());
 					final DefaultComboBoxModel model = new DefaultComboBoxModel(vectorGruppi);

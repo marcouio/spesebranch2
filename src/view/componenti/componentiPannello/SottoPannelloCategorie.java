@@ -14,7 +14,7 @@ import javax.swing.WindowConstants;
 
 import view.font.LabelTestoPiccolo;
 import view.font.TextFieldF;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.Database;
 import business.cache.CacheCategorie;
 import domain.CatSpese;
@@ -58,17 +58,17 @@ public class SottoPannelloCategorie {
 		try {
 
 			jLabel5 = new LabelTestoPiccolo();
-			jLabel5.setText(Controllore.getSingleton().getMessaggio("categories"));
+			jLabel5.setText(ControlloreSpese.getSingleton().getMessaggio("categories"));
 			jLabel5.setBounds(177, 25, 90, 19);
 			labels[0] = jLabel5;
 
 			jLabel11 = new LabelTestoPiccolo();
-			jLabel11.setText(Controllore.getSingleton().getMessaggio("annualtotal"));
+			jLabel11.setText(ControlloreSpese.getSingleton().getMessaggio("annualtotal"));
 			jLabel11.setBounds(135, 67, 78, 14);
 			labels[1] = jLabel11;
 
 			jLabel6 = new LabelTestoPiccolo();
-			jLabel6.setText(Controllore.getSingleton().getMessaggio("monthlytotal"));
+			jLabel6.setText(ControlloreSpese.getSingleton().getMessaggio("monthlytotal"));
 			jLabel6.setBounds(253, 67, 106, 14);
 			labels[2] = jLabel6;
 

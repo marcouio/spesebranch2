@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import view.impostazioni.Impostazioni;
-import business.Controllore;
+import business.ControlloreSpese;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
@@ -79,7 +79,7 @@ public class CacheEntrate extends AbstractCacheBase {
 	public ArrayList<Entrate> getAllEntrateForUtente() {
 		final ArrayList<Entrate> listaEntrate = new ArrayList<Entrate>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllEntrate();
-		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
+		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		if (mappa != null && utente != null) {
 			final Iterator<String> chiavi = mappa.keySet().iterator();
 
@@ -98,7 +98,7 @@ public class CacheEntrate extends AbstractCacheBase {
 	public ArrayList<Entrate> getAllEntrateForUtenteEAnno() {
 		final ArrayList<Entrate> listaEntrate = new ArrayList<Entrate>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllEntrate();
-		final Utenti utente = (Utenti) Controllore.getSingleton().getUtenteLogin();
+		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		final String annoDaText = Impostazioni.getSingleton().getAnnotextField().getText();
 
 		if (mappa != null && utente != null) {

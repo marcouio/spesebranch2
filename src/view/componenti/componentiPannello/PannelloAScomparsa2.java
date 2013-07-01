@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import business.Controllore;
+import business.ControlloreSpese;
 
 public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 
@@ -52,7 +52,7 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 	private void initGui() {
 
 		this.setLayout(null);
-		this.setTitle(Controllore.getSingleton().getMessaggio("datapanel"));
+		this.setTitle(ControlloreSpese.getSingleton().getMessaggio("datapanel"));
 		this.setSize(250, 425);
 		pannelloSpese = new SottoPannelloDatiSpese();
 		pannelloEntrate = new SottoPannelloDatiEntrate();
@@ -66,11 +66,11 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 		this.add(combo);
 		combo.setBounds(65, 50, 120, 40);
 		combo.addItem("");
-		combo.addItem("1 - " + Controllore.getSingleton().getMessaggio("withdrawal"));
-		combo.addItem("2 - " + Controllore.getSingleton().getMessaggio("categories"));
-		combo.addItem("3 - " + Controllore.getSingleton().getMessaggio("entries"));
-		combo.addItem("4 - " + Controllore.getSingleton().getMessaggio("months"));
-		combo.addItem("5 - " + Controllore.getSingleton().getMessaggio("totals"));
+		combo.addItem("1 - " + ControlloreSpese.getSingleton().getMessaggio("withdrawal"));
+		combo.addItem("2 - " + ControlloreSpese.getSingleton().getMessaggio("categories"));
+		combo.addItem("3 - " + ControlloreSpese.getSingleton().getMessaggio("entries"));
+		combo.addItem("4 - " + ControlloreSpese.getSingleton().getMessaggio("months"));
+		combo.addItem("5 - " + ControlloreSpese.getSingleton().getMessaggio("totals"));
 		combo.setSelectedIndex(0);
 		combo.addItemListener(this);
 	}

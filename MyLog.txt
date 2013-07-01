@@ -1,4 +1,6 @@
-mar 21, 2013 10:01:51 PM log.LoggerOggetto creaLog
+lug 01, 2013 10:47:03 PM log.LoggerOggetto creaLog
 INFO: Start programma!
-mar 21, 2013 10:01:51 PM view.report.ReportView <init>
-INFO: Registrato Report: 21/03/2013 22:01
+lug 01, 2013 10:47:03 PM grafica.componenti.alert.Alert segnalazioneErroreGrave
+SEVERE: Login non effettuato: username o password non corretti
+lug 01, 2013 10:47:12 PM view.report.ReportView <init>
+INFO: Registrato Report: 01/07/2013 22:47

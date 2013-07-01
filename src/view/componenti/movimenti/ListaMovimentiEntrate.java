@@ -10,7 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.aggiornatori.AggiornatoreManager;
 import domain.Entrate;
 import domain.wrapper.Model;
@@ -79,8 +79,8 @@ public class ListaMovimentiEntrate extends AbstractListaMov {
 
 							final ArrayList<String> lista = new ArrayList<String>();
 							lista.add("");
-							lista.add(Controllore.getSingleton().getMessaggio("variables"));
-							lista.add(Controllore.getSingleton().getMessaggio("fixity"));
+							lista.add(ControlloreSpese.getSingleton().getMessaggio("variables"));
+							lista.add(ControlloreSpese.getSingleton().getMessaggio("fixity"));
 							comboBoxCat = new JComboBox(lista.toArray());
 
 							comboBoxCat.setBounds(512, 26, 89, 25);

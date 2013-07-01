@@ -31,7 +31,7 @@ import view.login.Registrazione;
 import view.note.MostraNoteView;
 import view.report.ReportView;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.InizializzatoreFinestre;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import business.ascoltatoriMenu.AscoltatoreAvanti;
@@ -61,7 +61,7 @@ public class MyMenu extends MenuBarBase {
 		this.add(file);
 
 		// item di un menu
-		final JMenuItem menuItem = new JMenuItem(Controllore.getSingleton().getMessaggio("otherdatabase"));
+		final JMenuItem menuItem = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("otherdatabase"));
 		final ActionListener ascolto = new AscoltatoreCaricaDatabase();
 		menuItem.addActionListener(ascolto);
 		file.add(menuItem);
@@ -73,12 +73,12 @@ public class MyMenu extends MenuBarBase {
 		file.add(menuItem2);
 
 		// item Login
-		final JMenuItem registra = new JMenuItem(Controllore.getSingleton().getMessaggio("register"));
+		final JMenuItem registra = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("register"));
 		final ActionListener registrazione = new AscoltatoreCreaDialog(new Registrazione());
 		registra.addActionListener(registrazione);
 		file.add(registra);
 
-		final JMenuItem chiudi = new JMenuItem(Controllore.getSingleton().getMessaggio("close"));
+		final JMenuItem chiudi = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("close"));
 		chiudi.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
@@ -89,35 +89,35 @@ public class MyMenu extends MenuBarBase {
 		});
 		file.add(chiudi);
 
-		final JMenu modifica = new JMenu(Controllore.getSingleton().getMessaggio("edit"));
+		final JMenu modifica = new JMenu(ControlloreSpese.getSingleton().getMessaggio("edit"));
 		add(modifica);
 
-		final JMenuItem indietro = new JMenuItem(Controllore.getSingleton().getMessaggio("undo"));
+		final JMenuItem indietro = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("undo"));
 		indietro.addActionListener(new AscoltatoreIndietro());
 		modifica.add(indietro);
 
-		final JMenuItem avanti = new JMenuItem(Controllore.getSingleton().getMessaggio("redo"));
+		final JMenuItem avanti = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("redo"));
 		avanti.addActionListener(new AscoltatoreAvanti());
 		modifica.add(avanti);
 
-		final JMenu finestre = new JMenu(Controllore.getSingleton().getMessaggio("windows"));
+		final JMenu finestre = new JMenu(ControlloreSpese.getSingleton().getMessaggio("windows"));
 		add(finestre);
 
-		final JCheckBoxMenuItem listaComandi = new JCheckBoxMenuItem(Controllore.getSingleton().getMessaggio("commands"));
+		final JCheckBoxMenuItem listaComandi = new JCheckBoxMenuItem(ControlloreSpese.getSingleton().getMessaggio("commands"));
 		finestre.add(listaComandi);
 
-		final JCheckBoxMenuItem mntmReport = new JCheckBoxMenuItem(Controllore.getSingleton().getMessaggio("report"));
+		final JCheckBoxMenuItem mntmReport = new JCheckBoxMenuItem(ControlloreSpese.getSingleton().getMessaggio("report"));
 		finestre.add(mntmReport);
 
-		final JCheckBoxMenuItem chckbxmntmDati = new JCheckBoxMenuItem(Controllore.getSingleton().getMessaggio("summarydata"));
+		final JCheckBoxMenuItem chckbxmntmDati = new JCheckBoxMenuItem(ControlloreSpese.getSingleton().getMessaggio("summarydata"));
 		chckbxmntmDati.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
 				PannelloAScomparsa2 pas;
 				try {
-					pas = ((PannelloAScomparsa2) Controllore.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_PANNELLODATI, null));
-					Controllore.getSingleton().getInitFinestre().setVisibilitaFinestre(pas, finestre, chckbxmntmDati);
-					Controllore.getPannello().relocateFinestreLaterali(Controllore.getSingleton().getView());
+					pas = ((PannelloAScomparsa2) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_PANNELLODATI, null));
+					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(pas, finestre, chckbxmntmDati);
+					ControlloreSpese.getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
 				} catch (final Exception e1) {
 					e1.printStackTrace();
 				}
@@ -125,7 +125,7 @@ public class MyMenu extends MenuBarBase {
 		});
 		finestre.add(chckbxmntmDati);
 
-		final JCheckBoxMenuItem mntmNote = new JCheckBoxMenuItem(Controllore.getSingleton().getMessaggio("notes"));
+		final JCheckBoxMenuItem mntmNote = new JCheckBoxMenuItem(ControlloreSpese.getSingleton().getMessaggio("notes"));
 		finestre.add(mntmNote);
 		mntmNote.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
@@ -133,9 +133,9 @@ public class MyMenu extends MenuBarBase {
 			public void actionPerformedOverride(final ActionEvent e) {
 				MostraNoteView note;
 				try {
-					note = ((MostraNoteView) Controllore.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_NOTE, null));
-					Controllore.getSingleton().getInitFinestre().setVisibilitaFinestre(note, finestre, mntmNote);
-					Controllore.getPannello().relocateFinestreLaterali(Controllore.getSingleton().getView());
+					note = ((MostraNoteView) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_NOTE, null));
+					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(note, finestre, mntmNote);
+					ControlloreSpese.getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
 				} catch (final Exception e1) {
 					e1.printStackTrace();
 				}
@@ -147,9 +147,9 @@ public class MyMenu extends MenuBarBase {
 			public void actionPerformedOverride(final ActionEvent e) {
 				ReportView report;
 				try {
-					report = ((ReportView) Controllore.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_REPORT, null));
-					Controllore.getSingleton().getInitFinestre().setVisibilitaFinestre(report, finestre, mntmReport);
-					Controllore.getPannello().relocateFinestreLaterali(Controllore.getSingleton().getView());
+					report = ((ReportView) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_REPORT, null));
+					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(report, finestre, mntmReport);
+					ControlloreSpese.getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
 				} catch (final Exception e1) {
 					e1.printStackTrace();
 				}
@@ -161,22 +161,22 @@ public class MyMenu extends MenuBarBase {
 			public void actionPerformedOverride(final ActionEvent e) {
 				FinestraListaComandi history;
 				try {
-					history = ((FinestraListaComandi) Controllore.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_HISTORY, null));
-					Controllore.getSingleton().getInitFinestre().setVisibilitaFinestre(history, finestre, listaComandi);
-					Controllore.getPannello().relocateFinestreLaterali(Controllore.getSingleton().getView());
+					history = ((FinestraListaComandi) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_HISTORY, null));
+					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(history, finestre, listaComandi);
+					ControlloreSpese.getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
 				} catch (final Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
 
-		final JMenu mnStrumenti = new JMenu(Controllore.getSingleton().getMessaggio("tools"));
+		final JMenu mnStrumenti = new JMenu(ControlloreSpese.getSingleton().getMessaggio("tools"));
 		add(mnStrumenti);
 
-		final JMenu mnImpostazioni = new JMenu(Controllore.getSingleton().getMessaggio("options"));
+		final JMenu mnImpostazioni = new JMenu(ControlloreSpese.getSingleton().getMessaggio("options"));
 		mnStrumenti.add(mnImpostazioni);
 
-		final JMenuItem mntmConfigurazione = new JMenuItem(Controllore.getSingleton().getMessaggio("config"));
+		final JMenuItem mntmConfigurazione = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("config"));
 		mntmConfigurazione.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
@@ -188,7 +188,7 @@ public class MyMenu extends MenuBarBase {
 		});
 		mnImpostazioni.add(mntmConfigurazione);
 
-		final JMenuItem mntmCategorie = new JMenuItem(Controllore.getSingleton().getMessaggio("categories"));
+		final JMenuItem mntmCategorie = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("categories"));
 		mntmCategorie.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
@@ -200,7 +200,7 @@ public class MyMenu extends MenuBarBase {
 		});
 		mnImpostazioni.add(mntmCategorie);
 
-		final JMenuItem mntmGr = new JMenuItem(Controllore.getSingleton().getMessaggio("groups"));
+		final JMenuItem mntmGr = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("groups"));
 		mntmGr.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
@@ -212,25 +212,25 @@ public class MyMenu extends MenuBarBase {
 		});
 		mnImpostazioni.add(mntmGr);
 
-		final JMenu mnGrafici = new JMenu(Controllore.getSingleton().getMessaggio("charts"));
+		final JMenu mnGrafici = new JMenu(ControlloreSpese.getSingleton().getMessaggio("charts"));
 		mnStrumenti.add(mnGrafici);
 
-		final JMenu mnEntrate = new JMenu(Controllore.getSingleton().getMessaggio("entries"));
+		final JMenu mnEntrate = new JMenu(ControlloreSpese.getSingleton().getMessaggio("entries"));
 		mnGrafici.add(mnEntrate);
 
-		final JMenuItem mntmEntratePerTipo = new JMenuItem(Controllore.getSingleton().getMessaggio("fortype"));
+		final JMenuItem mntmEntratePerTipo = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("fortype"));
 		mnEntrate.add(mntmEntratePerTipo);
 
-		final JMenuItem mntmEntrateMensili = new JMenuItem(Controllore.getSingleton().getMessaggio("monthly"));
+		final JMenuItem mntmEntrateMensili = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("monthly"));
 		mnEntrate.add(mntmEntrateMensili);
 
-		final JMenu mnUscite = new JMenu(Controllore.getSingleton().getMessaggio("charge"));
+		final JMenu mnUscite = new JMenu(ControlloreSpese.getSingleton().getMessaggio("charge"));
 		mnGrafici.add(mnUscite);
 
-		final JMenuItem mntmMensiliPerCategoria = new JMenuItem(Controllore.getSingleton().getMessaggio("monthlycat"));
+		final JMenuItem mntmMensiliPerCategoria = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("monthlycat"));
 		mnUscite.add(mntmMensiliPerCategoria);
 
-		final JMenuItem mntmPerCategorie = new JMenuItem(Controllore.getSingleton().getMessaggio("forcategories"));
+		final JMenuItem mntmPerCategorie = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("forcategories"));
 		mntmPerCategorie.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
@@ -245,7 +245,7 @@ public class MyMenu extends MenuBarBase {
 		});
 		mnUscite.add(mntmPerCategorie);
 
-		final JMenuItem mntmPerMesi = new JMenuItem(Controllore.getSingleton().getMessaggio("formonthly"));
+		final JMenuItem mntmPerMesi = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("formonthly"));
 		mntmPerMesi.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
@@ -271,10 +271,10 @@ public class MyMenu extends MenuBarBase {
 			}
 		});
 
-		final JMenu mnTotali = new JMenu(Controllore.getSingleton().getMessaggio("totals"));
+		final JMenu mnTotali = new JMenu(ControlloreSpese.getSingleton().getMessaggio("totals"));
 		mnGrafici.add(mnTotali);
 
-		final JMenuItem mntmSaldo = new JMenuItem(Controllore.getSingleton().getMessaggio("balance"));
+		final JMenuItem mntmSaldo = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("balance"));
 		mntmSaldo.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
@@ -290,10 +290,10 @@ public class MyMenu extends MenuBarBase {
 		});
 		mnTotali.add(mntmSaldo);
 
-		final JMenu mnDati = new JMenu(Controllore.getSingleton().getMessaggio("dataentry"));
+		final JMenu mnDati = new JMenu(ControlloreSpese.getSingleton().getMessaggio("dataentry"));
 		mnStrumenti.add(mnDati);
 
-		final JMenuItem mntmEntrate = new JMenuItem(Controllore.getSingleton().getMessaggio("entries"));
+		final JMenuItem mntmEntrate = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("entries"));
 		mntmEntrate.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
@@ -305,7 +305,7 @@ public class MyMenu extends MenuBarBase {
 		});
 		mnDati.add(mntmEntrate);
 
-		final JMenuItem mntmUscite = new JMenuItem(Controllore.getSingleton().getMessaggio("charge"));
+		final JMenuItem mntmUscite = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("charge"));
 		mntmUscite.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
@@ -360,7 +360,7 @@ public class MyMenu extends MenuBarBase {
 		info.addActionListener(new AscoltatoreInfo());
 		help.add(info);
 
-		final JMenuItem manuale = new JMenuItem(Controllore.getSingleton().getMessaggio("userguide"));
+		final JMenuItem manuale = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("userguide"));
 		help.add(manuale);
 
 	}

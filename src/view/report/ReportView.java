@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 
 import view.font.CheckBoxF;
 import view.font.LabelListaGruppi;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.DBUtil;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 
@@ -53,63 +53,63 @@ public class ReportView extends AbstractReportView {
 		getContentPane().setLayout(null);
 		this.setTitle("Report");
 		this.setSize(250, 425);
-		final JLabel Istruzioni = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("selectreport"));
-		Istruzioni.setText(Controllore.getSingleton().getMessaggio("select") + ":");
+		final JLabel Istruzioni = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("selectreport"));
+		Istruzioni.setText(ControlloreSpese.getSingleton().getMessaggio("select") + ":");
 		Istruzioni.setBounds(12, 12, 207, 20);
 		getContentPane().add(Istruzioni);
 
-		final JCheckBox chckbxEntrateAnnuali = new CheckBoxF(Controllore.getSingleton().getMessaggio("yearincome"));
+		final JCheckBox chckbxEntrateAnnuali = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio("yearincome"));
 		chckbxEntrateAnnuali.setBounds(22, 40, 197, 23);
 		getContentPane().add(chckbxEntrateAnnuali);
 
-		final JCheckBox chckbxUsciteAnnuali = new CheckBoxF(Controllore.getSingleton().getMessaggio("yearoutcome"));
+		final JCheckBox chckbxUsciteAnnuali = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio("yearoutcome"));
 		chckbxUsciteAnnuali.setBounds(22, 67, 197, 23);
 		getContentPane().add(chckbxUsciteAnnuali);
 
-		final JCheckBox chckbxEntrateMensili = new CheckBoxF(Controllore.getSingleton().getMessaggio("monthlyincome"));
+		final JCheckBox chckbxEntrateMensili = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio("monthlyincome"));
 		chckbxEntrateMensili.setBounds(22, 94, 197, 23);
 		getContentPane().add(chckbxEntrateMensili);
 
-		final JCheckBox chckbxUsciteMensili = new CheckBoxF(Controllore.getSingleton().getMessaggio("monthlyoutcome"));
+		final JCheckBox chckbxUsciteMensili = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio("monthlyoutcome"));
 		chckbxUsciteMensili.setBounds(22, 121, 197, 23);
 		getContentPane().add(chckbxUsciteMensili);
 
-		final JCheckBox chckbxSpesePerCategorie = new CheckBoxF(Controllore.getSingleton().getMessaggio("catspeseyear"));
+		final JCheckBox chckbxSpesePerCategorie = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio("catspeseyear"));
 		chckbxSpesePerCategorie.setBounds(22, 148, 197, 23);
 		getContentPane().add(chckbxSpesePerCategorie);
 
-		final JCheckBox chckbxEntratePerCategorie = new CheckBoxF(Controllore.getSingleton().getMessaggio(
+		final JCheckBox chckbxEntratePerCategorie = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio(
 				"catentrateyear"));
 		chckbxEntratePerCategorie.setBounds(22, 175, 197, 23);
 		getContentPane().add(chckbxEntratePerCategorie);
 
-		final JCheckBox chckbxSpeseMensCat = new CheckBoxF(Controllore.getSingleton().getMessaggio("catspesemonth"));
+		final JCheckBox chckbxSpeseMensCat = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio("catspesemonth"));
 		chckbxSpeseMensCat.setBounds(22, 229, 197, 23);
 		getContentPane().add(chckbxSpeseMensCat);
 
-		final JCheckBox chckbxEntrateMensCategorie = new CheckBoxF(Controllore.getSingleton().getMessaggio(
+		final JCheckBox chckbxEntrateMensCategorie = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio(
 				"catentratemonth"));
 		chckbxEntrateMensCategorie.setBounds(22, 202, 197, 23);
 		getContentPane().add(chckbxEntrateMensCategorie);
 
 		final JCheckBox chckbxSpeseVariabili_1 = new CheckBoxF("% "
-				+ Controllore.getSingleton().getMessaggio("spesevar"));
+				+ ControlloreSpese.getSingleton().getMessaggio("spesevar"));
 		chckbxSpeseVariabili_1.setBounds(22, 255, 197, 23);
 		getContentPane().add(chckbxSpeseVariabili_1);
 
-		final JCheckBox chckbxSpeseFutili_1 = new CheckBoxF("% " + Controllore.getSingleton().getMessaggio("spesefut"));
+		final JCheckBox chckbxSpeseFutili_1 = new CheckBoxF("% " + ControlloreSpese.getSingleton().getMessaggio("spesefut"));
 		chckbxSpeseFutili_1.setBounds(22, 282, 197, 23);
 		getContentPane().add(chckbxSpeseFutili_1);
 
-		final JCheckBox chckbxMedie = new CheckBoxF(Controllore.getSingleton().getMessaggio("annualaverages"));
+		final JCheckBox chckbxMedie = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio("annualaverages"));
 		chckbxMedie.setBounds(22, 336, 197, 23);
 		getContentPane().add(chckbxMedie);
 
-		final JCheckBox chckbxAvanzo = new CheckBoxF(Controllore.getSingleton().getMessaggio("avanzo"));
+		final JCheckBox chckbxAvanzo = new CheckBoxF(ControlloreSpese.getSingleton().getMessaggio("avanzo"));
 		chckbxAvanzo.setBounds(22, 309, 197, 23);
 		getContentPane().add(chckbxAvanzo);
 
-		final JButton btnGeneraReport = new ButtonBase(Controllore.getSingleton().getMessaggio("reports"), this);
+		final JButton btnGeneraReport = new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("reports"), this);
 		btnGeneraReport.setBounds(22, 366, 197, 25);
 		getContentPane().add(btnGeneraReport);
 
@@ -133,7 +133,7 @@ public class ReportView extends AbstractReportView {
 			}
 
 		});
-		Controllore.getLog().info("Registrato Report: " + DBUtil.dataToString(new Date(), "dd/MM/yyyy HH:mm"));
+		ControlloreSpese.getLog().info("Registrato Report: " + DBUtil.dataToString(new Date(), "dd/MM/yyyy HH:mm"));
 
 	}
 }

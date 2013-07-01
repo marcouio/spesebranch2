@@ -13,7 +13,7 @@ import view.font.LabelListaGruppi;
 import view.font.TextAreaF;
 import view.font.TextFieldF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.DBUtil;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import business.cache.CacheNote;
@@ -97,7 +97,7 @@ public class NoteView extends AbstractNoteView {
 				if (e.getActionCommand().equals("Aggiorna")) {
 					aggiornaModelDaVista(null);
 					if (nonEsistonoCampiNonValorizzati()) {
-						Controllore.invocaComando(new CommandUpdateNota((Note) note.getEntitaPadre(), (INote) wrapNote.getEntitaPadre()));
+						ControlloreSpese.invocaComando(new CommandUpdateNota((Note) note.getEntitaPadre(), (INote) wrapNote.getEntitaPadre()));
 						((MostraNoteView) padre).aggiornaVista();
 						dispose();
 					} else {
@@ -109,7 +109,7 @@ public class NoteView extends AbstractNoteView {
 					if (nonEsistonoCampiNonValorizzati()) {
 						wNote.setIdNote(id);
 						wNote.getEntitaPadre().setIdEntita(Integer.toString(id));
-						Controllore.invocaComando(new CommandInserisciNota(wNote));
+						ControlloreSpese.invocaComando(new CommandInserisciNota(wNote));
 						((MostraNoteView) padre).aggiornaVista();
 						dispose();
 					} else {
@@ -140,7 +140,7 @@ public class NoteView extends AbstractNoteView {
 		}
 
 		setDescrizione(descrizione.getText());
-		setUtenti((Utenti) Controllore.getSingleton().getUtenteLogin());
+		setUtenti((Utenti) ControlloreSpese.getSingleton().getUtenteLogin());
 		setDataIns(DBUtil.dataToString(new Date(), "yyyy/MM/dd"));
 	}
 

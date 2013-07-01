@@ -26,7 +26,7 @@ import view.entrateuscite.UsciteView;
 import view.mymenu.MyMenu;
 import view.tabelleMesi.PerMesiF;
 import business.AltreUtil;
-import business.Controllore;
+import business.ControlloreSpese;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import disegno.immagini.UtilImage;
 import domain.wrapper.WrapEntrate;
@@ -94,7 +94,7 @@ public class GeneralFrame extends PannelloBase {
 		final ImageIcon iconaMovimenti = new ImageIcon(AltreUtil.IMGUTILPATH+"controlli.gif");
 		final Bottone bottoneMovimenti = new Bottone(pannelloBottoni);
 
-		final String movimenti = Controllore.getSingleton().getMessaggio("transactions");
+		final String movimenti = ControlloreSpese.getSingleton().getMessaggio("transactions");
 		final ToggleBtnBase toggleMovimenti = new ToggleBtnBase(movimenti, iconaMovimenti, bottoneMovimenti,bottoneMovimenti, 10,0);
 		toggleMovimenti.settaggioBottoneStandard();
 		bottoneMovimenti.setBottone(toggleMovimenti);
@@ -145,7 +145,7 @@ public class GeneralFrame extends PannelloBase {
 
 
 		final ImageIcon iconaUscite = new ImageIcon(AltreUtil.IMGUTILPATH+"blocktable_32.png");
-		final String mesi = Controllore.getSingleton().getMessaggio("months");
+		final String mesi = ControlloreSpese.getSingleton().getMessaggio("months");
 
 		final Bottone bottoneMesi = new Bottone(pannelloBottoni);
 		final ToggleBtnBase toggleMesi = new ToggleBtnBase(mesi, iconaUscite,bottoneMesi,bottoneMesi,10,0);
@@ -202,7 +202,7 @@ public class GeneralFrame extends PannelloBase {
 		final ImageIcon iconaSoldi = new ImageIcon(AltreUtil.IMGUTILPATH+"soldi.gif");
 
 		final Bottone bottoneEntrateUscite = new Bottone(pannelloBottoni);
-		final String addtransaction = Controllore.getSingleton().getMessaggio("addtransaction");
+		final String addtransaction = ControlloreSpese.getSingleton().getMessaggio("addtransaction");
 		final ToggleBtnBase toggleEntrateUscite = new ToggleBtnBase(addtransaction, iconaSoldi, bottoneEntrateUscite, 10,0);
 		bottoneEntrateUscite.setBottone(toggleEntrateUscite);
 
@@ -248,12 +248,12 @@ public class GeneralFrame extends PannelloBase {
 	}
 
 	public void relocateFinestreLaterali(final FrameBase view) {
-		if (Controllore.getSingleton().getInitFinestre().getFinestraVisibile() != null) {
+		if (ControlloreSpese.getSingleton().getInitFinestre().getFinestraVisibile() != null) {
 			final Point p = view.getLocation();
 			final Dimension d = view.getSize();
 			p.setLocation(p.x + d.width + 5, p.y);
 			try {
-				final JFrame finestraVisibile = Controllore.getSingleton().getInitFinestre().getFinestraVisibile();
+				final JFrame finestraVisibile = ControlloreSpese.getSingleton().getInitFinestre().getFinestraVisibile();
 				finestraVisibile.setLocation(p);
 			} catch (final Exception e) {
 				e.printStackTrace();

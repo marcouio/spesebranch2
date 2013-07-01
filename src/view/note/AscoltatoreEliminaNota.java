@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
-import business.Controllore;
+import business.ControlloreSpese;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import business.comandi.note.CommandDeleteNota;
 import domain.Note;
@@ -27,7 +27,7 @@ public class AscoltatoreEliminaNota extends AscoltatoreAggiornatoreNiente {
 		super.actionPerformedOverride(e);
 		final WrapNote wn = new WrapNote(nota);
 		try {
-			Controllore.invocaComando(new CommandDeleteNota(wn));
+			ControlloreSpese.invocaComando(new CommandDeleteNota(wn));
 		} catch (final Exception e1) {
 			Alert.segnalazioneErroreGrave("Nota " + nota.getNome() + " non eliminata: " + e1.getMessage());
 		}

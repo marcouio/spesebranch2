@@ -18,7 +18,7 @@ import javax.swing.WindowConstants;
 
 import view.font.LabelListaGruppi;
 import view.font.TextFieldF;
-import business.Controllore;
+import business.ControlloreSpese;
 
 public abstract class AbstractListaMov extends view.OggettoVistaBase {
 	private static final long serialVersionUID = 1L;
@@ -56,7 +56,7 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 		try {
 			this.setLayout(null);
 			this.setPreferredSize(new Dimension(1000, 605));
-			final JLabel movim = new LabelListaGruppi(Controllore.getSingleton().getMessaggio("transactions")+":");
+			final JLabel movim = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("transactions")+":");
 			movim.setBounds(24, 5, 89, 30);
 			this.add(movim);
 			campo = new TextFieldF();
@@ -65,7 +65,7 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 			numMovimenti = Integer.parseInt(campo.getText());
 			this.add(campo);
 			pulsanteNMovimenti = new ButtonBase(this);
-			pulsanteNMovimenti.setText(Controllore.getSingleton().getMessaggio("change"));
+			pulsanteNMovimenti.setText(ControlloreSpese.getSingleton().getMessaggio("change"));
 			pulsanteNMovimenti.setBounds(178, 7, 89, 25);
 			this.add(pulsanteNMovimenti);
 
@@ -91,7 +91,7 @@ public abstract class AbstractListaMov extends view.OggettoVistaBase {
 			scrollPane.setBounds(21, 38, 948, 386);
 
 			final ButtonBase btnFiltraMovimenti = new ButtonBase(this);
-			btnFiltraMovimenti.setText(Controllore.getSingleton().getMessaggio("filtertrans"));
+			btnFiltraMovimenti.setText(ControlloreSpese.getSingleton().getMessaggio("filtertrans"));
 			btnFiltraMovimenti.setBounds(292, 6, 179, 25);
 			btnFiltraMovimenti.addActionListener(getListener());
 

@@ -8,7 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import business.Controllore;
+import business.ControlloreSpese;
 
 public class FinestraListaComandi extends JFrame {
 
@@ -20,7 +20,7 @@ public class FinestraListaComandi extends JFrame {
 		setResizable(false);
 		this.setSize(250, 425);
 		getContentPane().setLayout(null);
-		String lista = Controllore.getSingleton().getMessaggio("lista");
+		String lista = ControlloreSpese.getSingleton().getMessaggio("lista");
 		this.setTitle(lista);
 
 		scrollPane = new ScrollPaneBase(this);
@@ -40,7 +40,7 @@ public class FinestraListaComandi extends JFrame {
 	}
 
 	public Object[][] generaDati() {
-		return Controllore.getSingleton().getCommandManager().generaDati();
+		return ControlloreSpese.getSingleton().getCommandManager().generaDati();
 	}
 
 	public TableBase getTable() {
