@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Vector;
@@ -14,6 +15,8 @@ import business.cache.CacheCategorie;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
+import db.Clausola;
+import db.ConnectionPool;
 import db.dao.IDAO;
 import domain.Budget;
 import domain.CatSpese;
@@ -35,7 +38,7 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 
 	@Override
 	public Object selectById(int id) throws Exception {
-		Connection cn = DBUtil.getConnection();
+		Connection cn = ConnectionPool.getSingleton().getConnection();
 		String sql = "SELECT * FROM "+NOME_TABELLA+" WHERE "+ID+" = " +id;
 		
 		Budget budget = null;
@@ -60,7 +63,7 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		}
 		return budget;
 
@@ -98,10 +101,9 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 	@Override
 	public boolean insert(Object oggettoEntita) throws Exception {
 		boolean ok = false;
-		Connection cn = DBUtil.getConnection();
+		Connection cn = ConnectionPool.getSingleton().getConnection();
 		String sql = "";
 		try {
-			Budget budget = (Budget)oggettoEntita;
 			
 			sql="INSERT INTO " + NOME_TABELLA + " (" + IDCATEGORIE+", "+PERCSULTOT+") VALUES(?,?)";
 			PreparedStatement ps = cn.prepareStatement(sql);
@@ -120,7 +122,7 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		}
 		return ok;
 	}
@@ -206,48 +208,48 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 
 	@Override
 	public int getidBudget() {
-		return getidBudget();
+		return budget.getIdBudget();
 	}
 
 	@Override
 	public void setidBudget(int idBudget) {
-		setidBudget(idBudget);
+		budget.setIdBudget(idBudget);
 		
 	}
 
 	@Override
 	public int getidCategorie() {
-		return getidCategorie();
+		return budget.getIdCategorie();
 	}
 
 	@Override
 	public void setidCategorie(int idCategorie) {
-		setidCategorie(idCategorie);		
+		budget.setIdCategorie(idCategorie);		
 	}
 
 	@Override
 	public double getpercSulTot() {
-		return getpercSulTot();
+		return budget.getPercSulTot();
 	}
 
 	@Override
 	public void setpercSulTot(double percSulTot) {
-		setpercSulTot(percSulTot);		
+		budget.setPercSulTot(percSulTot);		
 	}
 
 	@Override
 	public CatSpese getCatSpese() {
-		return getCatSpese();
+		return budget.getCatSpese();
 	}
 
 	@Override
 	public void setCatSpese(CatSpese catSpese) {
-		setCatSpese(catSpese);		
+		budget.setCatSpese(catSpese);		
 	}
 
 	@Override
 	public String getNome() {
-		return getNome();
+		return budget.getNome();
 	}
 	@Override
 	public void notifyObservers() {
@@ -260,7 +262,7 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 	}
 
 	@Override
-	public Object selectWhere(HashMap<String, String> clausole, String appendToQuery)
+	public Object selectWhere(ArrayList<Clausola> clausole, String appendToQuery)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Set;
 
@@ -12,6 +11,7 @@ import business.DBUtil;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
+import db.Clausola;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.Entrate;
@@ -241,7 +241,7 @@ public class WrapUtenti extends Observable implements IDAO, IUtenti {
 	}
 
 	@Override
-	public Object selectWhere(HashMap<String, String> clausole, String appendToQuery)
+	public Object selectWhere(ArrayList<Clausola> clausole, String appendToQuery)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;

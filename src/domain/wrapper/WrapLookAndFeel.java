@@ -1,13 +1,13 @@
 package domain.wrapper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Observable;
 
 import business.DBUtil;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
+import db.Clausola;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.ILookandfeel;
@@ -156,7 +156,7 @@ public class WrapLookAndFeel extends Observable implements IDAO, ILookandfeel {
 	}
 
 	@Override
-	public Object selectWhere(HashMap<String, String> clausole, String appendToQuery)
+	public Object selectWhere(ArrayList<Clausola> clausole, String appendToQuery)
 			throws Exception {
 		return genericDao.selectWhere(clausole, appendToQuery);
 	}

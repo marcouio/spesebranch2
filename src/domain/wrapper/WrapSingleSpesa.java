@@ -20,6 +20,7 @@ import business.cache.CacheCategorie;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
+import db.Clausola;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.CatSpese;
@@ -367,7 +368,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 	}
 
 	@Override
-	public Object selectWhere(HashMap<String, String> clausole, String appendToQuery)
+	public Object selectWhere(ArrayList<Clausola> clausole, String appendToQuery)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;

@@ -13,6 +13,7 @@ import business.DBUtil;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
+import db.Clausola;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.INote;
@@ -229,7 +230,7 @@ public class WrapNote extends Observable implements IDAO, INote {
 	}
 
 	@Override
-	public Object selectWhere(HashMap<String, String> clausole, String appendToQuery)
+	public Object selectWhere(ArrayList<Clausola> clausole, String appendToQuery)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;

@@ -9,6 +9,7 @@ import business.DBUtil;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
+import db.Clausola;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.Budget;
@@ -196,10 +197,9 @@ public class WrapCatSpese extends Observable implements ICatSpese, IDAO {
 	}
 
 	@Override
-	public Object selectWhere(HashMap<String, String> clausole, String appendToQuery)
+	public Object selectWhere(ArrayList<Clausola> clausole, String appendToQuery)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return genericDao.selectWhere(clausole, appendToQuery);
 	}
 
 }
