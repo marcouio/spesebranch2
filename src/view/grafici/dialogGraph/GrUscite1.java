@@ -47,14 +47,9 @@ public class GrUscite1 extends JDialog implements ActionListener {
 
 	/**
 	 * Create the dialog.
-	 * 
-	 * @throws SQLException
-	 * @throws IOException
-	 * @throws ClassNotFoundException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws Exception 
 	 */
-	public GrUscite1() throws SQLException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public GrUscite1() throws Exception {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		final Vector<CatSpese> categorie = CacheCategorie.getSingleton().getVettoreCategorie();
@@ -69,8 +64,7 @@ public class GrUscite1 extends JDialog implements ActionListener {
 
 		for (int i = 0; i < categorie.size(); i++) {
 			final CatSpese categoria = categorie.get(i);
-			final double uscita = Database.totaleUscitaAnnoCategoria(categoria
-					.getIdCategoria());
+			final double uscita = Database.totaleUscitaAnnoCategoria(categoria.getIdCategoria());
 			dataset.setValue(uscita, "Euro", categoria.getNome());
 		}
 

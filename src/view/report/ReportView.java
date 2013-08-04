@@ -11,10 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
+import db.UtilDb;
+
 import view.font.CheckBoxF;
 import view.font.LabelListaGruppi;
 import business.ControlloreSpese;
-import business.DBUtil;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 
 public class ReportView extends AbstractReportView {
@@ -26,8 +27,8 @@ public class ReportView extends AbstractReportView {
 			final JCheckBox chckbxEntratePerCategorie, final JCheckBox chckbxSpesePerCategorie,
 			final JCheckBox chckbxUsciteMensili, final JCheckBox chckbxEntrateMensili,
 			final JCheckBox chckbxUsciteAnnuali, final JCheckBox chckbxEntrateAnnuali,
-			final JCheckBox chckbxSpeseFutili_1, final JCheckBox chckbxAvanzo, final JCheckBox chckbxMedie) {
-
+			final JCheckBox chckbxSpeseFutili_1, final JCheckBox chckbxAvanzo, final JCheckBox chckbxMedie) throws Exception {
+		
 		inserisciUsciteVariabili(chckbxSpeseVariabili_1.isSelected());
 		inserisciEntrateCatMensili(chckbxEntrateMensCategorie.isSelected());
 		inserisciUsciteCatMensili(chckbxSpeseMensCat.isSelected());
@@ -129,11 +130,11 @@ public class ReportView extends AbstractReportView {
 				} catch (Exception e11) {
 					e11.printStackTrace();
 				}
-				Alert.segnalazioneInfo("Aggiornato Report: " + DBUtil.dataToString(new Date(), "dd/MM/yyyy HH:mm"));
+				Alert.segnalazioneInfo("Aggiornato Report: " + UtilDb.dataToString(new Date(), "dd/MM/yyyy HH:mm"));
 			}
 
 		});
-		ControlloreSpese.getLog().info("Registrato Report: " + DBUtil.dataToString(new Date(), "dd/MM/yyyy HH:mm"));
+		ControlloreSpese.getLog().info("Registrato Report: " + UtilDb.dataToString(new Date(), "dd/MM/yyyy HH:mm"));
 
 	}
 }

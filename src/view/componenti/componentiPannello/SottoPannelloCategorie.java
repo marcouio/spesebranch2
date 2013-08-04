@@ -105,7 +105,12 @@ public class SottoPannelloCategorie {
 							e1.printStackTrace();
 						}
 
-						totaleAnnualeCateg.setText(Double.toString(Database.totaleUscitaAnnoCategoria(spese.getIdCategoria())));
+						try {
+							totaleAnnualeCateg.setText(Double.toString(Database.totaleUscitaAnnoCategoria(spese.getIdCategoria())));
+						}
+						catch (Exception e1) {
+							e1.printStackTrace();
+						}
 						totaleMeseCategoria.setText(Double.toString(spesa));
 					}
 				}

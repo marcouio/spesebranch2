@@ -44,8 +44,9 @@ public class GrGenerale2 extends JDialog implements ActionListener {
 
 	/**
 	 * Create the dialog.
+	 * @throws Exception 
 	 */
-	public GrGenerale2() {
+	public GrGenerale2() throws Exception {
 		getContentPane().setLayout(null);
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 

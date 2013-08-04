@@ -19,6 +19,8 @@ import java.util.Vector;
 import view.impostazioni.Impostazioni;
 import business.cache.CacheEntrate;
 import business.cache.CacheUscite;
+import db.ConnectionPool;
+import db.UtilDb;
 import domain.CatSpese;
 import domain.Entrate;
 import domain.Gruppi;
@@ -42,8 +44,8 @@ public class Database {
 	}
 
 	public static final Database getSingleton() {
+		synchronized (Database.class) {
 		if (singleton == null) {
-			synchronized (Database.class) {
 				if (singleton == null) {
 					singleton = new Database();
 				}
@@ -96,7 +98,7 @@ public class Database {
 		@SuppressWarnings("unused")
 		final File db = new File(Database.DB_URL);
 		String sql = new String();
-		final Connection cn = DBUtil.getConnection();
+		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		sql = "CREATE TABLE \"Utenti\" (\"idUtente\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , \"nome\" TEXT NOT NULL , \"cognome\" TEXT NOT NULL , \"username\" TEXT NOT NULL  UNIQUE , \"password\" TEXT NOT NULL );";
 		final Statement st = cn.createStatement();
 		st.execute(sql.toString());
@@ -116,8 +118,7 @@ public class Database {
 		st.execute(sql.toString());
 		sql = "CREATE TABLE \"note\" (\"idNote\" INTEGER PRIMARY KEY  NOT NULL ,\"nome\" TEXT NOT NULL ,\"descrizione\" TEXT NOT NULL ,\"idUtente\" INTEGER NOT NULL ,\"data\" TEXT NOT NULL ,\"dataIns\" TEXT NOT NULL );";
 		st.execute(sql.toString());
-		cn.close();
-		st.close();
+		ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		generaDatiTabellaLook();
 	}
 
@@ -140,9 +141,9 @@ public class Database {
 		try {
 			ok = false;
 			final StringBuffer sql = new StringBuffer();
-			final String command = comando.toUpperCase();
 
 			if (tabella != null && comando != null) {
+				final String command = comando.toUpperCase();
 				// comando
 				if (command.equals("INSERT")) {
 					ok = gestioneIstruzioneInsert(tabella, campi, ok, sql, command);
@@ -216,13 +217,12 @@ public class Database {
 			if (where.hasNext()) {
 				sql.append(", ");
 			}
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 			final Statement st = cn.createStatement();
 			if (st.executeUpdate(sql.toString()) != 0) {
 				ok = true;
 			}
-			cn.close();
-			st.close();
+			ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		}
 		return ok;
 	}
@@ -266,8 +266,8 @@ public class Database {
 				}
 			}
 		}
-		DBUtil.closeConnection();
-		final Connection cn = DBUtil.getConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
+		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		final Statement st = cn.createStatement();
 		if (st.executeUpdate(sql.toString()) != 0) {
 			ok = true;
@@ -305,7 +305,7 @@ public class Database {
 		}
 
 		sql.append(")");
-		final Connection cn = DBUtil.getConnection();
+		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		final Statement st = cn.createStatement();
 		if (st.executeUpdate(sql.toString()) != 0) {
 			ok = true;
@@ -325,7 +325,7 @@ public class Database {
 	@SuppressWarnings("rawtypes")
 	public HashMap<String, ArrayList> terminaleSql(final String sql) throws Exception {
 		final HashMap<String, ArrayList> nomi = new HashMap<String, ArrayList>();
-		final Connection cn = DBUtil.getConnection();
+		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		if (sql.substring(0, 1).equalsIgnoreCase("S")) {
 			try {
 				final Statement st = cn.createStatement();
@@ -372,7 +372,7 @@ public class Database {
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		return nomi;
 	}
 
@@ -395,8 +395,8 @@ public class Database {
 			final SingleSpesa uscita = listaUscite.get(i);
 			final CatSpese cat = uscita.getCatSpese();
 			if (cat != null) {
-				final Date dataUscita = DBUtil.stringToDate(uscita.getData(), "yyyy/MM/dd");
-				final int mesee = Integer.parseInt(DBUtil.dataToString(dataUscita, "MM"));
+				final Date dataUscita = UtilDb.stringToDate(uscita.getData(), "yyyy/MM/dd");
+				final int mesee = Integer.parseInt(UtilDb.dataToString(dataUscita, "MM"));
 				if (mesee == mese && cat.getIdCategoria() == categoria) {
 					spesaTotMeseCat += uscita.getInEuro();
 				}
@@ -405,7 +405,7 @@ public class Database {
 		return AltreUtil.arrotondaDecimaliDouble(spesaTotMeseCat);
 	}
 
-	public static double speseMeseGruppo(final int mese, final int gruppo) {
+	public static double speseMeseGruppo(final int mese, final int gruppo) throws Exception {
 		double spesaTotMeseGruppo = 0.0;
 		final ArrayList<SingleSpesa> listaUscite = CacheUscite.getSingleton().getAllUsciteForUtenteEAnno();
 		for (int i = 0; i < listaUscite.size(); i++) {
@@ -413,8 +413,8 @@ public class Database {
 			final CatSpese cat = uscita.getCatSpese();
 			if (cat != null) {
 				final Gruppi group = cat.getGruppi();
-				final Date dataUscita = DBUtil.stringToDate(uscita.getData(), "yyyy/MM/dd");
-				final int mesee = Integer.parseInt(DBUtil.dataToString(dataUscita, "MM"));
+				final Date dataUscita = UtilDb.stringToDate(uscita.getData(), "yyyy/MM/dd");
+				final int mesee = Integer.parseInt(UtilDb.dataToString(dataUscita, "MM"));
 				if (group != null && group.getIdGruppo() != 0) {
 					if (mesee == mese && group.getIdGruppo() == gruppo) {
 						spesaTotMeseGruppo += uscita.getInEuro();
@@ -425,7 +425,7 @@ public class Database {
 		return AltreUtil.arrotondaDecimaliDouble(spesaTotMeseGruppo);
 	}
 
-	public static double speseMeseSenzaGruppo(final int mese, final int categoria) {
+	public static double speseMeseSenzaGruppo(final int mese, final int categoria) throws Exception {
 		double spesaTotMeseCat = 0.0;
 		final ArrayList<SingleSpesa> listaUscite = CacheUscite.getSingleton().getAllUsciteForUtenteEAnno();
 		for (int i = 0; i < listaUscite.size(); i++) {
@@ -433,8 +433,8 @@ public class Database {
 			final CatSpese cat = uscita.getCatSpese();
 			if (cat != null) {
 				final Gruppi group = cat.getGruppi();
-				final Date dataUscita = DBUtil.stringToDate(uscita.getData(), "yyyy/MM/dd");
-				final int mesee = Integer.parseInt(DBUtil.dataToString(dataUscita, "MM"));
+				final Date dataUscita = UtilDb.stringToDate(uscita.getData(), "yyyy/MM/dd");
+				final int mesee = Integer.parseInt(UtilDb.dataToString(dataUscita, "MM"));
 				if (group == null || group.getIdGruppo() == 0) {
 					if (mesee == mese && cat.getIdCategoria() == categoria) {
 						spesaTotMeseCat += uscita.getInEuro();
@@ -461,8 +461,8 @@ public class Database {
 		for (int i = 0; i < listaEntrate.size(); i++) {
 			final Entrate entrata = listaEntrate.get(i);
 			final String cat = entrata.getFisseoVar();
-			final Date dataEntrata = DBUtil.stringToDate(entrata.getData(), "yyyy/MM/dd");
-			final int mesee = Integer.parseInt(DBUtil.dataToString(dataEntrata, "MM"));
+			final Date dataEntrata = UtilDb.stringToDate(entrata.getData(), "yyyy/MM/dd");
+			final int mesee = Integer.parseInt(UtilDb.dataToString(dataEntrata, "MM"));
 
 			if (mesee == mese && cat.equals(tipoEntrata)) {
 				entrateMeseTipo += entrata.getInEuro();
@@ -478,14 +478,15 @@ public class Database {
 	 * 
 	 * @param mese
 	 * @return totale mensile delle spese(double)
+	 * @throws Exception 
 	 */
-	public double totaleUsciteMese(final int mese) {
+	public double totaleUsciteMese(final int mese) throws Exception {
 		double totaleMese = 0;
 		final ArrayList<SingleSpesa> listaUscite = CacheUscite.getSingleton().getAllUsciteForUtente();
 		for (int i = 0; i < listaUscite.size(); i++) {
 			final SingleSpesa uscita = listaUscite.get(i);
-			final Date dataUscita = DBUtil.stringToDate(uscita.getData(), "yyyy/MM/dd");
-			final int mesee = Integer.parseInt(DBUtil.dataToString(dataUscita, "MM"));
+			final Date dataUscita = UtilDb.stringToDate(uscita.getData(), "yyyy/MM/dd");
+			final int mesee = Integer.parseInt(UtilDb.dataToString(dataUscita, "MM"));
 			if (mesee == mese) {
 				totaleMese += uscita.getInEuro();
 			}
@@ -505,8 +506,8 @@ public class Database {
 		final ArrayList<Entrate> listaEntrate = CacheEntrate.getSingleton().getAllEntrateForUtenteEAnno();
 		for (int i = 0; i < listaEntrate.size(); i++) {
 			final Entrate entrata = listaEntrate.get(i);
-			final Date dataEntrata = DBUtil.stringToDate(entrata.getData(), "yyyy/MM/dd");
-			final int mesee = Integer.parseInt(DBUtil.dataToString(dataEntrata, "MM"));
+			final Date dataEntrata = UtilDb.stringToDate(entrata.getData(), "yyyy/MM/dd");
+			final int mesee = Integer.parseInt(UtilDb.dataToString(dataEntrata, "MM"));
 			if (mesee == mese) {
 				totaleMese += entrata.getInEuro();
 			}
@@ -515,15 +516,15 @@ public class Database {
 		return AltreUtil.arrotondaDecimaliDouble(totaleMese);
 	}
 
-	public static double totaleUscitaAnnoCategoria(final int categoria) {
+	public static double totaleUscitaAnnoCategoria(final int categoria) throws Exception {
 		double totale = 0;
 		final int anno = Impostazioni.getAnno();
 		final ArrayList<SingleSpesa> listaUscite = CacheUscite.getSingleton().getAllUsciteForUtente();
 		for (int i = 0; i < listaUscite.size(); i++) {
 			final SingleSpesa uscita = listaUscite.get(i);
 			final int cat = uscita.getCatSpese().getIdCategoria();
-			final Date dataUscita = DBUtil.stringToDate(uscita.getData(), "yyyy/MM/dd");
-			final int annoo = Integer.parseInt(DBUtil.dataToString(dataUscita, "yyyy"));
+			final Date dataUscita = UtilDb.stringToDate(uscita.getData(), "yyyy/MM/dd");
+			final int annoo = Integer.parseInt(UtilDb.dataToString(dataUscita, "yyyy"));
 			if (annoo == anno && cat == categoria) {
 				totale += uscita.getInEuro();
 			}
@@ -538,8 +539,8 @@ public class Database {
 		for (int i = 0; i < listaEntrate.size(); i++) {
 			final Entrate entrata = listaEntrate.get(i);
 			final String FxOVar = entrata.getFisseoVar();
-			final Date dataEntrate = DBUtil.stringToDate(entrata.getData(), "yyyy/MM/dd");
-			final int annoo = Integer.parseInt(DBUtil.dataToString(dataEntrate, "yyyy"));
+			final Date dataEntrate = UtilDb.stringToDate(entrata.getData(), "yyyy/MM/dd");
+			final int annoo = Integer.parseInt(UtilDb.dataToString(dataEntrate, "yyyy"));
 			if (annoo == anno && FxOVar.equals(FissoOVar)) {
 				totale += entrata.getInEuro();
 			}
@@ -578,7 +579,7 @@ public class Database {
 					+ WrapSingleSpesa.ID + " desc";
 		}
 
-		final Connection cn = DBUtil.getConnection();
+		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		try {
 			final Statement st = cn.createStatement();
 			final ResultSet rs = st.executeQuery(sql);
@@ -592,7 +593,7 @@ public class Database {
 			ControlloreSpese.getLog().severe(
 					"Errore nel caricamento dal database dei nomi delle colonne di " + tabella + ": " + e.getMessage());
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		try {
 			cn.close();
 		} catch (final SQLException e) {
@@ -611,8 +612,8 @@ public class Database {
 		final ArrayList<Entrate> listaEntrate = CacheEntrate.getSingleton().getAllEntrateForUtente();
 		for (int i = 0; i < listaEntrate.size(); i++) {
 			final Entrate entrata = listaEntrate.get(i);
-			final Date dataEntrata = DBUtil.stringToDate(entrata.getData(), "yyyy/MM/dd");
-			final String annoDaData = DBUtil.dataToString(dataEntrata, "yyyy");
+			final Date dataEntrata = UtilDb.stringToDate(entrata.getData(), "yyyy/MM/dd");
+			final String annoDaData = UtilDb.dataToString(dataEntrata, "yyyy");
 			if (Integer.parseInt(annoDaData) == anno) {
 				Eannuale += entrata.getInEuro();
 			}
@@ -622,8 +623,9 @@ public class Database {
 
 	/**
 	 * @return Metodo per calcolare il totale delle spese annuali
+	 * @throws Exception 
 	 */
-	public static double Annuale() {
+	public static double Annuale() throws Exception {
 		final int anno = Impostazioni.getAnno();
 		double annuale = 0;
 		final ArrayList<SingleSpesa> listaUscite = CacheUscite.getSingleton().getAllUsciteForUtente();
@@ -651,9 +653,9 @@ public class Database {
 		final ArrayList<Entrate> listaEntrate = CacheEntrate.getSingleton().getAllEntrateForUtente();
 		for (int i = 0; i < listaEntrate.size(); i++) {
 			final Entrate entrata = listaEntrate.get(i);
-			final Date dataEntrata = DBUtil.stringToDate(entrata.getData(), "yyyy/MM/dd");
-			final int mese = Integer.parseInt(DBUtil.dataToString(dataEntrata, "MM"));
-			final int anno = Integer.parseInt(DBUtil.dataToString(dataEntrata, "yyyy"));
+			final Date dataEntrata = UtilDb.stringToDate(entrata.getData(), "yyyy/MM/dd");
+			final int mese = Integer.parseInt(UtilDb.dataToString(dataEntrata, "MM"));
+			final int anno = Integer.parseInt(UtilDb.dataToString(dataEntrata, "yyyy"));
 			if (mese == data.get(Calendar.MONTH) && anno == data.get(Calendar.YEAR)) {
 				Emensile10 += entrata.getInEuro();
 			}
@@ -667,16 +669,17 @@ public class Database {
 	 * 
 	 * @return Metodo per calcolare il totale delle uscite per il mese
 	 *         precedente
+	 * @throws Exception 
 	 */
-	public static double Mensile() {
+	public static double Mensile() throws Exception {
 		double mensile1 = 0;
 		final GregorianCalendar data = new GregorianCalendar();
 		final ArrayList<SingleSpesa> listaUscite = CacheUscite.getSingleton().getAllUsciteForUtente();
 		for (int i = 0; i < listaUscite.size(); i++) {
 			final SingleSpesa uscita = listaUscite.get(i);
-			final Date dataUscita = DBUtil.stringToDate(uscita.getData(), "yyyy/MM/dd");
-			final int mese = Integer.parseInt(DBUtil.dataToString(dataUscita, "MM"));
-			final int anno = Integer.parseInt(DBUtil.dataToString(dataUscita, "yyyy"));
+			final Date dataUscita = UtilDb.stringToDate(uscita.getData(), "yyyy/MM/dd");
+			final int mese = Integer.parseInt(UtilDb.dataToString(dataUscita, "MM"));
+			final int anno = Integer.parseInt(UtilDb.dataToString(dataUscita, "yyyy"));
 
 			if (mese == data.get(Calendar.MONTH) && anno == data.get(Calendar.YEAR)) {
 				mensile1 += uscita.getInEuro();
@@ -699,9 +702,9 @@ public class Database {
 		final ArrayList<Entrate> listaEntrate = CacheEntrate.getSingleton().getAllEntrateForUtente();
 		for (int i = 0; i < listaEntrate.size(); i++) {
 			final Entrate entrata = listaEntrate.get(i);
-			final Date dataEntrata = DBUtil.stringToDate(entrata.getData(), "yyyy/MM/dd");
-			final int mese = Integer.parseInt(DBUtil.dataToString(dataEntrata, "MM"));
-			final int anno = Integer.parseInt(DBUtil.dataToString(dataEntrata, "yyyy"));
+			final Date dataEntrata = UtilDb.stringToDate(entrata.getData(), "yyyy/MM/dd");
+			final int mese = Integer.parseInt(UtilDb.dataToString(dataEntrata, "MM"));
+			final int anno = Integer.parseInt(UtilDb.dataToString(dataEntrata, "yyyy"));
 			if (mese == (data.get(Calendar.MONTH) + 1) && anno == data.get(Calendar.YEAR)) {
 				Emensile10 += entrata.getInEuro();
 			}
@@ -714,17 +717,18 @@ public class Database {
 	 * Metodo che calcola il totale delle uscite per il mese in corso
 	 * 
 	 * @return double
+	 * @throws Exception 
 	 * @throws SQLException
 	 */
-	public static double MensileInCorso() {
+	public static double MensileInCorso() throws Exception {
 		double mensile = 0;
 		final GregorianCalendar data = new GregorianCalendar();
 		final ArrayList<SingleSpesa> listaUscite = CacheUscite.getSingleton().getAllUsciteForUtente();
 		for (int i = 0; i < listaUscite.size(); i++) {
 			final SingleSpesa uscita = listaUscite.get(i);
-			final Date dataUscita = DBUtil.stringToDate(uscita.getData(), "yyyy/MM/dd");
-			final int mese = Integer.parseInt(DBUtil.dataToString(dataUscita, "MM"));
-			final int anno = Integer.parseInt(DBUtil.dataToString(dataUscita, "yyyy"));
+			final Date dataUscita = UtilDb.stringToDate(uscita.getData(), "yyyy/MM/dd");
+			final int mese = Integer.parseInt(UtilDb.dataToString(dataUscita, "MM"));
+			final int anno = Integer.parseInt(UtilDb.dataToString(dataUscita, "yyyy"));
 
 			if (mese == (data.get(Calendar.MONTH) + 1) && anno == data.get(Calendar.YEAR)) {
 				mensile += uscita.getInEuro();
@@ -733,7 +737,7 @@ public class Database {
 		return AltreUtil.arrotondaDecimaliDouble(mensile);
 	}
 
-	public static double percentoUscite(final String importanza) {
+	public static double percentoUscite(final String importanza) throws Exception {
 		double percentualeTipo = 0;
 		final double totaleAnnuo = Annuale();
 		double speseTipo = 0;

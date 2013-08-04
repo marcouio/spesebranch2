@@ -10,6 +10,7 @@ import business.ControlloreSpese;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
+import domain.CatSpese;
 import domain.SingleSpesa;
 import domain.Utenti;
 import domain.wrapper.WrapSingleSpesa;
@@ -33,7 +34,7 @@ public class CacheUscite extends AbstractCacheBase {
 
 	WrapSingleSpesa	usciteDAO	= new WrapSingleSpesa();
 
-	public SingleSpesa getSingleSpesa(final String id) {
+	public SingleSpesa getSingleSpesa(final String id) throws Exception {
 		SingleSpesa uscita = (SingleSpesa) cache.get(id);
 		if (uscita == null) {
 			uscita = caricaSingleSpesa(id);
@@ -44,12 +45,12 @@ public class CacheUscite extends AbstractCacheBase {
 		return (SingleSpesa) cache.get(id);
 	}
 
-	private SingleSpesa caricaSingleSpesa(final String id) {
+	private SingleSpesa caricaSingleSpesa(final String id) throws Exception {
 		return (SingleSpesa) new WrapSingleSpesa().selectById(Integer.parseInt(id));
 	}
 
-	private Map<String, AbstractOggettoEntita> chargeAllUscite() {
-		final ArrayList<Object> uscite = usciteDAO.selectAll();
+	private Map<String, AbstractOggettoEntita> chargeAllUscite() throws Exception {
+		final ArrayList<SingleSpesa> uscite = usciteDAO.selectAll();
 		if (uscite != null) {
 			for (int i = 0; i < uscite.size(); i++) {
 				final SingleSpesa uscita = (SingleSpesa) uscite.get(i);
@@ -66,7 +67,7 @@ public class CacheUscite extends AbstractCacheBase {
 		return cache;
 	}
 
-	public Map<String, AbstractOggettoEntita> getAllUscite() {
+	public Map<String, AbstractOggettoEntita> getAllUscite() throws Exception {
 		if (caricata) {
 			return cache;
 		}
@@ -75,7 +76,7 @@ public class CacheUscite extends AbstractCacheBase {
 		}
 	}
 
-	public ArrayList<SingleSpesa> getAllUsciteForUtente() {
+	public ArrayList<SingleSpesa> getAllUsciteForUtente() throws Exception {
 		final ArrayList<SingleSpesa> listaUscite = new ArrayList<SingleSpesa>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllUscite();
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
@@ -93,7 +94,7 @@ public class CacheUscite extends AbstractCacheBase {
 		return listaUscite;
 	}
 
-	public ArrayList<SingleSpesa> getAllUsciteForUtenteEAnno() {
+	public ArrayList<SingleSpesa> getAllUsciteForUtenteEAnno() throws Exception {
 		final ArrayList<SingleSpesa> listaUscite = new ArrayList<SingleSpesa>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllUscite();
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
@@ -114,7 +115,7 @@ public class CacheUscite extends AbstractCacheBase {
 		return listaUscite;
 	}
 
-	public int getMaxId() {
+	public int getMaxId() throws Exception {
 		int maxId = 0;
 		final Map<String, AbstractOggettoEntita> mappa = getAllUscite();
 		if (mappa != null) {

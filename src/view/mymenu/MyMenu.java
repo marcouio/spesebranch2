@@ -310,7 +310,7 @@ public class MyMenu extends MenuBarBase {
 			@Override
 			public void actionPerformedOverride(final ActionEvent e) {
 				try {
-					final UsciteView dialog = new UsciteView(new WrapSingleSpesa());
+					final UsciteView dialog = new UsciteView(null ,new WrapSingleSpesa());
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setBounds(0, 0, 347, 407);
 					dialog.setVisible(true);

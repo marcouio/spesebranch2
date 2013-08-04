@@ -44,13 +44,11 @@ public class GeneralFrame extends PannelloBase {
 	private final ArrayList<JPanel> listaPannelli = new ArrayList<JPanel>();
 
 	public static final GeneralFrame getSingleton() throws ExceptionGraphics {
-		if (singleton == null) {
-			synchronized (GeneralFrame.class) {
-				if (singleton == null) {
-					FrameBase view = ControlloreSpese.getSingleton().getView();
-					singleton = new GeneralFrame(view);
-				}
-			} // if
+		synchronized (GeneralFrame.class) {
+			if (singleton == null) {
+				FrameBase view = ControlloreSpese.getSingleton().getView();
+				singleton = new GeneralFrame(view);
+			}
 		} // if
 		return singleton;
 	} // getSingleton()
@@ -232,7 +230,9 @@ public class GeneralFrame extends PannelloBase {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
 				internoEntryUscite.getBottoniPrimo().setSelected(false);
-				final UsciteView dialog = new UsciteView(new WrapSingleSpesa());
+				
+				FrameBase contenitorePadre = (FrameBase) GeneralFrame.this.getContenitorePadre();
+				final UsciteView dialog = new UsciteView(contenitorePadre, new WrapSingleSpesa());
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setBounds(30, 60, 347, 407);
 				dialog.setVisible(true);

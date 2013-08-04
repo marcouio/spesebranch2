@@ -3,6 +3,7 @@ package business.aggiornatori;
 import grafica.componenti.contenitori.ScrollPaneBase;
 import grafica.componenti.table.table.TableBase;
 
+import java.awt.print.Paper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import view.GeneralFrame;
 import view.componenti.componentiPannello.SottoPannelloCategorie;
 import view.componenti.componentiPannello.SottoPannelloDatiEntrate;
 import view.componenti.componentiPannello.SottoPannelloDatiSpese;
@@ -393,11 +395,13 @@ public class AggiornatoreManager {
 
 		try {
 			TableModelUscite model = new TableModelUscite(null);
-
-			final JScrollPane pane = ControlloreSpese.getSingleton().getPannello().getTabPermesi().getTabUscite().getScrollPane();
-			if(pane != null){
-				final TableBase table = TabellaUscita.createTable(model,pane); 
-				pane.setViewportView(table);
+			GeneralFrame pannelloPrinc = ControlloreSpese.getSingleton().getPannello();
+			if(pannelloPrinc.getTabPermesi() != null && pannelloPrinc.getTabPermesi().getTabUscite() != null){
+				final JScrollPane pane = pannelloPrinc.getTabPermesi().getTabUscite().getScrollPane();
+				if(pane != null){
+					final TableBase table = TabellaUscita.createTable(model,pane); 
+					pane.setViewportView(table);
+				}
 			}
 			return true;
 		} catch (final Exception e) {
@@ -416,11 +420,14 @@ public class AggiornatoreManager {
 	 */
 	public static boolean aggiornaTabellaEntrate() {
 		try {
-			final ScrollPaneBase pane = ControlloreSpese.getSingleton().getPannello().getTabPermesi().getTabEntrate().getScrollPane();
-			if(pane != null){
-				TableModelEntrate model = new TableModelEntrate(null);
-				final TableBase table = TabellaEntrata.createTable(model, pane);
-				pane.setViewportView(table);
+			GeneralFrame pannelloPrinc = ControlloreSpese.getSingleton().getPannello();
+			if(pannelloPrinc.getTabPermesi() != null && pannelloPrinc.getTabPermesi() .getTabEntrate() != null){
+				final ScrollPaneBase pane = pannelloPrinc.getTabPermesi().getTabEntrate().getScrollPane();
+				if(pane != null){
+					TableModelEntrate model = new TableModelEntrate(null);
+					final TableBase table = TabellaEntrata.createTable(model, pane);
+					pane.setViewportView(table);
+				}
 			}
 			return true;
 		} catch (final Exception e) {

@@ -33,7 +33,7 @@ import domain.wrapper.WrapUtenti;
 
 public class ControlloreSpese extends ControlloreBase {
 
-	private static FrameBase view;
+	private FrameBase view;
 	private static GeneralFrame pannello;
 	private static IUtenti utenteLogin;
 	private static CommandManager commandManager;
@@ -90,7 +90,7 @@ public class ControlloreSpese extends ControlloreBase {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				lookUsato = UIManager.getSystemLookAndFeelClassName();
 			}
-			SwingUtilities.updateComponentTreeUI(view);
+			SwingUtilities.updateComponentTreeUI(ControlloreSpese.getSingleton().getView());
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
@@ -100,7 +100,7 @@ public class ControlloreSpese extends ControlloreBase {
 		ControlloreSpese.getSingleton().myMain(ControlloreSpese.getSingleton(), true, "myApplication");
 	}
 
-	private static void verificaPresenzaDb() throws Exception {
+	private void verificaPresenzaDb() throws Exception {
 		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		try {
 			final String sql = "SELECT * FROM " + WrapLookAndFeel.NOME_TABELLA;

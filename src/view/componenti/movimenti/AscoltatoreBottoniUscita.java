@@ -45,7 +45,7 @@ public class AscoltatoreBottoniUscita extends MouseAdapter {
 			arrayUtil[INDEX_IDSPESA] = tabella.getValueAt(row, 5);
 			arrayUtil[INDEX_DATAINS] = tabella.getValueAt(row, 6);
 
-			final DialogUsciteMov dialogNew = new DialogUsciteMov(new WrapSingleSpesa());
+			final DialogUsciteMov dialogNew = new DialogUsciteMov(null, new WrapSingleSpesa());
 
 			settaDialog(dialogNew);
 

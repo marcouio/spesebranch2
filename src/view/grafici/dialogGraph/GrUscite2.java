@@ -43,8 +43,9 @@ public class GrUscite2 extends JDialog implements ActionListener {
 
 	/**
 	 * Create the dialog.
+	 * @throws Exception 
 	 */
-	public GrUscite2() {
+	public GrUscite2() throws Exception {
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		final JFreeChart chart = ChartFactory.createLineChart("Uscite Mensili",
 				"Mesi", "Euro", dataset, PlotOrientation.VERTICAL, true, true,

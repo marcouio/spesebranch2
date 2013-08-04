@@ -1,15 +1,16 @@
 package view.entrateuscite;
 
-import java.util.Observer;
+import grafica.componenti.alert.DialogoBase;
+import grafica.componenti.contenitori.FrameBase;
 
-import javax.swing.JDialog;
+import java.util.Observer;
 
 import business.CorreggiTesto;
 import domain.CatSpese;
 import domain.Utenti;
 import domain.wrapper.WrapSingleSpesa;
 
-public abstract class AbstractUsciteView extends JDialog implements Observer {
+public abstract class AbstractUsciteView extends DialogoBase implements Observer {
 
 	public static final long serialVersionUID = 1L;
 	public WrapSingleSpesa modelUscita = null;
@@ -22,7 +23,8 @@ public abstract class AbstractUsciteView extends JDialog implements Observer {
 		this.modelUscita = modelUscita;
 	}
 
-	public AbstractUsciteView(final WrapSingleSpesa modelUscita) {
+	public AbstractUsciteView(FrameBase frame, final WrapSingleSpesa modelUscita) {
+		super(frame);
 		this.modelUscita = modelUscita;
 	}
 

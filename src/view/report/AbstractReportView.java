@@ -18,7 +18,7 @@ public abstract class AbstractReportView extends JFrame {
 		this.setReportData(reportData);
 	}
 
-	public void inserisciUsciteAnnuali(final boolean hasUsciteAnnuali) {
+	public void inserisciUsciteAnnuali(final boolean hasUsciteAnnuali) throws Exception {
 		if (hasUsciteAnnuali) {
 			Double usciteAnnuali = reportData.generaUsciteAnnuali();
 			OggettoReport oggettoReport = new OggettoReport(OggettoReport.TIPO_DOUBLE, usciteAnnuali, "Uscite Annuali");
@@ -43,7 +43,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciUsciteMensili(final boolean hasUsciteMensili) {
+	public void inserisciUsciteMensili(final boolean hasUsciteMensili) throws Exception {
 		if (hasUsciteMensili) {
 			HashMap<String, Double> usciteMese = reportData.generaUsciteMese();
 			String[]mesi = (String[]) Mesi.getListaMesi().toArray(new String[Mesi.getListaMesi().size()]);
@@ -81,7 +81,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciUsciteCatAnnuali(final boolean hasUsciteCatAnnuali) {
+	public void inserisciUsciteCatAnnuali(final boolean hasUsciteCatAnnuali) throws Exception {
 		if (hasUsciteCatAnnuali) {
 			HashMap<String, Double> usciteCatAnnuali = reportData.generaUsciteCatAnnuali();
 			String[]categorie = CacheCategorie.getSingleton().getArrayCategorie();
@@ -90,7 +90,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciUsciteVariabili(final boolean hasUsciteVariabili) {
+	public void inserisciUsciteVariabili(final boolean hasUsciteVariabili) throws Exception {
 		if (hasUsciteVariabili) {
 			Double usciteVariabili = reportData.generaUsciteVariabili();
 			OggettoReport oggettoReport = new OggettoReport(OggettoReport.TIPO_DOUBLE, usciteVariabili, "Uscite Variabili");
@@ -98,7 +98,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciUsciteFutili(final boolean hasUsciteFutili) {
+	public void inserisciUsciteFutili(final boolean hasUsciteFutili) throws Exception {
 		if (hasUsciteFutili) {
 			Double usciteFutili = reportData.generaUsciteFutili();
 			OggettoReport oggettoReport = new OggettoReport(OggettoReport.TIPO_DOUBLE, usciteFutili, "Uscite Futili");
@@ -106,7 +106,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciAvanzo(final boolean hasAvanzo) {
+	public void inserisciAvanzo(final boolean hasAvanzo) throws Exception {
 		if (hasAvanzo) {
 			Double avanzo = reportData.generaAvanzo();
 			OggettoReport oggettoReport = new OggettoReport(OggettoReport.TIPO_DOUBLE, avanzo, "Saldo");
@@ -122,7 +122,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciMediaUscite(final boolean hasMediaUscite) {
+	public void inserisciMediaUscite(final boolean hasMediaUscite) throws Exception {
 		if (hasMediaUscite) {
 			Double mediaUscite = reportData.generaMediaUscite();
 			OggettoReport oggettoReport = new OggettoReport(OggettoReport.TIPO_DOUBLE, mediaUscite, "Media Mensile Uscite");

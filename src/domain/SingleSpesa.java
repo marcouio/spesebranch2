@@ -20,6 +20,8 @@ import command.javabeancommand.AbstractOggettoEntita;
 @Table(name = "SINGLE_SPESA")
 public class SingleSpesa implements AbstractOggettoEntita, Serializable, ISingleSpesa {
 
+	private static final long	serialVersionUID	= 1L;
+
 	@Column(name = "Data", nullable = false, length = 2000000000)
 	private String Data;
 
@@ -131,19 +133,13 @@ public class SingleSpesa implements AbstractOggettoEntita, Serializable, ISingle
 		return catSpese;
 	}
 
-
-
 	public void setCatSpese(CatSpese catSpese) {
 		this.catSpese = catSpese;
 	}
 
-
-
 	public Utenti getUtenti() {
 		return utenti;
 	}
-
-
 
 	public void setUtenti(Utenti utenti) {
 		this.utenti = utenti;

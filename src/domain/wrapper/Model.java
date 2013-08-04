@@ -359,8 +359,8 @@ public class Model {
 	public String[][] movimentiUscite(final int numUscite, final String tabella) throws Exception {
 		final Vector<String> nomi = Database.getSingleton().nomiColonne(tabella);
 		final ArrayList<SingleSpesa> uscite = Model.getSingleton().modelUscita.dieciUscite(numUscite);
-
-		if (uscite.size() > 0 && (uscite.size() == numUscite || uscite.size() >= numUscite)) {
+		
+		if (uscite != null && uscite.size() > 0 && (uscite.size() == numUscite || uscite.size() >= numUscite)) {
 			movimentiUscite = new String[numUscite][nomi.size()];
 			for (int x = 0; x < numUscite; x++) {
 				final SingleSpesa uscita = uscite.get(x);
@@ -373,7 +373,7 @@ public class Model {
 				movimentiUscite[x][6] = uscita.getDataIns();
 
 			}
-		} else if (uscite.size() > 0 && uscite.size() < numUscite) {
+		} else if (uscite != null && uscite.size() > 0 && uscite.size() < numUscite) {
 
 			movimentiUscite = new String[numUscite][nomi.size()];
 			for (int x = 0; x < uscite.size(); x++) {

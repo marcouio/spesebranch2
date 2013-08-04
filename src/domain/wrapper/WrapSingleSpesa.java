@@ -5,14 +5,13 @@ import grafica.componenti.alert.Alert;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Vector;
 
-import view.impostazioni.Impostazioni;
 import business.AltreUtil;
 import business.ControlloreSpese;
 import business.DBUtil;
@@ -21,6 +20,7 @@ import business.cache.CacheCategorie;
 import command.javabeancommand.AbstractOggettoEntita;
 
 import db.Clausola;
+import db.ConnectionPool;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.CatSpese;
@@ -48,23 +48,23 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 	}
 
 	@Override
-	public Object selectById(final int id) {
+	public Object selectById(final int id) throws Exception{
 		try {
 			return genericDao.selectById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 	}
 
-	public Vector<Object> selectAllForUtente() {
+	public Vector<Object> selectAllForUtente() throws Exception {
 		final Vector<Object> uscite = new Vector<Object>();
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		final Map<String, AbstractOggettoEntita> mappaCategorie = CacheCategorie.getSingleton().getAllCategorie();
+		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		try {
-			final Connection cn = DBUtil.getConnection();
 			final String sql = "SELECT * FROM " + NOME_TABELLA + " WHERE " + IDUTENTE + " = " + utente.getIdUtente();
 			final Statement st = cn.createStatement();
 			final ResultSet rs = st.executeQuery(sql);
@@ -86,25 +86,24 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(cn);
 		}
 		return uscite;
 
 	}
 
-	public static void main(final String[] args) {
-		final WrapSingleSpesa wrap = new WrapSingleSpesa();
-		wrap.selectAll();
-	}
-
 	@Override
-	public ArrayList<Object> selectAll() {
+	public ArrayList<SingleSpesa> selectAll() throws Exception {
 		try {
-			return (ArrayList<Object>) genericDao.selectAll();
+			Object selectAll = genericDao.selectAll();
+			if(selectAll instanceof ArrayList<?>){
+				return (ArrayList<SingleSpesa>) selectAll;
+			}
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 	}
@@ -227,7 +226,11 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 	@SuppressWarnings("unchecked")
 	public ArrayList<SingleSpesa> dieciUscite(final int dieci) {
 		 try {
-			return (ArrayList<SingleSpesa>) genericDao.selectAll();
+			Utenti utenteLogin = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
+			ArrayList<Clausola> clausole = new ArrayList<Clausola>();
+			Clausola clausola = new Clausola(IDUTENTE, IDUTENTE, "=", Integer.toString(utenteLogin.getIdUtente()));
+			clausole.add(clausola);
+			return (ArrayList<SingleSpesa>) genericDao.selectWhere(clausole, null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

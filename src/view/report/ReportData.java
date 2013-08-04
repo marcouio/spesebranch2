@@ -28,7 +28,7 @@ public class ReportData {
 	}
 
 	
-	public Double generaUsciteAnnuali(){
+	public Double generaUsciteAnnuali() throws Exception{
 		return Database.Annuale();
 	}
 	
@@ -48,7 +48,7 @@ public class ReportData {
 		return entrateMese;
 	}
 	
-	public HashMap<String, Double> generaUsciteMese() {
+	public HashMap<String, Double> generaUsciteMese() throws Exception {
 		HashMap<String, Double> usciteMese = new HashMap<String, Double>();
 		for (int i = 1; i <= 12; i++) {
 			String mese = Mesi.getMeseStringa(i);
@@ -58,7 +58,7 @@ public class ReportData {
 	}
 		
 	
-	public HashMap<String, Double> generaUsciteCatAnnuali() {
+	public HashMap<String, Double> generaUsciteCatAnnuali() throws Exception {
 		HashMap<String, Double> usciteCatAnnuali = new HashMap<String, Double>();
 		for (int i = 0; i < categorie.size(); i++) {
 			final CatSpese categoria = categorie.get(i);
@@ -119,19 +119,19 @@ public class ReportData {
 		return entrateCatMensili;
 	}
 	
-	public Double generaUsciteVariabili() {
+	public Double generaUsciteVariabili() throws Exception {
 		return Database.percentoUscite(WrapCatSpese.IMPORTANZA_VARIABILE);
 	}
 	
-	public Double generaUsciteFutili() {
+	public Double generaUsciteFutili() throws Exception {
 		return Database.percentoUscite(WrapCatSpese.IMPORTANZA_FUTILE);
 	}
 	
-	public Double generaAvanzo() {
+	public Double generaAvanzo() throws Exception {
 		return AltreUtil.arrotondaDecimaliDouble((Database.EAnnuale()) - (Database.Annuale()));
 	}
 	
-	public Double generaMediaUscite() {
+	public Double generaMediaUscite() throws Exception {
 		return Database.Annuale() / new GregorianCalendar().get(Calendar.MONTH + 1);
 	}
 	

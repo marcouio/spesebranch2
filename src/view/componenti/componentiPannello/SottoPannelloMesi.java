@@ -88,6 +88,7 @@ public class SottoPannelloMesi {
 
 				@Override
 				public void itemStateChanged(ItemEvent e) {
+					try{
 					Object mounth = ComboMese.getSelectedItem();
 
 					if (!mounth.equals("")) {
@@ -96,6 +97,9 @@ public class SottoPannelloMesi {
 						double totaleMeseE = AltreUtil.arrotondaDecimaliDouble(Database.getSingleton().totaleEntrateMese(mese));
 						totaleMeseUscite.setText(Double.toString(totaleMese));
 						totaleMeseEntrate.setText(Double.toString(totaleMeseE));
+					}
+					}catch (Exception e1) {
+						e1.printStackTrace();
 					}
 				}
 			});
