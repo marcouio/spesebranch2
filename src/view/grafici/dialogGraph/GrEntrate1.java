@@ -21,8 +21,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
 import view.componenti.movimenti.DialogHandler;
-import business.DBUtil;
 import business.Database;
+import db.ConnectionPool;
 import domain.wrapper.WrapEntrate;
 
 public class GrEntrate1 extends JDialog implements ActionListener {
@@ -50,9 +50,7 @@ public class GrEntrate1 extends JDialog implements ActionListener {
 		}
 	}
 
-	public GrEntrate1(final JFrame frame, final String title, final boolean modal)
-			throws SQLException, IOException {
-		super();
+	public GrEntrate1(final JFrame frame, final String title, final boolean modal) throws Exception {
 
 		dataset = new DefaultPieDataset();
 		dataset.setValue("Fisse", entrateFisse);
@@ -69,7 +67,7 @@ public class GrEntrate1 extends JDialog implements ActionListener {
 				+ dataMinuti + ".png"), chart, 560, 530);
 		getContentPane().setLayout(null);
 
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		final ImageIcon image = new ImageIcon("./immagini/torta" + dataMinuti
 				+ ".png");
 		final JLabel immagine = new JLabel();

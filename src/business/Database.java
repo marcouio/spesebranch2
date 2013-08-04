@@ -631,8 +631,8 @@ public class Database {
 		final ArrayList<SingleSpesa> listaUscite = CacheUscite.getSingleton().getAllUsciteForUtente();
 		for (int i = 0; i < listaUscite.size(); i++) {
 			final SingleSpesa uscita = listaUscite.get(i);
-			final Date dataUscita = DBUtil.stringToDate(uscita.getData(), "yyyy/MM/dd");
-			final String annoDaData = DBUtil.dataToString(dataUscita, "yyyy");
+			final Date dataUscita = UtilDb.stringToDate(uscita.getData(), "yyyy/MM/dd");
+			final String annoDaData = UtilDb.dataToString(dataUscita, "yyyy");
 			if (Integer.parseInt(annoDaData) == anno) {
 				annuale += uscita.getInEuro();
 			}

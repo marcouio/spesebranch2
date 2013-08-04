@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import testo.UtilText;
 import view.font.LabelTitolo;
 import view.font.TextAreaF;
 import business.AltreUtil;
@@ -167,7 +168,7 @@ public class NewSql extends OggettoVistaBase {
 							String finale = "";
 							int i = 0;
 							for (i = 0; i < lista.size(); i++) {
-								final String porzione = DBUtil.creaStringStessaDimensione((String) lista.get(i), 30);
+								final String porzione = UtilText.creaStringStessaDimensione((String) lista.get(i), 30);
 								riga = riga + porzione;
 							}
 							String trattini = "";

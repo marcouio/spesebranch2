@@ -19,10 +19,11 @@ import view.font.TextFieldF;
 import business.AltreUtil;
 import business.ControlloreSpese;
 import business.CorreggiTesto;
-import business.DBUtil;
 import business.ascoltatori.AscoltatoreAggiornatoreEntrate;
 import business.cache.CacheEntrate;
 import business.comandi.entrate.CommandDeleteEntrata;
+import db.ConnectionPool;
+import db.UtilDb;
 import domain.Utenti;
 import domain.wrapper.WrapEntrate;
 
@@ -94,7 +95,7 @@ public class EntrateView extends AbstractEntrateView {
 		getContentPane().add(cbTipo);
 
 		final GregorianCalendar gc = new GregorianCalendar();
-		tfData = new TextFieldF(DBUtil.dataToString(gc.getTime(), "yyyy/MM/dd"));
+		tfData = new TextFieldF(UtilDb.dataToString(gc.getTime(), "yyyy/MM/dd"));
 		tfData.setColumns(10);
 		tfData.setBounds(13, 191, 150, 27);
 		getContentPane().add(tfData);
@@ -129,7 +130,7 @@ public class EntrateView extends AbstractEntrateView {
 				} catch (final Exception e2) {
 					e2.printStackTrace();
 					Alert.segnalazioneErroreGrave(e2.getMessage());
-					DBUtil.closeConnection();
+					ConnectionPool.getSingleton().chiudiOggettiDb(null);
 				}
 			}
 
@@ -204,7 +205,7 @@ public class EntrateView extends AbstractEntrateView {
 			Alert.segnalazioneErroreGrave(messaggio);
 		}
 		setUtenti((Utenti) ControlloreSpese.getSingleton().getUtenteLogin());
-		setDataIns(DBUtil.dataToString(new Date(), "yyyy/MM/dd"));
+		setDataIns(UtilDb.dataToString(new Date(), "yyyy/MM/dd"));
 	}
 
 	/**

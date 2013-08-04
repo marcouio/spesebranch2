@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import java.util.Date;
 
 import business.AltreUtil;
-import business.DBUtil;
+import db.UtilDb;
 
 public class ScrittoreReportTxt extends ScrittoreReportBase implements IScrittoreReport {
 
@@ -22,7 +22,7 @@ public class ScrittoreReportTxt extends ScrittoreReportBase implements IScrittor
 
 	private PrintStream creaStream() throws FileNotFoundException {
 		AltreUtil.deleteFileDaDirectory("./", "Rep");
-		final String data = DBUtil.dataToString(new Date(), "dd_MM_yyyy_HH_mm_ss");
+		final String data = UtilDb.dataToString(new Date(), "dd_MM_yyyy_HH_mm_ss");
 		file = new FileOutputStream("Report" + data + ".txt");
 		stream = new PrintStream(file);
 		return stream;

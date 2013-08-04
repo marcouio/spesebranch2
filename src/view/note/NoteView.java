@@ -14,11 +14,11 @@ import view.font.TextAreaF;
 import view.font.TextFieldF;
 import business.AltreUtil;
 import business.ControlloreSpese;
-import business.DBUtil;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import business.cache.CacheNote;
 import business.comandi.note.CommandInserisciNota;
 import business.comandi.note.CommandUpdateNota;
+import db.UtilDb;
 import domain.INote;
 import domain.Note;
 import domain.Utenti;
@@ -82,7 +82,7 @@ public class NoteView extends AbstractNoteView {
 		data = new TextFieldF();
 		data.setColumns(10);
 		data.setBounds(181, 38, 150, 27);
-		data.setText(DBUtil.dataToString(new Date(), "yyyy/MM/dd"));
+		data.setText(UtilDb.dataToString(new Date(), "yyyy/MM/dd"));
 		getContentPane().add(data);
 
 		btnInserisci = new ButtonBase(this);
@@ -141,7 +141,7 @@ public class NoteView extends AbstractNoteView {
 
 		setDescrizione(descrizione.getText());
 		setUtenti((Utenti) ControlloreSpese.getSingleton().getUtenteLogin());
-		setDataIns(DBUtil.dataToString(new Date(), "yyyy/MM/dd"));
+		setDataIns(UtilDb.dataToString(new Date(), "yyyy/MM/dd"));
 	}
 
 	public void setNota(final String stringNota) {
