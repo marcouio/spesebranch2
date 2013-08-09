@@ -105,8 +105,8 @@ public class ControlloreSpese extends ControlloreBase {
 		try {
 			final String sql = "SELECT * FROM " + WrapLookAndFeel.NOME_TABELLA;
 			final Statement st = cn.createStatement();
-			@SuppressWarnings("unused")
 			final ResultSet rs = st.executeQuery(sql);
+			getLog().info("Verificata presenza Db rs trovato:" +rs.toString());
 		} catch (final SQLException e) {
 			try {
 				Database.getSingleton().generaDB();

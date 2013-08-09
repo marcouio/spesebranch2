@@ -2,9 +2,9 @@ package domain.wrapper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Set;
 
@@ -13,6 +13,7 @@ import business.DBUtil;
 import command.javabeancommand.AbstractOggettoEntita;
 
 import db.Clausola;
+import db.ConnectionPool;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.CatSpese;
@@ -56,49 +57,49 @@ public class WrapGruppi extends Observable implements IDAO, IGruppi {
 	}
 
 	@Override
-	public boolean insert(final Object oggettoEntita) {
+	public boolean insert(final Object oggettoEntita) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.insert(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean delete(final int id) {
+	public boolean delete(final int id) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean update(final Object oggettoEntita) {
+	public boolean update(final Object oggettoEntita) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.update(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean deleteAll() {
+	public boolean deleteAll() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.deleteAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}

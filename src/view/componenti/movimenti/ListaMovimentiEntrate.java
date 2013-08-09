@@ -1,5 +1,8 @@
 package view.componenti.movimenti;
 
+import grafica.componenti.button.ButtonBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
+
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,13 +25,15 @@ public class ListaMovimentiEntrate extends AbstractListaMov {
 
 	public ListaMovimentiEntrate(final Container container) {
 		super(container);
+		ButtonBase pulsanteNMovimenti = getPanFiltraMov().getPulsanteNMovimenti();
+		TextFieldTesto campo = getPanFiltraMov().getCampo();
 		pulsanteNMovimenti.addActionListener(new AscoltatoreNumeroMovimenti(WrapEntrate.NOME_TABELLA, createNomiColonne(), campo));
 	}
 
 	@Override
 	public String[][] createMovimenti() {
 		try {
-			return Model.getSingleton().movimentiEntrate(numMovimenti, WrapEntrate.NOME_TABELLA);
+			return Model.getSingleton().movimentiEntrate(getNumEntry(), WrapEntrate.NOME_TABELLA);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

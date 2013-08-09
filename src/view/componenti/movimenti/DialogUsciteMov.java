@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -207,7 +206,10 @@ public class DialogUsciteMov extends AbstractUsciteView {
 					aggiornaModelDaVista();
 					String[] nomiColonne = null;
 					nomiColonne = (String[]) AltreUtil.generaNomiColonne(WrapSingleSpesa.NOME_TABELLA);
-					final JTextField campo = ((GeneralFrame) ControlloreSpese.getSingleton().getPannello()).getTabMovimenti().getTabMovUscite().getCampo();
+					GeneralFrame generalFrame = (GeneralFrame) ControlloreSpese.getSingleton().getPannello();
+					ListaMovimentiUscite tabMovUscite = generalFrame.getTabMovimenti().getTabMovUscite();
+					
+					final JTextField campo = tabMovUscite.getPanFiltraMov().getCampo();
 					final SingleSpesa oldSpesa = CacheUscite.getSingleton().getSingleSpesa(idSpesa.getText());
 
 					if (dialog.nonEsistonoCampiNonValorizzati()) {

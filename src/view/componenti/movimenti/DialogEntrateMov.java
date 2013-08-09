@@ -210,10 +210,11 @@ public class DialogEntrateMov extends AbstractEntrateView {
 		@Override
 		protected void actionPerformedOverride(final ActionEvent e) throws Exception {
 			super.actionPerformedOverride(e);
+			Movimenti tabMovimenti = ControlloreSpese.getSingleton().getPannello().getTabMovimenti();
 			if (e.getActionCommand().equals(ControlloreSpese.getSingleton().getMessaggio("update"))) {
 				aggiornaModelDaVista();
 				final String[] nomiColonne = (String[]) AltreUtil.generaNomiColonne(WrapEntrate.NOME_TABELLA);
-				final JTextField campo = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getCampo();
+				final JTextField campo = tabMovimenti.getTabMovEntrate().getPanFiltraMov().getCampo();
 
 				final Entrate oldEntrata = CacheEntrate.getSingleton().getEntrate(idEntrate.getText());
 
@@ -233,7 +234,7 @@ public class DialogEntrateMov extends AbstractEntrateView {
 				dialog.dispose();
 			} else if (e.getActionCommand().equals(ControlloreSpese.getSingleton().getMessaggio("delete"))) {
 				final String[] nomiColonne = (String[]) AltreUtil.generaNomiColonne(WrapEntrate.NOME_TABELLA);
-				final JTextField campo = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getCampo();
+				final JTextField campo = tabMovimenti.getTabMovEntrate().getPanFiltraMov().getCampo();
 				aggiornaModelDaVista();
 				if (idEntrate.getText() != null) {
 					if (!ControlloreSpese.invocaComando(new CommandDeleteEntrata(modelEntrate))) {
