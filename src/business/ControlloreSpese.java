@@ -60,7 +60,6 @@ public class ControlloreSpese extends ControlloreBase {
 		view.setResizable(false);
 		view.setTitle(getMessaggio("title"));
 		view.setVisible(true);
-
 	}
 
 	@Override

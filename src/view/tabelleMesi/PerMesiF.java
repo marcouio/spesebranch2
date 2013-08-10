@@ -1,7 +1,6 @@
 package view.tabelleMesi;
 
 import java.awt.Container;
-import java.awt.Dimension;
 
 import javax.swing.JTabbedPane;
 
@@ -29,18 +28,17 @@ public class PerMesiF extends OggettoVistaBase {
 			tabUscite  = new TabellaUscita(container);
 			tabUG      = new TabellaUscitaGruppi(container);
 
-			this.setPreferredSize(new Dimension(983, 500));
 			this.setLayout(null);
 
 			tabGenerale = new JTabbedPane();
-			tabGenerale.setBounds(12, 65, 930, 488);
+			tabGenerale.setBounds(12, 65, 945, 488);
 			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("income"), tabEntrate);
 			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("withdrawal"), tabUscite);
 			tabGenerale.addTab(ControlloreSpese.getSingleton().getMessaggio("groupscharge"), tabUG);
 
-			tabUscite.getScrollPane().setSize(950, 350);
-			tabEntrate.getScrollPane().setSize(950, 350);
-			TabellaUscitaGruppi.getScrollPane().setSize(950, 350);
+			tabUscite.getScrollPane().setSize(945, 350);
+			tabEntrate.getScrollPane().setSize(945, 350);
+			tabUG.getScrollPane().setSize(945, 350);
 			this.add(tabGenerale);
 
 		} catch (final Exception e) {
@@ -76,6 +74,14 @@ public class PerMesiF extends OggettoVistaBase {
 	 */
 	public void setTabUscite(final TabellaUscita tabUscite) {
 		this.tabUscite = tabUscite;
+	}
+
+	public TabellaUscitaGruppi getTabUG() {
+		return tabUG;
+	}
+
+	public void setTabUG(TabellaUscitaGruppi tabUG) {
+		this.tabUG = tabUG;
 	}
 
 }

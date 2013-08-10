@@ -370,10 +370,14 @@ public class AggiornatoreManager {
 	 */
 	public static boolean aggiornaTabellaGruppi() {
 		try {
-			final JScrollPane pane = TabellaUscitaGruppi.getScrollPane();
-			if(pane != null){
-				final JTable table = TabellaUscitaGruppi.getDatiPerTabella(pane);
-				pane.setViewportView(table);
+			GeneralFrame pannelloPrinc = ControlloreSpese.getSingleton().getPannello();
+			if(pannelloPrinc.getTabPermesi() != null && pannelloPrinc.getTabPermesi().getTabUG() != null){
+				
+				final JScrollPane pane = pannelloPrinc.getTabPermesi().getTabUG().getScrollPane();
+				if(pane != null){
+					final JTable table = pannelloPrinc.getTabPermesi().getTabUG().getDatiPerTabella(pane);
+					pane.setViewportView(table);
+				}
 			}
 			return true;
 		} catch (final Exception e) {

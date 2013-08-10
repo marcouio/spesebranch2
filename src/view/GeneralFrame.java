@@ -70,6 +70,7 @@ public class GeneralFrame extends PannelloBase {
 		}
 		tabMovimenti.setVisible(true);
 		tabMovimenti.getTabMovUscite().setVisible(true);
+		
 	}
 
 	private PannelloBottoni createPannelloBottoni() throws ExceptionGraphics{

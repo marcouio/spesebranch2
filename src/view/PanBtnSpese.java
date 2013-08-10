@@ -89,7 +89,7 @@ public class PanBtnSpese extends PannelloBottoni{
 				PerMesiF tabPermesi = generalFrame.getTabPermesi();
 				if(tabPermesi == null){
 					tabPermesi = new PerMesiF(generalFrame);
-					tabPermesi.setSize(950, 500);
+					tabPermesi.setSize(955, 500);
 					tabPermesi.posizionaSottoA(PanBtnSpese.this, 0, -40);
 					generalFrame.add(tabPermesi);
 					listaPannelli.add(tabPermesi);

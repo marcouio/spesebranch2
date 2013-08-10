@@ -40,7 +40,7 @@ public class TabellaUscitaGruppi extends OggettoVistaBase {
 
 	}
 
-	public static TableBase getDatiPerTabella(final Container container) throws Exception {
+	public TableBase getDatiPerTabella(final Container container) throws Exception {
 
 		TableModelUsciteGruppi model = new TableModelUsciteGruppi(null);
 
@@ -68,7 +68,7 @@ public class TabellaUscitaGruppi extends OggettoVistaBase {
 		TabellaUscitaGruppi.table = table;
 	}
 
-	public static JScrollPane getScrollPane() {
+	public JScrollPane getScrollPane() {
 		return scrollPane;
 	}
 
