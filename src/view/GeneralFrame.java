@@ -78,13 +78,19 @@ public class GeneralFrame extends PannelloBase {
 	}
 
 	public void relocateFinestreLaterali(final FrameBase view) {
-		if (ControlloreSpese.getSingleton().getInitFinestre().getFinestraVisibile() != null) {
+		
+		final JFrame finestraVisibile = ControlloreSpese.getSingleton().getInitFinestre().getFinestraVisibile();
+		if (finestraVisibile != null) {
+			
 			final Point p = view.getLocation();
 			final Dimension d = view.getSize();
 			p.setLocation(p.x + d.width + 5, p.y);
 			try {
-				final JFrame finestraVisibile = ControlloreSpese.getSingleton().getInitFinestre().getFinestraVisibile();
-				finestraVisibile.setLocation(p);
+				
+				if(finestraVisibile.isActive()){
+					finestraVisibile.setLocation(p);
+				}
+				
 			} catch (final Exception e) {
 				e.printStackTrace();
 			}

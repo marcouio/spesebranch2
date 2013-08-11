@@ -92,6 +92,7 @@ public class PanBtnSpese extends PannelloBottoni{
 					tabPermesi.setSize(955, 500);
 					tabPermesi.posizionaSottoA(PanBtnSpese.this, 0, -40);
 					generalFrame.add(tabPermesi);
+					generalFrame.setTabPermesi(tabPermesi);
 					listaPannelli.add(tabPermesi);
 
 				}
@@ -121,6 +122,7 @@ public class PanBtnSpese extends PannelloBottoni{
 					consolle.setSize(980, 500);
 					consolle.posizionaSottoA(PanBtnSpese.this, 0, -55);
 					generalFrame.add(consolle);
+					generalFrame.setConsolle(consolle);
 					listaPannelli.add(consolle);
 				}
 				consolle.setVisible(true);
