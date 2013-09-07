@@ -106,12 +106,8 @@ public class InizializzatoreFinestre {
 	public void setVisibilitaFinestre(final JFrame finestraVisibile, final JMenu menu, final JCheckBoxMenuItem menuItem) {
 		final boolean visibile = finestraVisibile.isVisible();
 		// oscura tutte le finestre
-		for (final JFrame finestra : finestre) {
-			if (finestra != null) {
-				finestra.setVisible(false);
-				finestra.dispose();
-			}
-		}
+		quitFinestre();
+		
 		// gestisce il check del menu
 		for (int i = 0; i < menu.getMenuComponents().length; i++) {
 			final JCheckBoxMenuItem item = (JCheckBoxMenuItem) menu.getMenuComponents()[i];
@@ -120,9 +116,7 @@ public class InizializzatoreFinestre {
 		// se già visibile oscura la finestra passata come parametro, altrimenti
 		// la visualizza
 		if (visibile) {
-			menuItem.setSelected(false);
-			finestraVisibile.setVisible(false);
-			finestraVisibile.dispose();
+			quietFinestraVisibile(menuItem, finestraVisibile);
 		} else {
 			menuItem.setSelected(true);
 			finestraVisibile.setVisible(true);
@@ -130,11 +124,22 @@ public class InizializzatoreFinestre {
 		}
 	}
 
+	public void quietFinestraVisibile(final JCheckBoxMenuItem menuItem, final JFrame finestraVisibile){
+		menuItem.setSelected(false);
+		finestraVisibile.setVisible(false);
+		finestraVisibile.dispose();
+		setFinestraVisibile(null);
+	}
+	
 	public void quitFinestre() {
-		for (int i = 0; i < finestre.length; i++) {
-			final JFrame finestra = finestre[i];
-			finestra.setVisible(false);
-			finestra.dispose();
+		if(finestre != null){
+			for (int i = 0; i < finestre.length; i++) {
+				final JFrame finestra = finestre[i];
+					if(finestra != null){
+					finestra.setVisible(false);
+					finestra.dispose();
+				}
+			}
 		}
 	}
 
