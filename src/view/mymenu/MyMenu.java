@@ -105,9 +105,40 @@ public class MyMenu extends MenuBarBase {
 
 		final JCheckBoxMenuItem listaComandi = new JCheckBoxMenuItem(ControlloreSpese.getSingleton().getMessaggio("commands"));
 		finestre.add(listaComandi);
+		
+		listaComandi.addActionListener(new AscoltatoreAggiornatoreNiente() {
+
+			@Override
+			public void actionPerformedOverride(final ActionEvent e) {
+				FinestraListaComandi history;
+				try {
+					history = ((FinestraListaComandi) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_HISTORY, null));
+					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(history, finestre, listaComandi);
+					ControlloreSpese.getSingleton().getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
+				} catch (final Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
 
 		final JCheckBoxMenuItem mntmReport = new JCheckBoxMenuItem(ControlloreSpese.getSingleton().getMessaggio("report"));
 		finestre.add(mntmReport);
+		
+		mntmReport.addActionListener(new AscoltatoreAggiornatoreNiente() {
+
+			@Override
+			public void actionPerformedOverride(final ActionEvent e) {
+				ReportView report;
+				try {
+					report = ((ReportView) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_REPORT, null));
+					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(report, finestre, mntmReport);
+					ControlloreSpese.getSingleton().getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
+				} catch (final Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 
 		final JCheckBoxMenuItem chckbxmntmDati = new JCheckBoxMenuItem(ControlloreSpese.getSingleton().getMessaggio("summarydata"));
 		chckbxmntmDati.addActionListener(new AscoltatoreAggiornatoreNiente() {
@@ -141,35 +172,7 @@ public class MyMenu extends MenuBarBase {
 				}
 			}
 		});
-		mntmReport.addActionListener(new AscoltatoreAggiornatoreNiente() {
-
-			@Override
-			public void actionPerformedOverride(final ActionEvent e) {
-				ReportView report;
-				try {
-					report = ((ReportView) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_REPORT, null));
-					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(report, finestre, mntmReport);
-					ControlloreSpese.getSingleton().getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
-				} catch (final Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		listaComandi.addActionListener(new AscoltatoreAggiornatoreNiente() {
-
-			@Override
-			public void actionPerformedOverride(final ActionEvent e) {
-				FinestraListaComandi history;
-				try {
-					history = ((FinestraListaComandi) ControlloreSpese.getSingleton().getInitFinestre().getFinestra(InizializzatoreFinestre.INDEX_HISTORY, null));
-					ControlloreSpese.getSingleton().getInitFinestre().setVisibilitaFinestre(history, finestre, listaComandi);
-					ControlloreSpese.getSingleton().getPannello().relocateFinestreLaterali(ControlloreSpese.getSingleton().getView());
-				} catch (final Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-
+		
 		final JMenu mnStrumenti = new JMenu(ControlloreSpese.getSingleton().getMessaggio("tools"));
 		add(mnStrumenti);
 

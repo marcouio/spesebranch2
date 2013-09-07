@@ -86,10 +86,7 @@ public class GeneralFrame extends PannelloBase {
 			final Dimension d = view.getSize();
 			p.setLocation(p.x + d.width + 5, p.y);
 			try {
-				
-				if(finestraVisibile.isActive()){
-					finestraVisibile.setLocation(p);
-				}
+				finestraVisibile.setLocation(p);
 				
 			} catch (final Exception e) {
 				e.printStackTrace();

@@ -109,6 +109,7 @@ public class InizializzatoreFinestre {
 		for (final JFrame finestra : finestre) {
 			if (finestra != null) {
 				finestra.setVisible(false);
+				finestra.dispose();
 			}
 		}
 		// gestisce il check del menu
@@ -121,6 +122,7 @@ public class InizializzatoreFinestre {
 		if (visibile) {
 			menuItem.setSelected(false);
 			finestraVisibile.setVisible(false);
+			finestraVisibile.dispose();
 		} else {
 			menuItem.setSelected(true);
 			finestraVisibile.setVisible(true);
