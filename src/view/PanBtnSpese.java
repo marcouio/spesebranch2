@@ -163,7 +163,7 @@ public class PanBtnSpese extends PannelloBottoni{
 				FrameBase contenitorePadre = (FrameBase) generalFrame.getContenitorePadre();
 				final UsciteView dialog = new UsciteView(contenitorePadre, new WrapSingleSpesa());
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setBounds(30, 60, 347, 407);
+				dialog.setBounds(30, 60, 347, 427);
 				dialog.setVisible(true);
 
 			}

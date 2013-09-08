@@ -16,9 +16,6 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Vector;
 
-import view.font.LabelListaGruppi;
-import view.font.TextAreaF;
-import view.font.TextFieldF;
 import business.AltreUtil;
 import business.ControlloreSpese;
 import business.CorreggiTesto;
@@ -83,9 +80,8 @@ public class UsciteView extends AbstractUsciteView {
 		lblData.posizionaSottoA(taDescrizione, 0, 7);
 		lblData.setSize(150, 27);
 		
-		tfData = new TextFieldTesto("0.0", this);
 		final GregorianCalendar gc = new GregorianCalendar();
-		tfData.setText(UtilDb.dataToString(gc.getTime(), "yyyy/MM/dd"));
+		tfData = new TextFieldTesto(UtilDb.dataToString(gc.getTime(), "yyyy/MM/dd"), this);
 		tfData.posizionaSottoA(lblData, 0, 2);
 		tfData.setSize(150, 27);
 		
@@ -94,21 +90,45 @@ public class UsciteView extends AbstractUsciteView {
 		lblEuro.posizionaADestraDi(lblData, 20, 0);
 		lblEuro.setSize(150, 27);
 		
-		tfEuro = new TextFieldTesto(this);
+		tfEuro = new TextFieldTesto("0.0", this);
 		tfEuro.setColumns(10);
 		tfEuro.posizionaSottoA(lblEuro, 0, 2);
 		tfEuro.setSize(150, 27);
 		
-		final LabelListaGruppi lblDescrizione_1 = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("descr")+" "+ControlloreSpese.getSingleton().getMessaggio("category"));
-		lblDescrizione_1.setBounds(13, 216, 232, 27);
-		getContentPane().add(lblDescrizione_1);
+		String msgDescr = ControlloreSpese.getSingleton().getMessaggio("descr");
+		String msgCategoria = ControlloreSpese.getSingleton().getMessaggio("category");
+		
+		final LabelBase lblDescrizione_1 = new LabelBase(msgDescr+" "+msgCategoria, this);
+		lblDescrizione_1.setSize(232, 27);
+		lblDescrizione_1.posizionaSottoA(tfData, 0, 7);
 		
 		final TextAreaBase descCateg = new TextAreaBase(this);
 		descCateg.setText(ControlloreSpese.getSingleton().getMessaggio("heredesc"));
-		descCateg.setBounds(13, 242, 318, 75);
+		descCateg.setSize(318, 75);
+		descCateg.posizionaSottoA(lblDescrizione_1, 0, 2);
+		
+		cCategorie.addItemListener(getItemListenerCategorie(descCateg));
+
+		// Bottone Elimina
+		final ButtonBase eliminaUltima = new ButtonBase(this);
+		eliminaUltima.addActionListener(getListenerBtnDelLast());
 
 		
-		cCategorie.addItemListener(new ItemListener() {
+		final ButtonBase inserisci = new ButtonBase(this);
+		inserisci.setText("Inserisci");
+		inserisci.setSize(150, 27);
+		inserisci.posizionaSottoA(descCateg, 0, 7);
+		
+		eliminaUltima.setText("Elimina Ultima");
+		eliminaUltima.setSize(147, 27);
+		eliminaUltima.posizionaADestraDi(inserisci, 20, 0);
+
+		inserisci.addActionListener(new AscoltaInserisciUscite(this));
+
+	}
+
+	private ItemListener getItemListenerCategorie(final TextAreaBase descCateg) {
+		return new ItemListener() {
 
 			@Override
 			public void itemStateChanged(final ItemEvent e) {
@@ -125,13 +145,11 @@ public class UsciteView extends AbstractUsciteView {
 				}
 
 			}
-		});
+		};
+	}
 
-
-
-		// Bottone Elimina
-		final ButtonBase eliminaUltima = new ButtonBase(this);
-		eliminaUltima.addActionListener(new AscoltatoreAggiornatoreUscite() {
+	private AscoltatoreAggiornatoreUscite getListenerBtnDelLast() {
+		return new AscoltatoreAggiornatoreUscite() {
 
 			@Override
 			protected void actionPerformedOverride(final ActionEvent e) throws Exception {
@@ -145,19 +163,7 @@ public class UsciteView extends AbstractUsciteView {
 					e1.printStackTrace();
 				}
 			}
-		});
-
-		eliminaUltima.setText("Elimina Ultima");
-		eliminaUltima.setBounds(184, 325, 147, 27);
-		getContentPane().add(eliminaUltima);
-
-		final ButtonBase inserisci = new ButtonBase(this);
-		inserisci.setText("Inserisci");
-		inserisci.setBounds(13, 325, 150, 27);
-		getContentPane().add(inserisci);
-
-		inserisci.addActionListener(new AscoltaInserisciUscite(this));
-
+		};
 	}
 
 	public boolean nonEsistonoCampiNonValorizzati() {

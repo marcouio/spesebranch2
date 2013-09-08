@@ -3,7 +3,6 @@ package business.aggiornatori;
 import grafica.componenti.contenitori.ScrollPaneBase;
 import grafica.componenti.table.table.TableBase;
 
-import java.awt.print.Paper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +25,6 @@ import view.componenti.movimenti.AscoltatoreBottoniUscita;
 import view.impostazioni.CategorieView;
 import view.tabelleMesi.TabellaEntrata;
 import view.tabelleMesi.TabellaUscita;
-import view.tabelleMesi.TabellaUscitaGruppi;
 import aggiornatori.IAggiornatore;
 import business.AltreUtil;
 import business.ControlloreSpese;

@@ -26,6 +26,10 @@ public class ReportData {
 	public ArrayList<OggettoReport> getListaOggetti(){
 		return datiReport;
 	}
+	
+	public void reset(){
+		datiReport.clear();
+	}
 
 	
 	public Double generaUsciteAnnuali() throws Exception{

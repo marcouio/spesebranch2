@@ -119,7 +119,9 @@ public class ReportView extends AbstractReportView {
 			@Override
 			protected void actionPerformedOverride(final ActionEvent e) throws Exception {
 				super.actionPerformedOverride(e);
-
+				
+				reportData.reset();
+				
 				settaValoriReportDati(chckbxSpeseVariabili_1, chckbxEntrateMensCategorie, chckbxSpeseMensCat,
 						chckbxEntratePerCategorie, chckbxSpesePerCategorie, chckbxUsciteMensili, chckbxEntrateMensili,
 						chckbxUsciteAnnuali, chckbxEntrateAnnuali, chckbxSpeseFutili_1, chckbxAvanzo, chckbxMedie);
