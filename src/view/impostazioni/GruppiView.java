@@ -1,6 +1,9 @@
 package view.impostazioni;
 
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textarea.TextAreaBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
 
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
@@ -11,9 +14,6 @@ import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
-import view.font.LabelListaGruppi;
-import view.font.TextAreaF;
-import view.font.TextFieldF;
 import view.impostazioni.ascoltatori.AscoltatoreAggiornaGruppo;
 import view.impostazioni.ascoltatori.AscoltatoreEliminaGruppo;
 import view.impostazioni.ascoltatori.AscoltatoreInserisciGruppo;
@@ -25,8 +25,8 @@ public class GruppiView extends AbstractGruppiView {
 
 	private Gruppi gruppi = null;
 	private JComboBox comboGruppi;
-	private TextFieldF nome;
-	private TextAreaF descrizione;
+	private TextFieldTesto nome;
+	private TextAreaBase descrizione;
 
 	public GruppiView(final WrapGruppi gruppo) {
 		super(gruppo);
@@ -44,11 +44,11 @@ public class GruppiView extends AbstractGruppiView {
 		this.setPreferredSize(new Dimension(260, 405));
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
 
-		nome = new TextFieldF();
+		nome = new TextFieldTesto(this);
 		nome.setBounds(25, 49, 206, 26);
 		getContentPane().add(nome);
 
-		descrizione = new TextAreaF("Inserisci la descrizione della spesa", 50, 25);
+		descrizione = new TextAreaBase("Inserisci la descrizione della spesa", 50, 25, this);
 		descrizione.setWrapStyleWord(true);
 		descrizione.setLineWrap(true);
 		descrizione.setAutoscrolls(true);
@@ -112,17 +112,17 @@ public class GruppiView extends AbstractGruppiView {
 	}
 
 	private void initLabel() {
-		final LabelListaGruppi lbltstGruppo = new LabelListaGruppi();
+		final LabelBase lbltstGruppo = new LabelBase(this);
 		lbltstGruppo.setText("Gruppo");
 		lbltstGruppo.setBounds(25, 24, 100, 25);
 		getContentPane().add(lbltstGruppo);
 
-		final LabelListaGruppi lbltstListaGruppi = new LabelListaGruppi();
+		final LabelBase lbltstListaGruppi = new LabelBase(this);
 		lbltstListaGruppi.setText("Lista Gruppi");
 		lbltstListaGruppi.setBounds(25, 251, 100, 25);
 		getContentPane().add(lbltstListaGruppi);
 
-		final LabelListaGruppi labelDescrizione = new LabelListaGruppi();
+		final LabelBase labelDescrizione = new LabelBase(this);
 		labelDescrizione.setText("Descrizione");
 		labelDescrizione.setBounds(25, 77, 90, 25);
 		getContentPane().add(labelDescrizione);

@@ -2,6 +2,7 @@ package view;
 
 import grafica.componenti.alert.Alert;
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.label.LabelBase;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -11,7 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
-import view.font.LabelListaGruppi;
 import business.AltreUtil;
 import business.ControlloreSpese;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
@@ -28,23 +28,21 @@ public class Help extends JDialog {
 		label.setBounds(36, 55, 138, 297);
 		add(label);
 
-		JLabel lblGestionespese = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("description"));
+		String msgDesc = ControlloreSpese.getSingleton().getMessaggio("description");
+		JLabel lblGestionespese = new LabelBase(msgDesc, this);
 		lblGestionespese.setBounds(184, 45, 391, 28);
-		add(lblGestionespese);
 
-		JLabel lblVersione = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("version"));
+		String msgVersion = ControlloreSpese.getSingleton().getMessaggio("version");
+		JLabel lblVersione = new LabelBase(msgVersion, this);
 		lblVersione.setBounds(184, 85, 240, 28);
-		add(lblVersione);
 
-		JLabel lblVersione2 = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("version"));
+		JLabel lblVersione2 = new LabelBase(msgVersion, this);
 		lblVersione2.setBounds(184, 85, 240, 28);
-		add(lblVersione2);
 
-		JLabel lblMarcoMolinari = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("copyright"));
+		JLabel lblMarcoMolinari = new LabelBase(ControlloreSpese.getSingleton().getMessaggio("copyright"), this);
 		lblMarcoMolinari.setBounds(184, 124, 327, 28);
-		add(lblMarcoMolinari);
 
-		JLabel help = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("clickherehelp"));
+		JLabel help = new LabelBase(ControlloreSpese.getSingleton().getMessaggio("clickherehelp"), this);
 		help.setText(ControlloreSpese.getSingleton().getMessaggio("cliccahelp"));
 		help.setBounds(184, 163, 215, 28);
 

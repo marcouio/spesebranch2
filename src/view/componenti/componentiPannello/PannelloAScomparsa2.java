@@ -45,11 +45,11 @@ public class PannelloAScomparsa2 extends JFrame implements ItemListener {
 	private SottoPannelloTotali pannelloTotali;
 	CostruttoreSottoPannello[] arrayPannelli;
 
-	public PannelloAScomparsa2() {
+	public PannelloAScomparsa2() throws Exception {
 		initGui();
 	}
 
-	private void initGui() {
+	private void initGui() throws Exception {
 
 		this.setLayout(null);
 		this.setTitle(ControlloreSpese.getSingleton().getMessaggio("datapanel"));

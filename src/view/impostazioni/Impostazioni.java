@@ -2,6 +2,8 @@ package view.impostazioni;
 
 import grafica.componenti.alert.Alert;
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -21,8 +23,6 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import view.font.LabelListaGruppi;
-import view.font.TextFieldF;
 import view.impostazioni.ascoltatori.AscoltatoreLanguage;
 import view.impostazioni.ascoltatori.AscoltatoreLook;
 import xml.CoreXMLManager;
@@ -62,7 +62,7 @@ public class Impostazioni extends JDialog {
 	private JTextField				utente;
 	private ArrayList<String>		listaLook;
 	private JComboBox<Lookandfeel>	comboLook;
-	private TextFieldF				annotextField;
+	private TextFieldTesto				annotextField;
 	private static int				anno	= new GregorianCalendar().get(Calendar.YEAR);
 	private static JTextField		caricaDatabase;
 
@@ -77,9 +77,9 @@ public class Impostazioni extends JDialog {
 			this.setPreferredSize(new Dimension(626, 250));
 			getContentPane().setLayout(null);
 
-			final JLabel calendario = new LabelListaGruppi("Data Odierna");
+			final JLabel calendario = new LabelBase("Data Odierna", this);
 			calendario.setBounds(22, 86, 87, 14);
-			dataOdierna = new TextFieldF();
+			dataOdierna = new TextFieldTesto(this);
 			dataOdierna.setBounds(140, 82, 113, 27);
 			dataOdierna.setEditable(false);
 			final GregorianCalendar gc = new GregorianCalendar();
@@ -87,13 +87,13 @@ public class Impostazioni extends JDialog {
 			getContentPane().add(dataOdierna);
 			getContentPane().add(calendario);
 
-			utente = new TextFieldF();
+			utente = new TextFieldTesto(this);
 			Utenti utenteLogin = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 			utente.setText(utenteLogin.getUsername());
 			utente.setBounds(140, 126, 113, 27);
 			getContentPane().add(utente);
 
-			final JLabel lblImpostaAnno = new LabelListaGruppi("Imposta anno");
+			final JLabel lblImpostaAnno = new LabelBase("Imposta anno", this);
 			lblImpostaAnno.setBounds(278, 79, 97, 27);
 			getContentPane().add(lblImpostaAnno);
 
@@ -114,7 +114,7 @@ public class Impostazioni extends JDialog {
 			});
 			getContentPane().add(btnChange);
 
-			final JLabel lblCaricaDatabase = new LabelListaGruppi("Carica Database");
+			final JLabel lblCaricaDatabase = new LabelBase("Carica Database", this);
 			lblCaricaDatabase.setBounds(22, 183, 113, 14);
 			getContentPane().add(lblCaricaDatabase);
 
@@ -130,7 +130,7 @@ public class Impostazioni extends JDialog {
 				}
 			});
 
-			caricaDatabase = new TextFieldF();
+			caricaDatabase = new TextFieldTesto(this);
 			caricaDatabase.setBounds(140, 179, 149, 27);
 			caricaDatabase.setText(posDatabase);
 			getContentPane().add(caricaDatabase);
@@ -166,17 +166,17 @@ public class Impostazioni extends JDialog {
 			desktopPane.setBounds(94, 138, 1, 1);
 			getContentPane().add(desktopPane);
 
-			final LabelListaGruppi lbltstEliminaTuttiLe = new LabelListaGruppi("Carica Database");
+			final LabelBase lbltstEliminaTuttiLe = new LabelBase("Carica Database", this);
 			lbltstEliminaTuttiLe.setText("Elimina dati per entrate e uscite");
 			lbltstEliminaTuttiLe.setBounds(278, 126, 232, 27);
 			getContentPane().add(lbltstEliminaTuttiLe);
 
-			final LabelListaGruppi lbltstUtente = new LabelListaGruppi("Data Odierna");
+			final LabelBase lbltstUtente = new LabelBase("Data Odierna", this);
 			lbltstUtente.setText("Utente");
 			lbltstUtente.setBounds(22, 130, 87, 14);
 			getContentPane().add(lbltstUtente);
 
-			annotextField = new TextFieldF();
+			annotextField = new TextFieldTesto(this);
 			annotextField.setText(Integer.toString(gc.get(Calendar.YEAR)));
 			annotextField.setBounds(375, 78, 113, 27);
 			getContentPane().add(annotextField);
@@ -253,11 +253,11 @@ public class Impostazioni extends JDialog {
 		}
 	}
 
-	public TextFieldF getAnnotextField() {
+	public TextFieldTesto getAnnotextField() {
 		return annotextField;
 	}
 
-	public void setAnnotextField(final TextFieldF annotextField) {
+	public void setAnnotextField(final TextFieldTesto annotextField) {
 		this.annotextField = annotextField;
 	}
 

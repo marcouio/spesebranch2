@@ -4,6 +4,8 @@ import grafica.componenti.alert.Alert;
 import grafica.componenti.button.ButtonBase;
 import grafica.componenti.combo.ComboBoxBase;
 import grafica.componenti.contenitori.FrameBase;
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,8 +18,6 @@ import javax.swing.JTextField;
 
 import view.GeneralFrame;
 import view.entrateuscite.AbstractUsciteView;
-import view.font.LabelListaGruppi;
-import view.font.TextFieldF;
 import business.AltreUtil;
 import business.ControlloreSpese;
 import business.aggiornatori.AggiornatoreManager;
@@ -34,21 +34,21 @@ import domain.wrapper.WrapSingleSpesa;
 public class DialogUsciteMov extends AbstractUsciteView {
 
 	private static final long	serialVersionUID	= 1L;
-	private final JLabel		labelEuro			= new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("eur"));
-	private final JLabel		labelData			= new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("date"));
-	private final JLabel		labelCategoria		= new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("category"));
-	private final JLabel		labelDescrizione	= new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("descr"));
-	private final JLabel		labelNome			= new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("name"));
-	private final JLabel		labelDataIns		= new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("insertdate"));
-	private final JLabel		labelIdSpesa		= new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("key"));
+	private final JLabel		labelEuro			= new LabelBase(ControlloreSpese.getSingleton().getMessaggio("eur"),this);
+	private final JLabel		labelData			= new LabelBase(ControlloreSpese.getSingleton().getMessaggio("date"),this);
+	private final JLabel		labelCategoria		= new LabelBase(ControlloreSpese.getSingleton().getMessaggio("category"),this);
+	private final JLabel		labelDescrizione	= new LabelBase(ControlloreSpese.getSingleton().getMessaggio("descr"),this);
+	private final JLabel		labelNome			= new LabelBase(ControlloreSpese.getSingleton().getMessaggio("name"),this);
+	private final JLabel		labelDataIns		= new LabelBase(ControlloreSpese.getSingleton().getMessaggio("insertdate"),this);
+	private final JLabel		labelIdSpesa		= new LabelBase(ControlloreSpese.getSingleton().getMessaggio("key"),this);
 
-	private JTextField			tfEuro				= new TextFieldF();
-	private JTextField			tfData				= new TextFieldF();
+	private JTextField			tfEuro				= new TextFieldTesto(this);
+	private JTextField			tfData				= new TextFieldTesto(this);
 	private ComboBoxBase	    cbCategorie;
-	private JTextField			taDescrizione		= new TextFieldF();
-	private JTextField			tfNome				= new TextFieldF();
-	private final JTextField	tfDataIns			= new TextFieldF();
-	private JTextField			idSpesa				= new TextFieldF();
+	private JTextField			taDescrizione		= new TextFieldTesto(this);
+	private JTextField			tfNome				= new TextFieldTesto(this);
+	private final JTextField	tfDataIns			= new TextFieldTesto(this);
+	private JTextField			idSpesa				= new TextFieldTesto(this);
 	private final JButton		update				= new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("update"), this);
 	private final JButton		delete				= new ButtonBase(ControlloreSpese.getSingleton().getMessaggio("delete"), this);
 

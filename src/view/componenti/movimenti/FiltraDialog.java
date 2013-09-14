@@ -1,6 +1,8 @@
 package view.componenti.movimenti;
 
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -10,18 +12,16 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import view.font.LabelListaGruppi;
-import view.font.TextFieldF;
 import business.AltreUtil;
 import business.ControlloreSpese;
 
 public abstract class FiltraDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private TextFieldF        tfDa;
-	private TextFieldF        tfA;
-	private TextFieldF        tfNome;
-	private TextFieldF        tfEuro;
+	private TextFieldTesto        tfDa;
+	private TextFieldTesto        tfA;
+	private TextFieldTesto        tfNome;
+	private TextFieldTesto        tfEuro;
 	protected JComboBox       comboBoxCat;
 
 	private String            dataDa;
@@ -92,51 +92,51 @@ public abstract class FiltraDialog extends JDialog {
 			}
 		}
 		{
-			tfDa = new TextFieldF();
+			tfDa = new TextFieldTesto(this);
 			tfDa.setColumns(10);
 			tfDa.setBounds(62, 26, 89, 25);
 			getContentPane().add(tfDa);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("from")+":");
+			LabelBase label = new LabelBase(ControlloreSpese.getSingleton().getMessaggio("from")+":",this);
 			label.setBounds(17, 28, 43, 15);
 			getContentPane().add(label);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("to")+":");
+			LabelBase label = new LabelBase(ControlloreSpese.getSingleton().getMessaggio("to")+":",this);
 			label.setBounds(18, 59, 43, 15);
 			getContentPane().add(label);
 		}
 		{
-			tfA = new TextFieldF();
+			tfA = new TextFieldTesto(this);
 			tfA.setColumns(10);
 			tfA.setBounds(62, 56, 89, 25);
 			getContentPane().add(tfA);
 		}
 		{
-			tfNome = new TextFieldF();
+			tfNome = new TextFieldTesto(this);
 			tfNome.setColumns(10);
 			tfNome.setBounds(209, 26, 89, 25);
 			getContentPane().add(tfNome);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("name")+":");
+			LabelBase label = new LabelBase(ControlloreSpese.getSingleton().getMessaggio("name")+":", this);
 			label.setBounds(163, 26, 55, 15);
 			getContentPane().add(label);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("eur")+":");
+			LabelBase label = new LabelBase(ControlloreSpese.getSingleton().getMessaggio("eur")+":", this);
 			label.setBounds(307, 27, 55, 15);
 			getContentPane().add(label);
 		}
 		{
-			tfEuro = new TextFieldF();
+			tfEuro = new TextFieldTesto(this);
 			tfEuro.setColumns(10);
 			tfEuro.setBounds(341, 26, 89, 25);
 			getContentPane().add(tfEuro);
 		}
 		{
-			LabelListaGruppi label = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("category")+":");
+			LabelBase label = new LabelBase(ControlloreSpese.getSingleton().getMessaggio("category")+":", this);
 			label.setBounds(443, 27, 82, 15);
 			getContentPane().add(label);
 		}

@@ -1,6 +1,7 @@
 package view.note;
 
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.textarea.TextAreaBase;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-import view.font.TextAreaF;
 import domain.Note;
 import domain.wrapper.WrapNote;
 
@@ -34,7 +34,7 @@ public class PannelloNota extends JPanel {
 		lNome.setBounds(4, 16, 150, 15);
 		add(lNome);
 
-		JTextArea taDescrizione = new TextAreaF();
+		JTextArea taDescrizione = new TextAreaBase(this);
 		taDescrizione.setText(this.nota.getDescrizione());
 		taDescrizione.setBounds(6, 63, 190, 85);
 		add(taDescrizione);

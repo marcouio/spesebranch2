@@ -2,6 +2,10 @@ package view.entrateuscite;
 
 import grafica.componenti.alert.Alert;
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.combo.ComboBoxBase;
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textarea.TextAreaBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -9,13 +13,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
-import view.font.LabelListaGruppi;
-import view.font.TextAreaF;
-import view.font.TextFieldF;
 import business.AltreUtil;
 import business.ControlloreSpese;
 import business.CorreggiTesto;
@@ -37,11 +37,11 @@ public class EntrateView extends AbstractEntrateView {
 		lista.add(ControlloreSpese.getSingleton().getMessaggio("fixity"));
 	}
 
-	private final TextFieldF         tfNome;
-	private final TextAreaF          taDescrizione;
-	private final JComboBox          cbTipo;
-	private final TextFieldF         tfData;
-	private final TextFieldF         tfEuro;
+	private final TextFieldTesto       tfNome;
+	private final TextAreaBase          taDescrizione;
+	private final ComboBoxBase          cbTipo;
+	private final TextFieldTesto         tfData;
+	private final TextFieldTesto         tfEuro;
 
 	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -68,9 +68,9 @@ public class EntrateView extends AbstractEntrateView {
 
 		initLabel();
 
-		taDescrizione = new TextAreaF(ControlloreSpese.getSingleton().getMessaggio("insertheredescrentry"));
+		String insertDescr = ControlloreSpese.getSingleton().getMessaggio("insertheredescrentry");
+		taDescrizione = new TextAreaBase(insertDescr, this);
 		taDescrizione.setBounds(13, 89, 318, 75);
-		getContentPane().add(taDescrizione);
 
 		// specifica se �true� di andare a capo automaticamente a fine riga
 		taDescrizione.setLineWrap(true);
@@ -78,9 +78,8 @@ public class EntrateView extends AbstractEntrateView {
 		taDescrizione.setWrapStyleWord(true);
 		taDescrizione.setAutoscrolls(true);
 
-		tfNome = new TextFieldF();
+		tfNome = new TextFieldTesto(this);
 		tfNome.setBounds(12, 38, 150, 27);
-		getContentPane().add(tfNome);
 		tfNome.setColumns(10);
 
 		// array per Categoria
@@ -90,30 +89,27 @@ public class EntrateView extends AbstractEntrateView {
 			listaCombo.add(lista.get(i));
 		}
 
-		cbTipo = new JComboBox(lista.toArray());
+		cbTipo = new ComboBoxBase(this,lista.toArray());
 		cbTipo.setBounds(181, 38, 150, 27);
 		getContentPane().add(cbTipo);
 
 		final GregorianCalendar gc = new GregorianCalendar();
-		tfData = new TextFieldF(UtilDb.dataToString(gc.getTime(), "yyyy/MM/dd"));
+		String oggi = UtilDb.dataToString(gc.getTime(), "yyyy/MM/dd");
+		tfData = new TextFieldTesto(oggi, this);
 		tfData.setColumns(10);
 		tfData.setBounds(13, 191, 150, 27);
-		getContentPane().add(tfData);
 
-		tfEuro = new TextFieldF("0.0");
+		tfEuro = new TextFieldTesto("0.0", this);
 		tfEuro.setColumns(10);
 		tfEuro.setBounds(182, 191, 150, 27);
-		getContentPane().add(tfEuro);
 
 		final ButtonBase inserisci = new ButtonBase(this);
 		inserisci.setText(ControlloreSpese.getSingleton().getMessaggio("insert"));
 		inserisci.setBounds(13, 238, 149, 27);
-		getContentPane().add(inserisci);
 
 		final ButtonBase eliminaUltima = new ButtonBase(this);
 		eliminaUltima.setText(ControlloreSpese.getSingleton().getMessaggio("deletelast"));
 		eliminaUltima.setBounds(184, 238, 144, 27);
-		getContentPane().add(eliminaUltima);
 
 		eliminaUltima.addActionListener(new AscoltatoreAggiornatoreEntrate() {
 
@@ -146,28 +142,27 @@ public class EntrateView extends AbstractEntrateView {
 	}
 
 	private void initLabel() {
-		final LabelListaGruppi lblNomeEntrata = new LabelListaGruppi("Nome Entrata");
+		final LabelBase lblNomeEntrata = new LabelBase("Nome Entrata", this);
 		lblNomeEntrata.setText(ControlloreSpese.getSingleton().getMessaggio("name"));
 		lblNomeEntrata.setBounds(13, 12, 97, 27);
 		getContentPane().add(lblNomeEntrata);
 
-		final LabelListaGruppi lblEuro = new LabelListaGruppi(ControlloreSpese.getSingleton().getMessaggio("eur"));
+		String msgEuro = ControlloreSpese.getSingleton().getMessaggio("eur");
+		final LabelBase lblEuro = new LabelBase(msgEuro, this);
 		lblEuro.setBounds(184, 165, 77, 27);
 		getContentPane().add(lblEuro);
 
-		final LabelListaGruppi lblCategorie = new LabelListaGruppi("Categorie");
-		lblCategorie.setText(ControlloreSpese.getSingleton().getMessaggio("type"));
+		final LabelBase lblCategorie = new LabelBase("Categorie", this);
+		String msgType = ControlloreSpese.getSingleton().getMessaggio("type");
+		lblCategorie.setText(msgType);
 		lblCategorie.setBounds(181, 12, 77, 27);
-		getContentPane().add(lblCategorie);
 
-		final LabelListaGruppi lblData = new LabelListaGruppi("Data");
+		final LabelBase lblData = new LabelBase("Data", this);
 		lblData.setBounds(13, 165, 77, 27);
-		getContentPane().add(lblData);
 
-		final LabelListaGruppi lblDescrizione = new LabelListaGruppi("Descrizione Spesa");
+		final LabelBase lblDescrizione = new LabelBase("Descrizione Spesa", this);
 		lblDescrizione.setText(ControlloreSpese.getSingleton().getMessaggio("descr"));
 		lblDescrizione.setBounds(14, 64, 123, 25);
-		getContentPane().add(lblDescrizione);
 	}
 
 	/**

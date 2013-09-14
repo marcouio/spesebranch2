@@ -1,5 +1,8 @@
 package view.componenti.componentiPannello;
 
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Calendar;
@@ -7,33 +10,15 @@ import java.util.GregorianCalendar;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
-import view.font.LabelTestoPiccolo;
-import view.font.TextFieldF;
 import business.ControlloreSpese;
 import business.Database;
 import business.cache.CacheCategorie;
 import domain.CatSpese;
 
 public class SottoPannelloCategorie {
-
-	/**
-	 * Auto-generated main method to display this JPanel inside a new JFrame.
-	 */
-	public static void main(final String[] args) {
-		final JFrame frame = new JFrame();
-		final SottoPannelloCategorie pan = new SottoPannelloCategorie();
-		frame.getContentPane().add(pan.getPannello());
-		frame.setBounds(0, 0, (pan.getPannello().getWidth() + pan.getPannello().distanzaDalBordoX * 2) * 3,
-				(pan.getPannello().getHeight() + pan.getPannello().distanzaDalBordoY * 2) * 2);
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
 
 	private JLabel jLabel5;
 
@@ -48,78 +33,78 @@ public class SottoPannelloCategorie {
 	JLabel[] labels = new JLabel[3];
 	CostruttoreSottoPannello pannello;
 
-	public SottoPannelloCategorie() {
+	public SottoPannelloCategorie() throws Exception {
 		super();
-		initGUI();
-		pannello = new CostruttoreSottoPannello(componenti, labels, CostruttoreSottoPannello.VERTICAL);
-	}
+		pannello = new CostruttoreSottoPannello(CostruttoreSottoPannello.VERTICAL){
+			@Override
+			protected JLabel[] getLabels() {
 
-	private void initGUI() {
-		try {
+				jLabel5 = new LabelBase(this);
+				jLabel5.setText(ControlloreSpese.getSingleton().getMessaggio("categories"));
+				jLabel5.setBounds(177, 25, 90, 19);
+				labels[0] = jLabel5;
 
-			jLabel5 = new LabelTestoPiccolo();
-			jLabel5.setText(ControlloreSpese.getSingleton().getMessaggio("categories"));
-			jLabel5.setBounds(177, 25, 90, 19);
-			labels[0] = jLabel5;
+				jLabel11 = new LabelBase(this);
+				jLabel11.setText(ControlloreSpese.getSingleton().getMessaggio("annualtotal"));
+				jLabel11.setBounds(135, 67, 78, 14);
+				labels[1] = jLabel11;
 
-			jLabel11 = new LabelTestoPiccolo();
-			jLabel11.setText(ControlloreSpese.getSingleton().getMessaggio("annualtotal"));
-			jLabel11.setBounds(135, 67, 78, 14);
-			labels[1] = jLabel11;
+				jLabel6 = new LabelBase(this);
+				jLabel6.setText(ControlloreSpese.getSingleton().getMessaggio("monthlytotal"));
+				jLabel6.setBounds(253, 67, 106, 14);
+				labels[2] = jLabel6;
+				return labels;
+			}
+			
+			@Override
+			protected JComponent[] getComponenti() throws Exception {
+				totaleAnnualeCateg = new TextFieldTesto(this);
+				totaleAnnualeCateg.setColumns(10);
+				totaleAnnualeCateg.setText("0.0");
+				totaleAnnualeCateg.setBounds(135, 83, 106, 27);
+				componenti[1] = totaleAnnualeCateg;
 
-			jLabel6 = new LabelTestoPiccolo();
-			jLabel6.setText(ControlloreSpese.getSingleton().getMessaggio("monthlytotal"));
-			jLabel6.setBounds(253, 67, 106, 14);
-			labels[2] = jLabel6;
+				totaleMeseCategoria = new TextFieldTesto(this);
+				totaleMeseCategoria.setColumns(10);
+				totaleMeseCategoria.setText("0.0");
+				totaleMeseCategoria.setBounds(253, 83, 106, 27);
+				componenti[2] = totaleMeseCategoria;
 
-			totaleAnnualeCateg = new TextFieldF();
-			totaleAnnualeCateg.setColumns(10);
-			totaleAnnualeCateg.setText("0.0");
-			totaleAnnualeCateg.setBounds(135, 83, 106, 27);
-			componenti[1] = totaleAnnualeCateg;
+				// CategoriaSpese
+				categorieCombo = new JComboBox(CacheCategorie.getSingleton().getVettoreCategoriePerCombo());
 
-			totaleMeseCategoria = new TextFieldF();
-			totaleMeseCategoria.setColumns(10);
-			totaleMeseCategoria.setText("0.0");
-			totaleMeseCategoria.setBounds(253, 83, 106, 27);
-			componenti[2] = totaleMeseCategoria;
+				categorieCombo.setBounds(16, 85, 106, 27);
 
-			// CategoriaSpese
-			categorieCombo = new JComboBox(CacheCategorie.getSingleton().getVettoreCategoriePerCombo());
+				categorieCombo.setSelectedIndex(0);
+				categorieCombo.addItemListener(new ItemListener() {
 
-			categorieCombo.setBounds(16, 85, 106, 27);
+					@Override
+					public void itemStateChanged(final ItemEvent e) {
+						CatSpese spese = null;
+						if (categorieCombo.getSelectedIndex() != 0) {
+							spese = (CatSpese) categorieCombo.getSelectedItem();
+							final int mese = new GregorianCalendar().get(Calendar.MONTH) + 1;
+							double spesa = 0;
+							try {
+								spesa = Database.speseMeseCategoria(mese, spese.getIdCategoria());
+							} catch (final Exception e1) {
+								e1.printStackTrace();
+							}
 
-			categorieCombo.setSelectedIndex(0);
-			categorieCombo.addItemListener(new ItemListener() {
-
-				@Override
-				public void itemStateChanged(final ItemEvent e) {
-					CatSpese spese = null;
-					if (categorieCombo.getSelectedIndex() != 0) {
-						spese = (CatSpese) categorieCombo.getSelectedItem();
-						final int mese = new GregorianCalendar().get(Calendar.MONTH) + 1;
-						double spesa = 0;
-						try {
-							spesa = Database.speseMeseCategoria(mese, spese.getIdCategoria());
-						} catch (final Exception e1) {
-							e1.printStackTrace();
+							try {
+								totaleAnnualeCateg.setText(Double.toString(Database.totaleUscitaAnnoCategoria(spese.getIdCategoria())));
+							}
+							catch (Exception e1) {
+								e1.printStackTrace();
+							}
+							totaleMeseCategoria.setText(Double.toString(spesa));
 						}
-
-						try {
-							totaleAnnualeCateg.setText(Double.toString(Database.totaleUscitaAnnoCategoria(spese.getIdCategoria())));
-						}
-						catch (Exception e1) {
-							e1.printStackTrace();
-						}
-						totaleMeseCategoria.setText(Double.toString(spesa));
 					}
-				}
-			});
-			componenti[0] = categorieCombo;
-
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
+				});
+				componenti[0] = categorieCombo;
+				return componenti;
+			}
+		};
 	}
 
 	public static JComboBox getCategorieCombo() {

@@ -1,6 +1,9 @@
 package view.impostazioni;
 
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textarea.TextAreaBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
 
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
@@ -15,9 +18,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import view.font.LabelListaGruppi;
-import view.font.TextAreaF;
-import view.font.TextFieldF;
 import view.impostazioni.ascoltatori.AscoltatoreAggiornaCategoria;
 import view.impostazioni.ascoltatori.AscoltatoreCancellaCategoria;
 import view.impostazioni.ascoltatori.AscoltatoreInserisciCategoria;
@@ -65,11 +65,11 @@ public class CategorieView extends AbstractCategorieView {
 			initLabel();
 
 			// Nome Spesa
-			tfNome = new TextFieldF();
+			tfNome = new TextFieldTesto(this);
 			tfNome.setBounds(26, 37, 206, 26);
 
 			// Descrizione
-			taDescrizione = new TextAreaF("Inserisci la descrizione della categoria", 50, 25);
+			taDescrizione = new TextAreaBase("Inserisci la descrizione della categoria", 50, 25, this);
 			taDescrizione.setLineWrap(true);
 			taDescrizione.setWrapStyleWord(true);
 			taDescrizione.setBounds(26, 91, 206, 88);
@@ -231,33 +231,28 @@ public class CategorieView extends AbstractCategorieView {
 	private void initLabel() {
 
 		// Label nome
-		final JLabel labelNome = new LabelListaGruppi();
+		final JLabel labelNome = new LabelBase(this);
 		labelNome.setBounds(26, 12, 100, 25);
 		labelNome.setText("Categoria");
 
 		// Label descrizione
-		final JLabel labelDescrizione = new LabelListaGruppi();
+		final JLabel labelDescrizione = new LabelBase(this);
 		labelDescrizione.setBounds(26, 65, 90, 25);
 		labelDescrizione.setText("Descrizione");
 
 		// Label Importanza
-		final JLabel labelCategorie = new LabelListaGruppi();
+		final JLabel labelCategorie = new LabelBase(this);
 		labelCategorie.setBounds(26, 184, 100, 25);
 		labelCategorie.setText("Importanza");
 
 		// Label Combo Categorie
-		final JLabel labelComboCategorie = new LabelListaGruppi();
+		final JLabel labelComboCategorie = new LabelBase(this);
 		labelComboCategorie.setBounds(26, 352, 100, 25);
 		labelComboCategorie.setText("Lista Categorie");
 
-		final LabelListaGruppi lbltstGruppo = new LabelListaGruppi();
+		final LabelBase lbltstGruppo = new LabelBase(this);
 		lbltstGruppo.setText("Gruppo");
 		lbltstGruppo.setBounds(26, 239, 100, 25);
-		getContentPane().add(lbltstGruppo);
-		getContentPane().add(labelDescrizione);
-		getContentPane().add(labelCategorie);
-		getContentPane().add(labelNome);
-		getContentPane().add(labelComboCategorie);
 
 	}
 

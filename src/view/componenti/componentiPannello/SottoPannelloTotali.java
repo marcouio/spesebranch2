@@ -1,13 +1,12 @@
 package view.componenti.componentiPannello;
 
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
+
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
-import view.font.LabelTestoPiccolo;
-import view.font.TextFieldF;
 import business.AltreUtil;
 import business.ControlloreSpese;
 import business.Database;
@@ -16,19 +15,6 @@ import domain.wrapper.WrapCatSpese;
 public class SottoPannelloTotali {
 
 	
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Auto-generated main method to display this JPanel inside a new JFrame.
-	 */
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(new SottoPannelloTotali().getPannello());
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
-
 	private JLabel            jLabel2;
 	private JLabel            jLabel3;
 	private JLabel            jLabel4;
@@ -40,56 +26,71 @@ public class SottoPannelloTotali {
 	JLabel[]                  labels     = new JLabel[3];
 	CostruttoreSottoPannello  pannello;
 
-	public SottoPannelloTotali() {
+	public SottoPannelloTotali() throws Exception {
 		super();
+		pannello = new CostruttoreSottoPannello(CostruttoreSottoPannello.VERTICAL){
+
+			private static final long	serialVersionUID	= 1L;
+
+			@Override
+			protected JComponent[] getComponenti() throws Exception {
+				avanzo = new TextFieldTesto(this);
+				componenti[2] = avanzo;
+				avanzo.setColumns(10);
+
+				double differenza = AltreUtil.arrotondaDecimaliDouble((Database.EAnnuale()) - (Database.Annuale()));
+				avanzo.setText(Double.toString(AltreUtil.arrotondaDecimaliDouble(differenza)));
+				avanzo.setBounds(16, 85, 106, 27);
+				avanzo.setSize(92, 27);
+
+				double percVariabili = Database.percentoUscite(WrapCatSpese.IMPORTANZA_VARIABILE);
+
+				double percFutili = Database.percentoUscite(WrapCatSpese.IMPORTANZA_FUTILE);
+
+				percentoVariabili = new TextFieldTesto(this);
+				componenti[1] = percentoVariabili;
+				percentoVariabili.setColumns(10);
+				percentoVariabili.setText(Double.toString(percVariabili));
+				percentoVariabili.setBounds(164, 84, 106, 27);
+				percentoVariabili.setSize(92, 27);
+
+				percentoFutili = new TextFieldTesto(this);
+				componenti[0] = percentoFutili;
+				percentoFutili.setColumns(10);
+				percentoFutili.setText(Double.toString(percFutili));
+				percentoFutili.setBounds(317, 85, 106, 27);
+				
+				return componenti;
+			}
+			
+			@Override
+			protected JLabel[] getLabels() {
+
+				jLabel2 = new LabelBase(this);
+				labels[0] = jLabel2;
+				jLabel2.setText("% " + ControlloreSpese.getSingleton().getMessaggio("spesefut"));
+				jLabel2.setBounds(317, 67, 106, 14);
+				jLabel2.setOpaque(true);
+
+				jLabel3 = new LabelBase(this);
+				labels[1] = jLabel3;
+				jLabel3.setText("% " + ControlloreSpese.getSingleton().getMessaggio("spesevar"));
+				jLabel3.setBounds(164, 66, 141, 15);
+
+				jLabel4 = new LabelBase(this);
+				labels[2] = jLabel4;
+				jLabel4.setText(ControlloreSpese.getSingleton().getMessaggio("avanzo")+"/"+ControlloreSpese.getSingleton().getMessaggio("disavanzo"));
+				jLabel4.setBounds(16, 67, 128, 14);
+				
+				return labels;
+			}
+		};
 		initGUI();
-		pannello = new CostruttoreSottoPannello(componenti, labels, CostruttoreSottoPannello.VERTICAL);
 	}
 
 	private void initGUI() {
 		try {
 
-			jLabel2 = new LabelTestoPiccolo();
-			labels[0] = jLabel2;
-			jLabel2.setText("% " + ControlloreSpese.getSingleton().getMessaggio("spesefut"));
-			jLabel2.setBounds(317, 67, 106, 14);
-			jLabel2.setOpaque(true);
-
-			jLabel3 = new LabelTestoPiccolo();
-			labels[1] = jLabel3;
-			jLabel3.setText("% " + ControlloreSpese.getSingleton().getMessaggio("spesevar"));
-			jLabel3.setBounds(164, 66, 141, 15);
-
-			jLabel4 = new LabelTestoPiccolo();
-			labels[2] = jLabel4;
-			jLabel4.setText(ControlloreSpese.getSingleton().getMessaggio("avanzo")+"/"+ControlloreSpese.getSingleton().getMessaggio("disavanzo"));
-			jLabel4.setBounds(16, 67, 128, 14);
-
-			avanzo = new TextFieldF();
-			componenti[2] = avanzo;
-			avanzo.setColumns(10);
-
-			double differenza = AltreUtil.arrotondaDecimaliDouble((Database.EAnnuale()) - (Database.Annuale()));
-			avanzo.setText(Double.toString(AltreUtil.arrotondaDecimaliDouble(differenza)));
-			avanzo.setBounds(16, 85, 106, 27);
-			avanzo.setSize(92, 27);
-
-			double percVariabili = Database.percentoUscite(WrapCatSpese.IMPORTANZA_VARIABILE);
-
-			double percFutili = Database.percentoUscite(WrapCatSpese.IMPORTANZA_FUTILE);
-
-			percentoVariabili = new TextFieldF();
-			componenti[1] = percentoVariabili;
-			percentoVariabili.setColumns(10);
-			percentoVariabili.setText(Double.toString(percVariabili));
-			percentoVariabili.setBounds(164, 84, 106, 27);
-			percentoVariabili.setSize(92, 27);
-
-			percentoFutili = new TextFieldF();
-			componenti[0] = percentoFutili;
-			percentoFutili.setColumns(10);
-			percentoFutili.setText(Double.toString(percFutili));
-			percentoFutili.setBounds(317, 85, 106, 27);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

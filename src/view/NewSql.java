@@ -2,6 +2,8 @@ package view;
 
 import grafica.componenti.alert.Alert;
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textarea.TextAreaBase;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,11 +24,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import testo.UtilText;
-import view.font.LabelTitolo;
-import view.font.TextAreaF;
 import business.AltreUtil;
 import business.ControlloreSpese;
-import business.DBUtil;
 import business.Database;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
 import domain.wrapper.WrapCatSpese;
@@ -58,7 +57,7 @@ public class NewSql extends OggettoVistaBase {
 		try {
 			setPreferredSize(new Dimension(950, 750));
 			setLayout(null);
-			areaSql = new TextAreaF();
+			areaSql = new TextAreaBase(this);
 			areaSql.setBounds(1, 1, 727, 71);
 			this.add(areaSql);
 			areaSql.setText(ControlloreSpese.getSingleton().getMessaggio("inssql"));
@@ -77,13 +76,13 @@ public class NewSql extends OggettoVistaBase {
 			this.add(bottone);
 			bottone.setText(ControlloreSpese.getSingleton().getMessaggio("esegui"));
 
-			result = new TextAreaF();
+			result = new TextAreaBase(this);
 			result.setBounds(1, 245, 847, 103);
 			this.add(result);
 			final JScrollPane scroll = new JScrollPane(result);
 			scroll.setBounds(37, 161, 889, 300);
 			this.add(scroll);
-			labelResult = new LabelTitolo();
+			labelResult = new LabelBase(this);
 			labelResult.setBounds(420, 135, 70, 21);
 			labelResult.setFont(new Font("Eras Light ITC", Font.PLAIN, 14));
 			this.add(labelResult);
@@ -112,7 +111,7 @@ public class NewSql extends OggettoVistaBase {
 					final JDialog d = new JDialog();
 					d.setLayout(new BorderLayout());
 					d.setSize(400, 180);
-					final TextAreaF lt = new TextAreaF();
+					final TextAreaBase lt = new TextAreaBase(NewSql.this);
 
 					// specifica se �true� di andare a capo automaticamente a
 					// fine riga

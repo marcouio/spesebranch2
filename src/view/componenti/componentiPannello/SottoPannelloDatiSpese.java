@@ -1,30 +1,18 @@
 package view.componenti.componentiPannello;
 
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
+
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
-import view.font.LabelTestoPiccolo;
-import view.font.TextFieldF;
 import business.AltreUtil;
 import business.ControlloreSpese;
 import business.Database;
 
 public class SottoPannelloDatiSpese {
 
-
-	/**
-	 * Auto-generated main method to display this JPanel inside a new JFrame.
-	 */
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.getContentPane().add(new SottoPannelloDatiSpese().getPannello());
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
 
 	private static JTextField meseInCors;
 	private static JTextField speseAnnuali;
@@ -40,37 +28,9 @@ public class SottoPannelloDatiSpese {
 	private void initGUI() {
 		try {
 
-			JLabel meseincorso = new LabelTestoPiccolo(ControlloreSpese.getSingleton().getMessaggio("thisyear"));
-			labels[2] = meseincorso;
-			meseincorso.setBounds(164, 66, 141, 14);
-
-			speseAnnuali = new TextFieldF();
-			componenti[2] = speseAnnuali;
-			speseAnnuali.setBounds(164, 84, 106, 27);
-			speseAnnuali.setColumns(8);
-
-			JLabel label = new LabelTestoPiccolo(ControlloreSpese.getSingleton().getMessaggio("lastmonth"));
-			label.setBounds(317, 67, 123, 14);
-			labels[1] = label;
-
-			mensile = Database.Mensile();
-			mesePrecUsc = new TextFieldF();
-			mesePrecUsc.setText(Double.toString(AltreUtil.arrotondaDecimaliDouble(mensile)));
-			mesePrecUsc.setBounds(317, 85, 106, 27);
-			componenti[1] = mesePrecUsc;
-
-			JLabel label2 = new LabelTestoPiccolo(ControlloreSpese.getSingleton().getMessaggio("thismonth"));
-			label2.setBounds(16, 67, 136, 13);
-			labels[0] = label2;
-
 			annuale = Database.Annuale();
 			speseAnnuali.setText(Double.toString(AltreUtil.arrotondaDecimaliDouble(annuale)));
 
-			meseInCors = new TextFieldF();
-			mensile2 = Database.MensileInCorso();
-			meseInCors.setText(Double.toString(AltreUtil.arrotondaDecimaliDouble(mensile2)));
-			componenti[0] = meseInCors;
-			meseInCors.setBounds(16, 85, 106, 27);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -116,10 +76,53 @@ public class SottoPannelloDatiSpese {
 		SottoPannelloDatiSpese.mensile = mensile;
 	}
 
-	public SottoPannelloDatiSpese() {
+	public SottoPannelloDatiSpese() throws Exception {
 		super();
+		pannello = new CostruttoreSottoPannello(CostruttoreSottoPannello.VERTICAL){
+			@Override
+			protected JComponent[] getComponenti() throws Exception {
+				meseInCors = new TextFieldTesto(this);
+				mensile2 = Database.MensileInCorso();
+				meseInCors.setText(Double.toString(AltreUtil.arrotondaDecimaliDouble(mensile2)));
+				componenti[0] = meseInCors;
+				meseInCors.setBounds(16, 85, 106, 27);
+
+				mensile = Database.Mensile();
+				mesePrecUsc = new TextFieldTesto(this);
+				mesePrecUsc.setText(Double.toString(AltreUtil.arrotondaDecimaliDouble(mensile)));
+				mesePrecUsc.setBounds(317, 85, 106, 27);
+				componenti[1] = mesePrecUsc;
+
+				speseAnnuali = new TextFieldTesto(this);
+				componenti[2] = speseAnnuali;
+				speseAnnuali.setBounds(164, 84, 106, 27);
+				speseAnnuali.setColumns(8);
+
+				return componenti;
+			}
+			
+			@Override
+			protected JLabel[] getLabels() {
+				String msgThisYear = ControlloreSpese.getSingleton().getMessaggio("thisyear");
+				JLabel meseincorso = new LabelBase(msgThisYear, this);
+				labels[2] = meseincorso;
+				meseincorso.setBounds(164, 66, 141, 14);
+
+				String msgLastMonth = ControlloreSpese.getSingleton().getMessaggio("lastmonth");
+				JLabel label = new LabelBase(msgLastMonth, this);
+				label.setBounds(317, 67, 123, 14);
+				labels[1] = label;
+
+
+				String msgThisMonth = ControlloreSpese.getSingleton().getMessaggio("thismonth");
+				JLabel label2 = new LabelBase(msgThisMonth, this);
+				label2.setBounds(16, 67, 136, 13);
+				labels[0] = label2;
+
+				return labels;
+			}
+		};
 		initGUI();
-		pannello = new CostruttoreSottoPannello(componenti, labels, CostruttoreSottoPannello.VERTICAL);
 	}
 
 	protected JComponent[] getComponenti() {

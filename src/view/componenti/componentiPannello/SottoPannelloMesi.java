@@ -1,5 +1,8 @@
 package view.componenti.componentiPannello;
 
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -10,14 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import view.font.LabelTestoPiccolo;
-import view.font.TextFieldF;
 import business.AltreUtil;
 import business.Database;
 
 public class SottoPannelloMesi {
-
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Auto-generated main method to display this JPanel inside a new JFrame.
@@ -40,73 +39,74 @@ public class SottoPannelloMesi {
 	JLabel[]                  labels     = new JLabel[3];
 	CostruttoreSottoPannello  pannello;
 
-	public SottoPannelloMesi() {
+	public SottoPannelloMesi() throws Exception {
 		super();
-		initGUI();
-		pannello = new CostruttoreSottoPannello(componenti, labels, CostruttoreSottoPannello.VERTICAL);
-	}
+		pannello = new CostruttoreSottoPannello(CostruttoreSottoPannello.VERTICAL){
+			@Override
+			protected JLabel[] getLabels() {
+				jLabel9 = new LabelBase(this);
+				labels[0] = jLabel9;
+				jLabel9.setText("Mese");
+				jLabel9.setBounds(16, 67, 67, 14);
 
-	private void initGUI() {
-		try {
+				jLabel12 = new LabelBase(this);
+				labels[1] = jLabel12;
+				jLabel12.setText("Uscite per mese");
+				jLabel12.setBounds(164, 66, 114, 14);
+				
+				jLabel12 = new LabelBase(this);
+				labels[2] = jLabel12;
+				jLabel12.setText("Entrate per mese");
+				jLabel12.setBounds(317, 67, 123, 14);
+				return labels;
+			}
+			@Override
+			protected JComponent[] getComponenti() throws Exception {
 
-			jLabel9 = new LabelTestoPiccolo();
-			labels[0] = jLabel9;
-			jLabel9.setText("Mese");
-			jLabel9.setBounds(16, 67, 67, 14);
+				totaleMeseUscite = new TextFieldTesto(this);
+				componenti[1] = totaleMeseUscite;
+				totaleMeseUscite.setColumns(10);
+				totaleMeseUscite.setText("0.0");
+				totaleMeseUscite.setBounds(164, 84, 106, 27);
 
-			totaleMeseUscite = new TextFieldF();
-			componenti[1] = totaleMeseUscite;
-			totaleMeseUscite.setColumns(10);
-			totaleMeseUscite.setText("0.0");
-			totaleMeseUscite.setBounds(164, 84, 106, 27);
+				totaleMeseEntrate = new TextFieldTesto(this);
+				componenti[2] = totaleMeseEntrate;
+				totaleMeseEntrate.setColumns(10);
+				totaleMeseEntrate.setText("0.0");
+				totaleMeseEntrate.setBounds(317, 85, 106, 27);
 
-			totaleMeseEntrate = new TextFieldF();
-			componenti[2] = totaleMeseEntrate;
-			totaleMeseEntrate.setColumns(10);
-			totaleMeseEntrate.setText("0.0");
-			totaleMeseEntrate.setBounds(317, 85, 106, 27);
 
-			jLabel12 = new LabelTestoPiccolo();
-			labels[1] = jLabel12;
-			jLabel12.setText("Uscite per mese");
-			jLabel12.setBounds(164, 66, 114, 14);
+				// Combo Mesi
+				ComboMese = new JComboBox();
+				componenti[0] = ComboMese;
+				ComboMese.setBounds(16, 85, 106, 27);
+				ComboMese.addItem("");
+				for (int i = 0; i < 12; i++)
+					ComboMese.addItem(i + 1);
+				ComboMese.setSelectedIndex(0);
+				ComboMese.addItemListener(new ItemListener() {
 
-			jLabel12 = new LabelTestoPiccolo();
-			labels[2] = jLabel12;
-			jLabel12.setText("Entrate per mese");
-			jLabel12.setBounds(317, 67, 123, 14);
+					@Override
+					public void itemStateChanged(ItemEvent e) {
+						try{
+						Object mounth = ComboMese.getSelectedItem();
 
-			// Combo Mesi
-			ComboMese = new JComboBox();
-			componenti[0] = ComboMese;
-			ComboMese.setBounds(16, 85, 106, 27);
-			ComboMese.addItem("");
-			for (int i = 0; i < 12; i++)
-				ComboMese.addItem(i + 1);
-			ComboMese.setSelectedIndex(0);
-			ComboMese.addItemListener(new ItemListener() {
-
-				@Override
-				public void itemStateChanged(ItemEvent e) {
-					try{
-					Object mounth = ComboMese.getSelectedItem();
-
-					if (!mounth.equals("")) {
-						int mese = Integer.parseInt(mounth.toString());
-						double totaleMese = AltreUtil.arrotondaDecimaliDouble(Database.getSingleton().totaleUsciteMese(mese));
-						double totaleMeseE = AltreUtil.arrotondaDecimaliDouble(Database.getSingleton().totaleEntrateMese(mese));
-						totaleMeseUscite.setText(Double.toString(totaleMese));
-						totaleMeseEntrate.setText(Double.toString(totaleMeseE));
+						if (!mounth.equals("")) {
+							int mese = Integer.parseInt(mounth.toString());
+							double totaleMese = AltreUtil.arrotondaDecimaliDouble(Database.getSingleton().totaleUsciteMese(mese));
+							double totaleMeseE = AltreUtil.arrotondaDecimaliDouble(Database.getSingleton().totaleEntrateMese(mese));
+							totaleMeseUscite.setText(Double.toString(totaleMese));
+							totaleMeseEntrate.setText(Double.toString(totaleMeseE));
+						}
+						}catch (Exception e1) {
+							e1.printStackTrace();
+						}
 					}
-					}catch (Exception e1) {
-						e1.printStackTrace();
-					}
-				}
-			});
+				});
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			return componenti;
+			}
+		};
 	}
 
 	public static void azzeraCampi() {

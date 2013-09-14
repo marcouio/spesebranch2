@@ -2,6 +2,9 @@ package view.note;
 
 import grafica.componenti.alert.Alert;
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.label.LabelBase;
+import grafica.componenti.textarea.TextAreaBase;
+import grafica.componenti.textfield.testo.TextFieldTesto;
 
 import java.awt.event.ActionEvent;
 import java.util.Date;
@@ -9,9 +12,6 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import view.font.LabelListaGruppi;
-import view.font.TextAreaF;
-import view.font.TextFieldF;
 import business.AltreUtil;
 import business.ControlloreSpese;
 import business.ascoltatori.AscoltatoreAggiornatoreNiente;
@@ -40,9 +40,9 @@ public class NoteView extends AbstractNoteView {
 		});
 	}
 
-	private final TextFieldF nota;
-	private final TextAreaF  descrizione;
-	private final TextFieldF data;
+	private final TextFieldTesto nota;
+	private final TextAreaBase  descrizione;
+	private final TextFieldTesto data;
 	private ButtonBase          btnInserisci;
 
 	public NoteView(final WrapNote note, final JFrame padre) {
@@ -50,23 +50,23 @@ public class NoteView extends AbstractNoteView {
 		setTitle("Pannello Nota");
 		getContentPane().setLayout(null);
 
-		LabelListaGruppi lbltstNota = new LabelListaGruppi("Nome Spesa");
+		LabelBase lbltstNota = new LabelBase("Nome Spesa", this);
 		lbltstNota.setText("Nota");
 		lbltstNota.setBounds(13, 12, 97, 27);
 		getContentPane().add(lbltstNota);
 
-		nota = new TextFieldF();
+		nota = new TextFieldTesto(this);
 		nota.setText("Nome della nota");
 		nota.setColumns(10);
 		nota.setBounds(12, 38, 150, 27);
 		getContentPane().add(nota);
 
-		LabelListaGruppi lbltstDa = new LabelListaGruppi("Categorie");
+		LabelBase lbltstDa = new LabelBase("Categorie", this);
 		lbltstDa.setText("Data");
 		lbltstDa.setBounds(181, 12, 77, 27);
 		getContentPane().add(lbltstDa);
 
-		descrizione = new TextAreaF();
+		descrizione = new TextAreaBase(this);
 		descrizione.setText("Inserisci qui la descrizione della nota");
 		descrizione.setWrapStyleWord(true);
 		descrizione.setLineWrap(true);
@@ -74,12 +74,12 @@ public class NoteView extends AbstractNoteView {
 		descrizione.setBounds(13, 89, 318, 75);
 		getContentPane().add(descrizione);
 
-		LabelListaGruppi lbltstDescrizioneNota = new LabelListaGruppi("Descrizione Spesa");
+		LabelBase lbltstDescrizioneNota = new LabelBase("Descrizione Spesa", this);
 		lbltstDescrizioneNota.setText("Descrizione Nota");
 		lbltstDescrizioneNota.setBounds(14, 64, 123, 25);
 		getContentPane().add(lbltstDescrizioneNota);
 
-		data = new TextFieldF();
+		data = new TextFieldTesto(this);
 		data.setColumns(10);
 		data.setBounds(181, 38, 150, 27);
 		data.setText(UtilDb.dataToString(new Date(), "yyyy/MM/dd"));
@@ -156,15 +156,15 @@ public class NoteView extends AbstractNoteView {
 		data.setText(stringaData);
 	}
 
-	public TextFieldF getNota() {
+	public TextFieldTesto getNota() {
 		return nota;
 	}
 
-	public TextAreaF gettaDescrizione() {
+	public TextAreaBase gettaDescrizione() {
 		return descrizione;
 	}
 
-	public TextFieldF getftData() {
+	public TextFieldTesto getftData() {
 		return data;
 	}
 
