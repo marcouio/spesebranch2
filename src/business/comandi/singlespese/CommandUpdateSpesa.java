@@ -2,6 +2,7 @@ package business.comandi.singlespese;
 
 import grafica.componenti.alert.Alert;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import business.cache.CacheUscite;
@@ -29,7 +30,7 @@ public class CommandUpdateSpesa extends AbstractCommandForJavaBean {
 	}
 
 	@Override
-	public boolean execute() {
+	public boolean execute() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		if (newEntita instanceof SingleSpesa) {
 			if (wrap.update(newEntita)) {
 				mappaCache.put(Integer.toString(newEntita.getIdSpesa()), newEntita);
@@ -40,7 +41,7 @@ public class CommandUpdateSpesa extends AbstractCommandForJavaBean {
 	}
 
 	@Override
-	public boolean unExecute() {
+	public boolean unExecute() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		if (oldEntita instanceof SingleSpesa) {
 			if (wrap.update(oldEntita)) {
 				mappaCache.put(Integer.toString(oldEntita.getIdSpesa()), oldEntita);

@@ -1,5 +1,6 @@
 package view.report;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
@@ -26,7 +27,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciEntrateAnnuali(final boolean hasEntrateAnnuali) {
+	public void inserisciEntrateAnnuali(final boolean hasEntrateAnnuali) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		if (hasEntrateAnnuali) {
 			Double entrateAnnuali = reportData.generaEntrateAnnuali();
 			OggettoReport oggettoReport = new OggettoReport(OggettoReport.TIPO_DOUBLE, entrateAnnuali, "Entrate Annuali");
@@ -34,7 +35,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciEntrateMensili(final boolean hasEntrateMensili) {
+	public void inserisciEntrateMensili(final boolean hasEntrateMensili) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		if (hasEntrateMensili) {
 			HashMap<String, Double> entrateMese = reportData.generaEntrateMese();
 			String[]mesi = (String[]) Mesi.getListaMesi().toArray(new String[Mesi.getListaMesi().size()]);
@@ -72,7 +73,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciEntrateCatAnnuali(final boolean hasEntrateCatAnnuali) {
+	public void inserisciEntrateCatAnnuali(final boolean hasEntrateCatAnnuali) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		if (hasEntrateCatAnnuali) {
 			HashMap<String, Double> entrateCatAnnuali = reportData.generaEntrateCatAnnuali();
 			String[] categorie = new String[]{"Fisse","Variabili"};
@@ -114,7 +115,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciMediaEntrate(final boolean hasMediaEntrate) {
+	public void inserisciMediaEntrate(final boolean hasMediaEntrate) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		if (hasMediaEntrate) {
 			Double mediaEntrate = reportData.generaMediaEntrate();
 			OggettoReport oggettoReport = new OggettoReport(OggettoReport.TIPO_DOUBLE, mediaEntrate, "Media Mensile Entrate");

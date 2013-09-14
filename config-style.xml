@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <styles>
-    <style nome="stylebase">
-        <font font-family="Arial" size="15" type="0"/>
+    <style name="stylebase">
+        <font font-family="Arial" size="10" type="0"/>
+        <foreground>
+            <color b="100" g="100" r="100"/>
+        </foreground>
+        <background>
+            <color b="200" g="200" r="200"/>
+        </background>
+        <dimensionarea columns="60" rows="60"/>
+        <dimension height="131" width="101"/>
+    </style>
+    <style name="StyleBaseL">
+        <font font-family="Arial" size="10" type="0"/>
         <foreground>
             <color b="100" g="100" r="100"/>
         </foreground>

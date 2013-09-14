@@ -2,7 +2,6 @@ package business;
 
 import grafica.componenti.alert.Alert;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -45,11 +44,10 @@ public class Database {
 
 	public static final Database getSingleton() {
 		synchronized (Database.class) {
-		if (singleton == null) {
-				if (singleton == null) {
-					singleton = new Database();
-				}
-			} // if
+		
+			if (singleton == null) {
+				singleton = new Database();
+			}
 		} // if
 		return singleton;
 	}
@@ -95,8 +93,6 @@ public class Database {
 	}
 
 	public void generaDB() throws Exception {
-		@SuppressWarnings("unused")
-		final File db = new File(Database.DB_URL);
 		String sql = new String();
 		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		sql = "CREATE TABLE \"Utenti\" (\"idUtente\" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , \"nome\" TEXT NOT NULL , \"cognome\" TEXT NOT NULL , \"username\" TEXT NOT NULL  UNIQUE , \"password\" TEXT NOT NULL );";
@@ -159,7 +155,7 @@ public class Database {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return ok;
 	}
@@ -500,8 +496,12 @@ public class Database {
 	 * 
 	 * @param mese
 	 * @return totale mensile delle spese(double)
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public double totaleEntrateMese(final int mese) {
+	public double totaleEntrateMese(final int mese) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		double totaleMese = 0;
 		final ArrayList<Entrate> listaEntrate = CacheEntrate.getSingleton().getAllEntrateForUtenteEAnno();
 		for (int i = 0; i < listaEntrate.size(); i++) {
@@ -532,7 +532,7 @@ public class Database {
 		return AltreUtil.arrotondaDecimaliDouble(totale);
 	}
 
-	public static double totaleEntrateAnnoCategoria(final String FissoOVar) {
+	public static double totaleEntrateAnnoCategoria(final String FissoOVar) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		double totale = 0;
 		final int anno = Impostazioni.getAnno();
 		final ArrayList<Entrate> listaEntrate = CacheEntrate.getSingleton().getAllEntrateForUtente();
@@ -604,8 +604,12 @@ public class Database {
 
 	/**
 	 * @return Metodo per calcolare il totale delle entrate annuali
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public static double EAnnuale() {
+	public static double EAnnuale() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		double Eannuale = 0;
 
 		final int anno = Impostazioni.getAnno();
@@ -646,8 +650,12 @@ public class Database {
 	 * 
 	 * @return Metodo per calcolare il totale delle entrate per il mese
 	 *         precedente
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public static double Emensile() {
+	public static double Emensile() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		double Emensile10 = 0;
 		final GregorianCalendar data = new GregorianCalendar();
 		final ArrayList<Entrate> listaEntrate = CacheEntrate.getSingleton().getAllEntrateForUtente();
@@ -694,10 +702,13 @@ public class Database {
 	 * 
 	 * @return metodo per calcolare il totale delle entrate per il mese
 	 *         precedente
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public static double EMensileInCorso() {
-		final double Emensile = 0;
-		double Emensile10 = 0;
+	public static double EMensileInCorso() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		double eMensile = 0;
 		final GregorianCalendar data = new GregorianCalendar();
 		final ArrayList<Entrate> listaEntrate = CacheEntrate.getSingleton().getAllEntrateForUtente();
 		for (int i = 0; i < listaEntrate.size(); i++) {
@@ -706,10 +717,10 @@ public class Database {
 			final int mese = Integer.parseInt(UtilDb.dataToString(dataEntrata, "MM"));
 			final int anno = Integer.parseInt(UtilDb.dataToString(dataEntrata, "yyyy"));
 			if (mese == (data.get(Calendar.MONTH) + 1) && anno == data.get(Calendar.YEAR)) {
-				Emensile10 += entrata.getInEuro();
+				eMensile += entrata.getInEuro();
 			}
 		}
-		return AltreUtil.arrotondaDecimaliDouble(Emensile);
+		return AltreUtil.arrotondaDecimaliDouble(eMensile);
 
 	}
 

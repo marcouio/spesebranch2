@@ -3,20 +3,20 @@ package domain.wrapper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Vector;
 
 import view.impostazioni.Impostazioni;
 import business.AltreUtil;
 import business.ControlloreSpese;
-import business.DBUtil;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
 import db.Clausola;
+import db.ConnectionPool;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.Entrate;
@@ -47,23 +47,23 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 	}
 
 	@Override
-	public Object selectById(final int id) {
+	public Object selectById(final int id) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.selectById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 		
 	}
 
-	public Vector<Object> selectAllForUtente() {
+	public Vector<Object> selectAllForUtente() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		final Vector<Object> entrate = new Vector<Object>();
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		try {
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 			final String sql = "SELECT * FROM " + WrapEntrate.NOME_TABELLA + " WHERE " + WrapEntrate.IDUTENTE + " = " + utente.getIdUtente();
 			final Statement st = cn.createStatement();
 			final ResultSet rs = st.executeQuery(sql);
@@ -84,67 +84,69 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return entrate;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Object> selectAll() {
+	public ArrayList<Object> selectAll() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return (ArrayList<Object>) genericDao.selectAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 	}
 
 	@Override
-	public boolean insert(final Object oggettoEntita) {
+	public boolean insert(final Object oggettoEntita) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.insert(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean delete(final int id) {
+	public boolean delete(final int id) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean update(final Object oggettoEntita) {
+	public boolean update(final Object oggettoEntita) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.update(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean deleteAll() {
+	public boolean deleteAll() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.deleteAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
@@ -156,8 +158,12 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 	 * 
 	 * @param numEntry
 	 * @return Vector<Entrate>
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public Vector<Entrate> movimentiEntrateFiltrati(final String dataDa, final String dataA, final String nome, final Double euro, final String categoria) {
+	public Vector<Entrate> movimentiEntrateFiltrati(final String dataDa, final String dataA, final String nome, final Double euro, final String categoria) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		Vector<Entrate> entrate = null;
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		int idUtente = 0;
@@ -182,7 +188,7 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 			sql.append(" AND " + WrapEntrate.FISSEOVAR + " = '" + categoria + "'");
 		}
 		try {
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 			final Statement st = cn.createStatement();
 			final ResultSet rs = st.executeQuery(sql.toString());
 			entrate = new Vector<Entrate>();
@@ -201,7 +207,7 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return entrate;
 
@@ -214,8 +220,12 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 	 * 
 	 * @param numEntry
 	 * @return Vector<Entrate>
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public Vector<Entrate> dieciEntrate(final int numEntry) {
+	public Vector<Entrate> dieciEntrate(final int numEntry) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		Vector<Entrate> entrate = null;
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
 		int idUtente = 0;
@@ -226,7 +236,7 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 		final String sql = "SELECT * FROM " + WrapEntrate.NOME_TABELLA + " where " + WrapEntrate.DATA + " BETWEEN '" + Impostazioni.getAnno() + "/01/01" + "'" + " AND '"
 				+ Impostazioni.getAnno() + "/12/31" + "'" + " AND " + WrapEntrate.IDUTENTE + " = " + idUtente + " ORDER BY " + WrapEntrate.ID + " desc limit 0," + numEntry;
 		try {
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 			final Statement st = cn.createStatement();
 			final ResultSet rs = st.executeQuery(sql);
 			entrate = new Vector<Entrate>();
@@ -246,18 +256,22 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 			e.printStackTrace();
 		}
 		
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return entrate;
 
 	}
 
 	/**
 	 * Cancella l'ultima entita' "Entrate" inserita
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public boolean DeleteLastEntrate() {
+	public boolean DeleteLastEntrate() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		boolean ok = false;
 		try {
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 			final String sql = "SELECT * FROM " + WrapEntrate.NOME_TABELLA + " WHERE " + WrapEntrate.IDUTENTE + " = " + ((Utenti) ControlloreSpese.getSingleton().getUtenteLogin()).getIdUtente()
 					+ " ORDER BY " + WrapEntrate.DATAINS + " DESC";
 
@@ -276,7 +290,7 @@ public class WrapEntrate extends Observable implements IEntrate, IDAO {
 			e.printStackTrace();
 			ControlloreSpese.getLog().severe("Operazione non riuscita: " + e.getMessage());
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return ok;
 	}
 

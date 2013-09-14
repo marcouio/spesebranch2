@@ -1,5 +1,6 @@
 package business.cache;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,7 +35,7 @@ public class CacheEntrate extends AbstractCacheBase {
 
 	WrapEntrate	entrateDAO	= new WrapEntrate();
 
-	public Entrate getEntrate(final String id) {
+	public Entrate getEntrate(final String id) throws NumberFormatException, InstantiationException, IllegalAccessException, ReflectiveOperationException, SQLException {
 		Entrate entrate = (Entrate) cache.get(id);
 		if (entrate == null) {
 			entrate = caricaEntrate(id);
@@ -45,12 +46,13 @@ public class CacheEntrate extends AbstractCacheBase {
 		return (Entrate) cache.get(id);
 	}
 
-	private Entrate caricaEntrate(final String id) {
+	private Entrate caricaEntrate(final String id) throws NumberFormatException, InstantiationException, IllegalAccessException, ReflectiveOperationException, SQLException {
 		return (Entrate) new WrapEntrate().selectById(Integer.parseInt(id));
 	}
 
-	public Map<String, AbstractOggettoEntita> chargeAllEntrate() {
-		final ArrayList<Object> entrate = entrateDAO.selectAll();
+	public Map<String, AbstractOggettoEntita> chargeAllEntrate() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		final ArrayList<Object> entrate = 
+				entrateDAO.selectAll();
 		if (entrate != null) {
 			for (int i = 0; i < entrate.size(); i++) {
 				final Entrate entrata = (Entrate) entrate.get(i);
@@ -67,7 +69,7 @@ public class CacheEntrate extends AbstractCacheBase {
 		return cache;
 	}
 
-	public Map<String, AbstractOggettoEntita> getAllEntrate() {
+	public Map<String, AbstractOggettoEntita> getAllEntrate() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		if (caricata) {
 			return cache;
 		}
@@ -76,7 +78,7 @@ public class CacheEntrate extends AbstractCacheBase {
 		}
 	}
 
-	public ArrayList<Entrate> getAllEntrateForUtente() {
+	public ArrayList<Entrate> getAllEntrateForUtente() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		final ArrayList<Entrate> listaEntrate = new ArrayList<Entrate>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllEntrate();
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
@@ -95,7 +97,7 @@ public class CacheEntrate extends AbstractCacheBase {
 		return listaEntrate;
 	}
 
-	public ArrayList<Entrate> getAllEntrateForUtenteEAnno() {
+	public ArrayList<Entrate> getAllEntrateForUtenteEAnno() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		final ArrayList<Entrate> listaEntrate = new ArrayList<Entrate>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllEntrate();
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
@@ -117,7 +119,7 @@ public class CacheEntrate extends AbstractCacheBase {
 		return listaEntrate;
 	}
 
-	public int getMaxId() {
+	public int getMaxId() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		int maxId = 0;
 		final Map<String, AbstractOggettoEntita> mappa = getAllEntrate();
 		if (mappa != null) {

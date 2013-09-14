@@ -8,6 +8,7 @@ import grafica.componenti.textarea.TextAreaBase;
 import grafica.componenti.textfield.testo.TextFieldTesto;
 
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -172,7 +173,7 @@ public class EntrateView extends AbstractEntrateView {
 		return EntrateView.lista;
 	}
 
-	public void aggiornaModelDaVista() {
+	public void aggiornaModelDaVista() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		final int idEntrate = (CacheEntrate.getSingleton().getMaxId()) + 1;
 		getModelEntrate().setIdEntrate(idEntrate);
 

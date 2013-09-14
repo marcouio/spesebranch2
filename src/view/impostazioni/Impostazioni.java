@@ -8,6 +8,7 @@ import grafica.componenti.textfield.testo.TextFieldTesto;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -144,7 +145,7 @@ public class Impostazioni extends JDialog {
 			elimina.setText("Elimina");
 			elimina.addActionListener(new AscoltatoreAggiornatoreTutto() {
 				@Override
-				public void actionPerformedOverride(final ActionEvent arg0) {
+				public void actionPerformedOverride(final ActionEvent arg0) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 					if (new WrapEntrate().deleteAll() && new WrapSingleSpesa().deleteAll()) {
 						// TODO creare comando per eliminare tutto
 						Alert.segnalazioneInfo("Ok, tutti i dati sono stati cancellati: puoi ripartire!");

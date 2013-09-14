@@ -92,6 +92,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<SingleSpesa> selectAll() throws Exception {
 		try {
@@ -109,49 +110,49 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 	}
 
 	@Override
-	public boolean insert(final Object oggettoEntita) {
+	public boolean insert(final Object oggettoEntita) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.insert(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean delete(final int id) {
+	public boolean delete(final int id) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean update(final Object oggettoEntita) {
+	public boolean update(final Object oggettoEntita) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.update(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean deleteAll() {
+	public boolean deleteAll() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		try {
 			return genericDao.deleteAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
@@ -189,7 +190,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 			sql.append(" AND " + IDCATEGORIE + " = " + Integer.parseInt(catSpese));
 		}
 		try {
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 
 			final Statement st = cn.createStatement();
 			final ResultSet rs = st.executeQuery(sql.toString());

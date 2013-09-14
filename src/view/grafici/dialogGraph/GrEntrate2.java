@@ -47,8 +47,11 @@ public class GrEntrate2 extends JDialog implements ActionListener {
 	 * 
 	 * @throws SQLException
 	 * @throws IOException
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public GrEntrate2() throws SQLException, IOException {
+	public GrEntrate2() throws SQLException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		final JFreeChart chart = ChartFactory.createLineChart("Entrate Mensili", "Mesi", "Euro", dataset, PlotOrientation.VERTICAL, true, true, true);

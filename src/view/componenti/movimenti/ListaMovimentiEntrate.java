@@ -6,6 +6,7 @@ import grafica.componenti.textfield.testo.TextFieldTesto;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -66,9 +67,8 @@ public class ListaMovimentiEntrate extends AbstractListaMov {
 						private static final long serialVersionUID = 1L;
 
 						@Override
-						public String[][] getMovimenti() {
-							final Vector<Entrate> entrate = new WrapEntrate()
-									.movimentiEntrateFiltrati(getDataDa(), getDataA(), getNome(), getEuro(), getCategoria());
+						public String[][] getMovimenti() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+							final Vector<Entrate> entrate = new WrapEntrate().movimentiEntrateFiltrati(getDataDa(), getDataA(), getNome(), getEuro(), getCategoria());
 							String[][] mov = null;
 							try {
 								mov = Model.getSingleton().movimentiFiltratiEntratePerNumero(WrapEntrate.NOME_TABELLA, entrate);

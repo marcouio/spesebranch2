@@ -1,5 +1,6 @@
 package view.report;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -37,11 +38,11 @@ public class ReportData {
 	}
 	
 	
-	public Double generaEntrateAnnuali(){
+	public Double generaEntrateAnnuali() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		return Database.EAnnuale();
 	}
 	
-	public HashMap<String, Double> generaEntrateMese(){
+	public HashMap<String, Double> generaEntrateMese() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
 		
 		HashMap<String, Double> entrateMese = new HashMap<String, Double>();
 		
@@ -72,7 +73,7 @@ public class ReportData {
 		return usciteCatAnnuali;
 	}
 	
-	public HashMap<String, Double> generaEntrateCatAnnuali() {
+	public HashMap<String, Double> generaEntrateCatAnnuali() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		HashMap<String, Double> entrateCatAnnuali = new HashMap<String, Double>(); 
 		ArrayList<String> nomiColonne = EntrateView.getLista();
 		for (int i = 0; i < nomiColonne.size(); i++) {
@@ -139,7 +140,7 @@ public class ReportData {
 		return Database.Annuale() / new GregorianCalendar().get(Calendar.MONTH + 1);
 	}
 	
-	public Double generaMediaEntrate() {
+	public Double generaMediaEntrate() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		return Database.EAnnuale() / new GregorianCalendar().get(Calendar.MONTH + 1);
 	}
 	

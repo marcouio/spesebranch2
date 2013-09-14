@@ -2,6 +2,7 @@ package business.comandi.entrate;
 
 import grafica.componenti.alert.Alert;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import business.cache.CacheEntrate;
@@ -29,7 +30,7 @@ public class CommandUpdateEntrata extends AbstractCommandForJavaBean implements 
 	}
 
 	@Override
-	public boolean execute() {
+	public boolean execute() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		if (newEntita instanceof Entrate) {
 			if (wrap.update(newEntita)) {
 				return true;
@@ -39,7 +40,7 @@ public class CommandUpdateEntrata extends AbstractCommandForJavaBean implements 
 	}
 
 	@Override
-	public boolean unExecute() {
+	public boolean unExecute() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		if (oldEntita instanceof Entrate) {
 			if (wrap.update(oldEntita)) {
 				return true;
