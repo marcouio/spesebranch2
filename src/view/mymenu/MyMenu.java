@@ -206,7 +206,7 @@ public class MyMenu extends MenuBarBase {
 		final JMenuItem mntmGr = new JMenuItem(ControlloreSpese.getSingleton().getMessaggio("groups"));
 		mntmGr.addActionListener(new AscoltatoreAggiornatoreNiente() {
 			@Override
-			public void actionPerformedOverride(final ActionEvent e) {
+			public void actionPerformedOverride(final ActionEvent e) throws Exception {
 				final GruppiView dialog = new GruppiView(new WrapGruppi());
 				dialog.pack();
 				dialog.setVisible(true);
@@ -265,7 +265,7 @@ public class MyMenu extends MenuBarBase {
 		mntmMensiliPerCategoria.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
-			public void actionPerformedOverride(final ActionEvent e) {
+			public void actionPerformedOverride(final ActionEvent e) throws Exception {
 				AltreUtil.deleteFileDaDirectory2("./immagini/");
 				final GrGenerale dialog = new GrGenerale();
 				dialog.setSize(700, 700);

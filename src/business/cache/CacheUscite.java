@@ -10,7 +10,6 @@ import business.ControlloreSpese;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
-import domain.CatSpese;
 import domain.SingleSpesa;
 import domain.Utenti;
 import domain.wrapper.WrapSingleSpesa;

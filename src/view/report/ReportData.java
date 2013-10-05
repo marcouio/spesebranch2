@@ -16,7 +16,11 @@ import domain.wrapper.WrapCatSpese;
 
 public class ReportData {
 	
-	Vector<CatSpese> categorie = CacheCategorie.getSingleton().getVettoreCategorie();
+	Vector<CatSpese> categorie = null;
+	
+	public ReportData() throws Exception {
+		categorie = CacheCategorie.getSingleton().getVettoreCategorie();
+	}
 	
 	ArrayList<OggettoReport> datiReport = new ArrayList<OggettoReport>();
 	

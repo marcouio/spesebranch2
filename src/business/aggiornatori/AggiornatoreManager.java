@@ -1,11 +1,11 @@
 package business.aggiornatori;
 
+import grafica.componenti.combo.ComboBoxBase;
 import grafica.componenti.contenitori.ScrollPaneBase;
 import grafica.componenti.table.table.TableBase;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
@@ -119,6 +119,10 @@ public class AggiornatoreManager {
 			TableBase table1 = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getTable();
 			final JScrollPane scrollPane = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getScrollPane();
 			table1 = new TableBase(movimenti, nomiColonne,scrollPane);
+			table1.setFillsViewportHeight(true);
+			table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			table1.setRowHeight(26);
+			table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			scrollPane.setViewportView(table1);
 			table1.addMouseListener(new AscoltatoreBottoniUscita(table1));
 			return true;
@@ -143,6 +147,10 @@ public class AggiornatoreManager {
 			TableBase table1 = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getTable();
 			final JScrollPane scrollPane = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovUscite().getScrollPane();
 			table1 = new TableBase(movimenti, nomiColonne, scrollPane);
+			table1.setFillsViewportHeight(true);
+			table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			table1.setRowHeight(26);
+			table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			scrollPane.setViewportView(table1);
 			table1.addMouseListener(new AscoltatoreBottoniUscita(table1));
 			return true;
@@ -165,6 +173,10 @@ public class AggiornatoreManager {
 			TableBase table1 = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getTable();
 			final JScrollPane scrollPane = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getScrollPane();
 			table1 = new TableBase(movimenti, nomiColonne, scrollPane);
+			table1.setFillsViewportHeight(true);
+			table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			table1.setRowHeight(26);
+			table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			scrollPane.setViewportView(table1);
 			table1.addMouseListener(new AscoltatoreBottoniEntrata(table1));
 			return true;
@@ -189,6 +201,11 @@ public class AggiornatoreManager {
 				final JScrollPane scrollPane = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getScrollPane();
 				TableBase table1 = ControlloreSpese.getSingleton().getPannello().getTabMovimenti().getTabMovEntrate().getTable();
 				table1 = new TableBase(movimenti, nomiColonne,scrollPane);
+				table1.setFillsViewportHeight(true);
+				table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				table1.setRowHeight(26);
+				table1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+				scrollPane.setViewportView(table1);
 				scrollPane.setViewportView(table1);
 				table1.addMouseListener(new AscoltatoreBottoniEntrata(table1));
 				return true;
@@ -266,12 +283,9 @@ public class AggiornatoreManager {
 	 * quello eliminato
 	 * 
 	 * @param gruppo
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws Exception 
 	 */
-	public static void aggiornaGruppi(final Gruppi gruppo, final CategorieView categoria) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public static void aggiornaGruppi(final Gruppi gruppo, final CategorieView categoria) throws Exception {
 		int max = 0;
 		final String sql = "SELECT MAX(" + WrapGruppi.ID + ") FROM " + WrapGruppi.NOME_TABELLA;
 		try {
@@ -284,7 +298,7 @@ public class AggiornatoreManager {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
-		final JComboBox gruppi = categoria.getComboGruppi();
+		final ComboBoxBase gruppi = categoria.getComboGruppi();
 
 		gruppi.setSelectedIndex(0);
 		int i = 1;
@@ -321,8 +335,9 @@ public class AggiornatoreManager {
 	 * quella eliminata
 	 * 
 	 * @param CatSpese
+	 * @throws Exception 
 	 */
-	public static void aggiornaCategorie(final CatSpese categoria, final JComboBox comboCategorie) {
+	public static void aggiornaCategorie(final CatSpese categoria, final JComboBox comboCategorie) throws Exception {
 		int max = 0;
 		final String sql = "SELECT MAX(" + WrapCatSpese.ID + ") FROM " + WrapCatSpese.NOME_TABELLA;
 		try {

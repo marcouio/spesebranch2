@@ -14,7 +14,6 @@ import java.util.Vector;
 
 import business.AltreUtil;
 import business.ControlloreSpese;
-import business.DBUtil;
 import business.cache.CacheCategorie;
 
 import command.javabeancommand.AbstractOggettoEntita;
@@ -163,8 +162,14 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 	 * 
 	 * @param dieci
 	 * @return Vector<SingleSpesa>
+	 * @throws Exception 
 	 */
-	public Vector<SingleSpesa> movimentiUsciteFiltrate(final String dataDa, final String dataA, final String nome, final Double euro, final String catSpese) {
+	public Vector<SingleSpesa> movimentiUsciteFiltrate(final String dataDa, 
+													   final String dataA, 
+													   final String nome, 
+													   final Double euro, 
+													   final String catSpese) 
+															   throws Exception {
 		Vector<SingleSpesa> sSpesa = null;
 
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
@@ -212,7 +217,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 			ControlloreSpese.getLog().severe("Operazione non eseguita: " + e.getMessage());
 			e.printStackTrace();
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return sSpesa;
 
 	}
@@ -242,11 +247,12 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 
 	/**
 	 * Cancella l'ultima entita' "SingleSpesa" inserita
+	 * @throws Exception 
 	 */
-	public boolean deleteLastSpesa() {
+	public boolean deleteLastSpesa() throws Exception {
 		boolean ok = false;
 		try {
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 			final String sql = "SELECT * FROM " + NOME_TABELLA + " WHERE " + WrapSingleSpesa.IDUTENTE + " = " + ((Utenti) ControlloreSpese.getSingleton().getUtenteLogin()).getIdUtente()
 			+ " ORDER BY " + DATAINS + " DESC";
 
@@ -271,7 +277,7 @@ public class WrapSingleSpesa extends Observable implements IDAO, ISingleSpesa {
 			ControlloreSpese.getLog().severe("Operazione non eseguita: " + e.getMessage());
 		}
 		
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return ok;
 	}
 

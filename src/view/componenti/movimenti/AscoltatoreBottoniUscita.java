@@ -47,7 +47,12 @@ public class AscoltatoreBottoniUscita extends MouseAdapter {
 
 			final DialogUsciteMov dialogNew = new DialogUsciteMov(null, new WrapSingleSpesa());
 
-			settaDialog(dialogNew);
+			try {
+				settaDialog(dialogNew);
+			}
+			catch (Exception e1) {
+				e1.printStackTrace();
+			}
 
 		}
 	}
@@ -58,8 +63,9 @@ public class AscoltatoreBottoniUscita extends MouseAdapter {
 	 * 
 	 * @param row
 	 * @param dialogNew
+	 * @throws Exception 
 	 */
-	private void settaDialog(final DialogUsciteMov dialogNew) {
+	private void settaDialog(final DialogUsciteMov dialogNew) throws Exception {
 		dialogNew.getIdSpesa().setText((String) arrayUtil[INDEX_IDSPESA]);
 		dialogNew.getNome().setText((String) arrayUtil[INDEX_NOME]);
 		dialogNew.getDescrizione().setText((String) arrayUtil[INDEX_DESCRIZIONE]);

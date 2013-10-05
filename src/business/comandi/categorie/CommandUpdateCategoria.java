@@ -30,7 +30,7 @@ public class CommandUpdateCategoria extends AbstractCommandForJavaBean implement
 	}
 
 	@Override
-	public boolean execute() {
+	public boolean execute() throws Exception {
 		if (newEntita instanceof CatSpese) {
 			if (wrap.update(newEntita)) {
 				mappaCache.put(Integer.toString(newEntita.getIdCategoria()), newEntita);
@@ -41,7 +41,7 @@ public class CommandUpdateCategoria extends AbstractCommandForJavaBean implement
 	}
 
 	@Override
-	public boolean unExecute() {
+	public boolean unExecute() throws Exception {
 		if (oldEntita instanceof CatSpese) {
 			if (wrap.update(oldEntita)) {
 				mappaCache.put(Integer.toString(oldEntita.getIdCategoria()), oldEntita);

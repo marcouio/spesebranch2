@@ -29,7 +29,7 @@ public class CacheUtenti extends AbstractCacheBase {
 
 	WrapUtenti	utentiDAO	= new WrapUtenti();
 
-	public boolean checkUtentePerUsername(String username) {
+	public boolean checkUtentePerUsername(String username) throws Exception {
 		boolean ok = false;
 		Object[] utenti = getArrayUtenti();
 		for (int i = 0; i < utenti.length; i++) {
@@ -41,7 +41,7 @@ public class CacheUtenti extends AbstractCacheBase {
 		return ok;
 	}
 
-	public Utenti getUtente(String id) {
+	public Utenti getUtente(String id) throws Exception {
 		Utenti utenti = (Utenti) cache.get(id);
 		if (utenti == null) {
 			utenti = caricaUtenti(id);
@@ -52,12 +52,12 @@ public class CacheUtenti extends AbstractCacheBase {
 		return (Utenti) cache.get(id);
 	}
 
-	private Utenti caricaUtenti(String id) {
+	private Utenti caricaUtenti(String id) throws Exception {
 		return (Utenti) new WrapUtenti().selectById(Integer.parseInt(id));
 	}
 
-	public Map<String, AbstractOggettoEntita> chargeAllUtenti() {
-		ArrayList<Object> utenti = utentiDAO.selectAll();
+	public Map<String, AbstractOggettoEntita> chargeAllUtenti() throws Exception {
+		ArrayList<?> utenti = utentiDAO.selectAll();
 		if (utenti != null && utenti.size() > 0) {
 			for (int i = 0; i < utenti.size(); i++) {
 				Utenti utente = (Utenti) utenti.get(i);
@@ -71,14 +71,14 @@ public class CacheUtenti extends AbstractCacheBase {
 		return cache;
 	}
 
-	public Map<String, AbstractOggettoEntita> getAllUtenti() {
+	public Map<String, AbstractOggettoEntita> getAllUtenti() throws Exception {
 		if (caricata)
 			return cache;
 		else
 			return chargeAllUtenti();
 	}
 
-	public Vector<Utenti> getVettoreUtenti() {
+	public Vector<Utenti> getVettoreUtenti() throws Exception {
 		Vector<Utenti> utenti = new Vector<Utenti>();
 		Map<String, AbstractOggettoEntita> mappa = this.getAllUtenti();
 		Utenti[] lista = (Utenti[]) mappa.values().toArray(new Utenti[mappa.values().size()]);
@@ -88,7 +88,7 @@ public class CacheUtenti extends AbstractCacheBase {
 		return utenti;
 	}
 
-	public Object[] getArrayUtenti() {
+	public Object[] getArrayUtenti() throws Exception {
 		Map<String, AbstractOggettoEntita> mappa = this.getAllUtenti();
 		return (Object[]) mappa.values().toArray();
 	}

@@ -19,9 +19,9 @@ public class Registrazione extends JDialog {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private final TextFieldTesto username;
-	private final TextFieldTesto password;
+	private static final long		serialVersionUID	= 1L;
+	private final TextFieldTesto	username;
+	private final TextFieldTesto	password;
 
 	public Registrazione() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -51,7 +51,7 @@ public class Registrazione extends JDialog {
 		lblLogin.setText("REGISTRATI");
 		getContentPane().add(lblLogin);
 
-		final ButtonBase btnEntra = new ButtonBase("Entra",this);
+		final ButtonBase btnEntra = new ButtonBase("Entra", this);
 		btnEntra.setBounds(138, 203, 102, 23);
 		btnEntra.setText("Registrati");
 		getContentPane().add(btnEntra);
@@ -80,31 +80,36 @@ public class Registrazione extends JDialog {
 
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-
-				final String sNome = nome.getText();
-				final String sCognome = cognome.getText();
-				final String sPass = password.getText();
-				final String sUser = username.getText();
-				final WrapUtenti utentiwrap = new WrapUtenti();
-				if (!sNome.equals("") && !sCognome.equals("") && !sPass.equals("") && !sUser.equals("")) {
-					final Utenti utente = new Utenti();
-					utente.setNome(sNome);
-					utente.setCognome(sCognome);
-					utente.setPassword(sPass);
-					utente.setUsername(sUser);
-					final boolean ok = CacheUtenti.getSingleton().checkUtentePerUsername(sUser);
-					// TODO creare i comandi anche per gli utenti registrati:
-					// cancella, inserisci, aggiorna.
-					if (ok == false) {
-						utentiwrap.insert(utente);
-						dispose();
-					} else {
-						Alert.segnalazioneErroreGrave("final Username già presente, sceglierne un altro");
+				try {
+					final String sNome = nome.getText();
+					final String sCognome = cognome.getText();
+					final String sPass = password.getText();
+					final String sUser = username.getText();
+					final WrapUtenti utentiwrap = new WrapUtenti();
+					if (!sNome.equals("") && !sCognome.equals("") && !sPass.equals("") && !sUser.equals("")) {
+						final Utenti utente = new Utenti();
+						utente.setNome(sNome);
+						utente.setCognome(sCognome);
+						utente.setPassword(sPass);
+						utente.setUsername(sUser);
+						final boolean ok = CacheUtenti.getSingleton().checkUtentePerUsername(sUser);
+						// TODO creare i comandi anche per gli utenti registrati:
+						// cancella, inserisci, aggiorna.
+						if (ok == false) {
+							utentiwrap.insert(utente);
+							dispose();
+						}
+						else {
+							Alert.segnalazioneErroreGrave("final Username già presente, sceglierne un altro");
+						}
 					}
-				} else {
-					Alert.segnalazioneErroreGrave("Utente non creato: Tutti i campi devono essere valorizzati");
+					else {
+						Alert.segnalazioneErroreGrave("Utente non creato: Tutti i campi devono essere valorizzati");
+					}
 				}
-
+				catch (Exception eee) {
+					eee.printStackTrace();
+				}
 			}
 		});
 	}

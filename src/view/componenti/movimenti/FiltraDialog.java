@@ -7,7 +7,6 @@ import grafica.componenti.textfield.testo.TextFieldTesto;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -147,7 +146,7 @@ public abstract class FiltraDialog extends JDialog {
 		}
 	}
 
-	public abstract String[][] getMovimenti() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
+	public abstract String[][] getMovimenti() throws Exception;
 
 	protected String getDataDa() {
 		if (!tfDa.getText().equals("")) {

@@ -30,7 +30,7 @@ public class CacheGruppi extends AbstractCacheBase {
 
 	WrapGruppi	gruppiDAO	= new WrapGruppi();
 
-	public Gruppi getGruppo(final String id) {
+	public Gruppi getGruppo(final String id) throws Exception {
 		Gruppi gruppo = (Gruppi) cache.get(id);
 		if (gruppo == null) {
 			gruppo = caricaGruppo(id);
@@ -41,7 +41,7 @@ public class CacheGruppi extends AbstractCacheBase {
 		return (Gruppi) cache.get(id);
 	}
 
-	public Gruppi getGruppoPerNome(final String nome) {
+	public Gruppi getGruppoPerNome(final String nome) throws Exception {
 		Gruppi gruppo = (Gruppi) cache.get(nome);
 		if (gruppo == null) {
 			gruppo = caricaGruppoPerNome(nome);
@@ -52,16 +52,16 @@ public class CacheGruppi extends AbstractCacheBase {
 		return gruppo;
 	}
 
-	private Gruppi caricaGruppoPerNome(final String nome) {
+	private Gruppi caricaGruppoPerNome(final String nome) throws Exception {
 		return new WrapGruppi().selectByNome(nome);
 	}
 
-	private Gruppi caricaGruppo(final String id) {
+	private Gruppi caricaGruppo(final String id) throws Exception {
 		return (Gruppi) new WrapGruppi().selectById(Integer.parseInt(id));
 	}
 
-	public Map<String, AbstractOggettoEntita> chargeAllGruppi() {
-		final ArrayList<Object> gruppi = gruppiDAO.selectAll();
+	public Map<String, AbstractOggettoEntita> chargeAllGruppi() throws Exception {
+		final ArrayList<?> gruppi = gruppiDAO.selectAll();
 		if (gruppi != null && gruppi.size() > 0) {
 			for (int i = 0; i < gruppi.size(); i++) {
 				final Gruppi gruppo = (Gruppi) gruppi.get(i);
@@ -75,7 +75,7 @@ public class CacheGruppi extends AbstractCacheBase {
 		return cache;
 	}
 
-	public Map<String, AbstractOggettoEntita> getAllGruppi() {
+	public Map<String, AbstractOggettoEntita> getAllGruppi() throws Exception {
 		if (caricata) {
 			return cache;
 		}
@@ -84,7 +84,7 @@ public class CacheGruppi extends AbstractCacheBase {
 		}
 	}
 
-	public Vector<Gruppi> getVettoreGruppiSenzaZero() {
+	public Vector<Gruppi> getVettoreGruppiSenzaZero() throws Exception {
 		final Vector<Gruppi> gruppi = new Vector<Gruppi>();
 		final Map<String, AbstractOggettoEntita> mappa = this.getAllGruppi();
 		final Object[] lista = mappa.values().toArray();
@@ -97,7 +97,7 @@ public class CacheGruppi extends AbstractCacheBase {
 		return gruppi;
 	}
 
-	public Vector<Gruppi> getVettoreGruppi() {
+	public Vector<Gruppi> getVettoreGruppi() throws Exception {
 		final Vector<Gruppi> gruppi = new Vector<Gruppi>();
 		final Map<String, AbstractOggettoEntita> mappa = this.getAllGruppi();
 		final Object[] lista = mappa.values().toArray();
@@ -119,7 +119,7 @@ public class CacheGruppi extends AbstractCacheBase {
 		return gruppi;
 	}
 
-	public int getMaxId() {
+	public int getMaxId() throws Exception {
 		int maxId = 0;
 		final Map<String, AbstractOggettoEntita> mappa = getAllGruppi();
 		if (mappa != null) {

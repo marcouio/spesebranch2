@@ -35,12 +35,13 @@ public class UsciteView extends AbstractUsciteView {
 	private final TextFieldTesto  tfData;
 	private final TextFieldTesto  tfEuro;
 	private final TextAreaBase   taDescrizione;
-	private ComboBoxBase  cCategorie;
+	private ComboBoxBase<?>  cCategorie;
 
 	/**
 	 * Create the panel.
+	 * @throws Exception 
 	 */
-	public UsciteView(FrameBase frame, final WrapSingleSpesa spesa) {
+	public UsciteView(FrameBase frame, final WrapSingleSpesa spesa) throws Exception {
 		super(frame, spesa);
 
 		modelUscita.addObserver(this);

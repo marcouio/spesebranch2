@@ -63,7 +63,7 @@ public abstract class AbstractReportView extends JFrame {
 		}
 	}
 
-	public void inserisciUsciteCatMensili(final boolean hasUsciteCatMensili) {
+	public void inserisciUsciteCatMensili(final boolean hasUsciteCatMensili) throws Exception {
 		if (hasUsciteCatMensili) {
 			String[][] usciteCatMensili = reportData.generaUsciteCatMensili();
 			String[]categorie = CacheCategorie.getSingleton().getArrayCategorie();

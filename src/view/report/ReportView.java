@@ -6,7 +6,6 @@ import grafica.componenti.checkbox.CheckBoxBase;
 import grafica.componenti.label.LabelBase;
 
 import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
 import java.util.Date;
 
 import javax.swing.JButton;
@@ -44,10 +43,9 @@ public class ReportView extends AbstractReportView {
 
 	/**
 	 * Create the panel
-	 * 
-	 * @throws FileNotFoundException
+	 * @throws Exception 
 	 */
-	public ReportView() throws FileNotFoundException {
+	public ReportView() throws Exception {
 		setReportData(new ReportData());
 		getContentPane().setLayout(null);
 		this.setTitle("Report");

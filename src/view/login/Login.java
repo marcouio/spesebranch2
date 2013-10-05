@@ -57,7 +57,7 @@ public class Login extends JDialog {
 		btnEntra.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
-			public void actionPerformedOverride(final ActionEvent e) {
+			public void actionPerformedOverride(final ActionEvent e) throws Exception {
 				final WrapUtenti utentiwrap = new WrapUtenti();
 				final Utenti utente = utentiwrap.selectByUserAndPass(user.getText(), pass.getText());
 				if (utente != null) {

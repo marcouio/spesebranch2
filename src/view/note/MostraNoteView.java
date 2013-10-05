@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 
 import business.cache.CacheNote;
 import domain.Note;
@@ -20,7 +19,7 @@ public class MostraNoteView extends JFrame {
 	private JScrollPane scrollPane;
 	private final JPanel pannello;
 
-	public MostraNoteView() {
+	public MostraNoteView() throws Exception {
 		final ArrayList<Note> note = CacheNote.getSingleton().getAllNoteForUtenteEAnno();
 		this.setSize(250, 425);
 		setResizable(true);
@@ -57,17 +56,17 @@ public class MostraNoteView extends JFrame {
 
 	}
 
-	public static void main(final String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				final MostraNoteView fe = new MostraNoteView();
-				fe.setVisible(true);
-				fe.setSize(280, 500);
-			}
-		});
-	}
+//	public static void main(final String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				final MostraNoteView fe = new MostraNoteView();
+//				fe.setVisible(true);
+//				fe.setSize(280, 500);
+//			}
+//		});
+//	}
 
 	public JScrollPane getScrollPane() {
 		return scrollPane;
@@ -77,7 +76,7 @@ public class MostraNoteView extends JFrame {
 		this.scrollPane = scrollPane;
 	}
 
-	public void aggiornaVista() {
+	public void aggiornaVista() throws Exception {
 		final ArrayList<Note> note = CacheNote.getSingleton().getAllNoteForUtenteEAnno();
 		pannello.removeAll();
 		for (int i = 0; i < note.size(); i++) {

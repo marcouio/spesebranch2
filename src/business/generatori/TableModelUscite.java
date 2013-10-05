@@ -51,7 +51,7 @@ public class TableModelUscite extends TableModel{
 		}
 	}
 	
-	private void aggiungiNomiColonne(){
+	private void aggiungiNomiColonne() throws Exception{
 		
 		addColumn(ControlloreSpese.getSingleton().getMessaggio("months"));
 		for (int i = 0; i < getCategorie().size(); i++) {
@@ -59,7 +59,7 @@ public class TableModelUscite extends TableModel{
 		}
 	}
 
-	public Vector<CatSpese> getCategorie() {
+	public Vector<CatSpese> getCategorie() throws Exception {
 		if(categorie == null){
 			categorie = CacheCategorie.getSingleton().getVettoreCategorie();
 		}

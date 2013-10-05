@@ -72,7 +72,7 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 	@Override
 	public Vector<Object> selectAll() throws Exception {
 		Vector<Object> budgets = new Vector<Object>();
-		Connection cn = DBUtil.getConnection();
+		Connection cn = ConnectionPool.getSingleton().getConnection();
 		String sql = "SELECT * FROM " + NOME_TABELLA ;
 		try{
 			Statement st = cn.createStatement();
@@ -131,7 +131,7 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 	public boolean delete(int id) throws Exception {
 		boolean ok = false;
 		String sql = "DELETE FROM "+NOME_TABELLA+" WHERE "+ID+" = "+id;
-		Connection cn = DBUtil.getConnection();
+		Connection cn = ConnectionPool.getSingleton().getConnection();
 		
 		try {
 			Statement st = cn.createStatement();
@@ -147,14 +147,14 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return ok;
 	}
 
 	@Override
 	public boolean update(Object oggettoEntita) throws Exception {
 		boolean ok = false;
-		Connection cn = DBUtil.getConnection();
+		Connection cn = ConnectionPool.getSingleton().getConnection();
 		
 		Budget budget = (Budget) oggettoEntita;
 		String sql = "UPDATE "+NOME_TABELLA+ " SET " +IDCATEGORIE+ " = " +getidCategorie()+", "+PERCSULTOT+" = "+getpercSulTot()+
@@ -173,7 +173,7 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return ok;
 	}
 
@@ -181,7 +181,7 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 	public boolean deleteAll() throws Exception {
 		boolean ok = false;
 		String sql = "DELETE FROM "+NOME_TABELLA;
-		Connection cn = DBUtil.getConnection();
+		Connection cn = ConnectionPool.getSingleton().getConnection();
 		
 		try {
 			Statement st = cn.createStatement();
@@ -197,7 +197,7 @@ public class WrapBudget extends Observable implements IDAO, IBudget{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return ok;
 	}
 

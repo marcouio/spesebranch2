@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Set;
 
-import business.DBUtil;
-
 import command.javabeancommand.AbstractOggettoEntita;
 
 import db.Clausola;
@@ -33,25 +31,25 @@ public class WrapGruppi extends Observable implements IDAO, IGruppi {
 	}
 
 	@Override
-	public Object selectById(final int id) {
+	public Object selectById(final int id) throws Exception {
 		try {
 			return genericDao.selectById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 	}
 
 	@Override
-	public ArrayList<Object> selectAll() {
+	public ArrayList<?> selectAll() throws Exception {
 		try {
-			return (ArrayList<Object>) genericDao.selectAll();
+			return (ArrayList<?>) genericDao.selectAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 	}
@@ -104,10 +102,10 @@ public class WrapGruppi extends Observable implements IDAO, IGruppi {
 		return false;
 	}
 
-	public Gruppi selectByNome(final String nome) {
+	public Gruppi selectByNome(final String nome) throws Exception {
 
 		try {
-		final Connection cn = DBUtil.getConnection();
+		final Connection cn = ConnectionPool.getSingleton().getConnection();
 		final String sql = "SELECT * FROM " + WrapGruppi.NOME_TABELLA + " WHERE " + WrapGruppi.NOME + " = \"" + nome + "\"";
 
 		Gruppi gruppo = null;
@@ -125,7 +123,7 @@ public class WrapGruppi extends Observable implements IDAO, IGruppi {
 		} catch (final Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return gruppo;
 	}

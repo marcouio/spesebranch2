@@ -52,7 +52,7 @@ public class Database {
 		return singleton;
 	}
 
-	public void generaDatiTabellaLook() {
+	public void generaDatiTabellaLook() throws Exception {
 		final WrapLookAndFeel wrap = new WrapLookAndFeel();
 
 		final Lookandfeel plastic3d = new Lookandfeel();

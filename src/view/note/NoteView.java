@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.util.Date;
 
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 import business.AltreUtil;
 import business.ControlloreSpese;
@@ -28,17 +27,17 @@ public class NoteView extends AbstractNoteView {
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(final String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				NoteView dialog = new NoteView(new WrapNote(), new MostraNoteView());
-				dialog.setLocationRelativeTo(null);
-				dialog.setBounds(0, 0, 346, 250);
-				dialog.setVisible(true);
-			}
-		});
-	}
+//	public static void main(final String[] args) {
+//		SwingUtilities.invokeLater(new Runnable() {
+//			@Override
+//			public void run() {
+//				NoteView dialog = new NoteView(new WrapNote(), new MostraNoteView());
+//				dialog.setLocationRelativeTo(null);
+//				dialog.setBounds(0, 0, 346, 250);
+//				dialog.setVisible(true);
+//			}
+//		});
+//	}
 
 	private final TextFieldTesto nota;
 	private final TextAreaBase  descrizione;

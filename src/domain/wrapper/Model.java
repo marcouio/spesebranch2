@@ -33,9 +33,9 @@ public class Model {
 	private static String[][] movimentiEntrate;
 	private static String[][] movimentiUscite;
 
-	private static Vector<CatSpese> catSpese = CacheCategorie.getSingleton().getVettoreCategorie();
+	private static Vector<CatSpese> catSpese = null;
 
-	public static Model getSingleton() {
+	public static Model getSingleton() throws Exception {
 		synchronized (CacheCategorie.class) {
 			if (singleton == null) {
 				singleton = new Model();
@@ -44,7 +44,8 @@ public class Model {
 		return singleton;
 	}
 
-	private Model() {
+	private Model() throws Exception {
+		catSpese = CacheCategorie.getSingleton().getVettoreCategorie();
 		modelEntrate = new WrapEntrate();
 		modelUscita = new WrapSingleSpesa();
 	}
@@ -149,26 +150,26 @@ public class Model {
 
 	// *************************************CATEGORIE-PERCOMBOBOX***********************************
 
-	private Map<String, AbstractOggettoEntita> getCatPerCombo(final boolean ricarica) {
+	private Map<String, AbstractOggettoEntita> getCatPerCombo(final boolean ricarica) throws Exception {
 		final CacheCategorie cache = CacheCategorie.getSingleton();
 		cache.setCaricata(!ricarica);
 		return cache.getAllCategorie();
 	}
 
-	public Object[] getCategorieCombo(final boolean ricarica) {
+	public Object[] getCategorieCombo(final boolean ricarica) throws Exception {
 		final Map<String, AbstractOggettoEntita> cat = getCatPerCombo(ricarica);
 		return cat.values().toArray();
 	}
 
 	// *************************************GRUPPI-PERCOMBOBOX***********************************
 
-	private Map<String, AbstractOggettoEntita> getGruppiPerCombo(final boolean ricarica) {
+	private Map<String, AbstractOggettoEntita> getGruppiPerCombo(final boolean ricarica) throws Exception {
 		final CacheGruppi cache = CacheGruppi.getSingleton();
 		cache.setCaricata(!ricarica);
 		return cache.getAllGruppi();
 	}
 
-	public Object[] getGruppiCombo(final boolean ricarica) {
+	public Object[] getGruppiCombo(final boolean ricarica) throws Exception {
 		final Map<String, AbstractOggettoEntita> gruppi = getGruppiPerCombo(ricarica);
 		return gruppi.values().toArray();
 	}

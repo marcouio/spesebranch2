@@ -5,15 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Observable;
 
 import business.ControlloreSpese;
-import business.DBUtil;
 
 import command.javabeancommand.AbstractOggettoEntita;
 
 import db.Clausola;
+import db.ConnectionPool;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.INote;
@@ -113,84 +112,85 @@ public class WrapNote extends Observable implements IDAO, INote {
 	}
 
 	@Override
-	public Object selectById(final int id) {
+	public Object selectById(final int id) throws Exception {
 		try {
 			return genericDao.selectById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 	}
 
 	@Override
-	public ArrayList<Object> selectAll() {
+	public ArrayList<?> selectAll() throws Exception {
 		try {
-			return (ArrayList<Object>) genericDao.selectAll();
+			return (ArrayList<?>) genericDao.selectAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 	}
 
 	@Override
-	public boolean insert(final Object oggettoEntita) {
+	public boolean insert(final Object oggettoEntita) throws Exception {
 		try {
 			return genericDao.insert(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean delete(final int id) {
+	public boolean delete(final int id) throws Exception {
 		try {
 			return genericDao.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean update(final Object oggettoEntita) {
+	public boolean update(final Object oggettoEntita) throws Exception   {
 		try {
 			return genericDao.update(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean deleteAll() {
+	public boolean deleteAll() throws Exception {
 		try {
 			return genericDao.deleteAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	/**
 	 * Cancella l'ultima entita' "Note" inserita
+	 * @throws Exception 
 	 */
-	public boolean DeleteLastNote() {
+	public boolean DeleteLastNote() throws Exception {
 		boolean ok = false;
 		try {
-			final Connection cn = DBUtil.getConnection();
+			final Connection cn = ConnectionPool.getSingleton().getConnection();
 			final String sql = "SELECT * FROM " + NOME_TABELLA + " WHERE " + IDUTENTE + " = " + ((Utenti) ControlloreSpese.getSingleton().getUtenteLogin()).getIdUtente() + " ORDER BY "
 				+ DATAINS + " DESC";
 
@@ -209,7 +209,7 @@ public class WrapNote extends Observable implements IDAO, INote {
 			e.printStackTrace();
 			ControlloreSpese.getLog().severe("Operazione non eseguita: " + e.getMessage());
 		}
-		DBUtil.closeConnection();
+		ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		return ok;
 	}
 

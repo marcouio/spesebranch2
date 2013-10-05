@@ -1,6 +1,7 @@
 package view.impostazioni;
 
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.combo.ComboBoxBase;
 import grafica.componenti.label.LabelBase;
 import grafica.componenti.textarea.TextAreaBase;
 import grafica.componenti.textfield.testo.TextFieldTesto;
@@ -32,11 +33,11 @@ public class CategorieView extends AbstractCategorieView {
 
 	private CatSpese categoria = null;
 	private JTextArea taDescrizione;
-	private JComboBox cbImportanza;
+	private ComboBoxBase<?> cbImportanza;
 	private JTextField tfNome;
-	private JComboBox cbCategorie;
+	private ComboBoxBase<?> cbCategorie;
 	private Vector<CatSpese> categorieSpesa;
-	private JComboBox cbGruppi;
+	private ComboBoxBase<?> cbGruppi;
 
 	private static final long serialVersionUID = 1L;
 
@@ -75,7 +76,7 @@ public class CategorieView extends AbstractCategorieView {
 			taDescrizione.setBounds(26, 91, 206, 88);
 
 			// importanza Spesa
-			cbImportanza = new JComboBox();
+			cbImportanza = new ComboBoxBase(this);
 			cbImportanza.addItem("");
 			cbImportanza.addItem("Futili");
 			cbImportanza.addItem("Variabili");
@@ -89,7 +90,7 @@ public class CategorieView extends AbstractCategorieView {
 
 			final Vector<Gruppi> vettoreGruppi = CacheGruppi.getSingleton().getVettoreCategoriePerCombo(CacheGruppi.getSingleton().getAllGruppi());
 			// combo gruppi
-			cbGruppi = new JComboBox();
+			cbGruppi = new ComboBoxBase(this);
 			for (int i = 0; i < vettoreGruppi.size(); i++) {
 				cbGruppi.addItem(vettoreGruppi.get(i));
 			}
@@ -97,7 +98,7 @@ public class CategorieView extends AbstractCategorieView {
 			getContentPane().add(cbGruppi);
 
 			categorieSpesa = CacheCategorie.getSingleton().getVettoreCategoriePerCombo(CacheCategorie.getSingleton().getAllCategorie());
-			cbCategorie = new JComboBox(categorieSpesa);
+			cbCategorie = new ComboBoxBase(this,categorieSpesa);
 			cbCategorie.setBounds(26, 380, 206, 25);
 			cbCategorie.addItemListener(new ItemListener() {
 
@@ -160,7 +161,7 @@ public class CategorieView extends AbstractCategorieView {
 		return getcDescrizione() != null && getcImportanza() != null && getcNome() != null && getcImportanza() != null;
 	}
 
-	public void aggiornaModelDaVista(final String actionCommand) {
+	public void aggiornaModelDaVista(final String actionCommand) throws Exception {
 
 		if (actionCommand.equals("Inserisci")) {
 			final int idCategoria = (CacheCategorie.getSingleton().getMaxId()) + 1;
@@ -203,15 +204,15 @@ public class CategorieView extends AbstractCategorieView {
 	 * @param comboCategorie
 	 *            the comboCategorie to set
 	 */
-	public void setComboCategorie(final JComboBox comboCategorie) {
+	public void setComboCategorie(final ComboBoxBase comboCategorie) {
 		this.cbCategorie = comboCategorie;
 	}
 
-	public JComboBox getComboGruppi() {
+	public ComboBoxBase getComboGruppi() {
 		return cbGruppi;
 	}
 
-	public void setComboGruppi(final JComboBox comboGruppi) {
+	public void setComboGruppi(final ComboBoxBase comboGruppi) {
 		this.cbGruppi = comboGruppi;
 	}
 

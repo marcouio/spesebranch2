@@ -3,11 +3,10 @@ package domain.wrapper;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import business.DBUtil;
-
 import command.javabeancommand.AbstractOggettoEntita;
 
 import db.Clausola;
+import db.ConnectionPool;
 import db.dao.IDAO;
 import db.dao.UtilityDAO;
 import domain.ILookandfeel;
@@ -29,73 +28,73 @@ public class WrapLookAndFeel extends Observable implements IDAO, ILookandfeel {
 	}
 
 	@Override
-	public Object selectById(int id) {
+	public Object selectById(int id) throws Exception {
 		try {
 			return genericDao.selectById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 	}
 
 	@Override
-	public ArrayList<Object> selectAll() {
+	public ArrayList<?> selectAll() throws Exception {
 		try {
-			return (ArrayList<Object>) genericDao.selectAll();
+			return (ArrayList<?>) genericDao.selectAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return null;
 	}
 
 	@Override
-	public boolean insert(Object oggettoEntita) {
+	public boolean insert(Object oggettoEntita) throws Exception {
 		try {
 			return genericDao.insert(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean delete(int id) {
+	public boolean delete(int id) throws Exception {
 		try {
 			return genericDao.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean update(Object oggettoEntita) {
+	public boolean update(Object oggettoEntita) throws Exception {
 		try {
 			return genericDao.update(oggettoEntita);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}
 
 	@Override
-	public boolean deleteAll() {
+	public boolean deleteAll() throws Exception {
 		try {
 			return genericDao.deleteAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBUtil.closeConnection();
+			ConnectionPool.getSingleton().chiudiOggettiDb(null);
 		}
 		return false;
 	}

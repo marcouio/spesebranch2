@@ -29,8 +29,8 @@ public class CacheLookAndFeel extends AbstractCacheBase {
 		return singleton;
 	}
 
-	public Map<String, AbstractOggettoEntita> chargeAllLook() {
-		ArrayList<Object> looks = lookDAO.selectAll();
+	public Map<String, AbstractOggettoEntita> chargeAllLook() throws Exception {
+		ArrayList<?> looks = lookDAO.selectAll();
 		if (looks != null && looks.size() > 0) {
 			for (int i = 0; i < looks.size(); i++) {
 				Lookandfeel lookFeel = (Lookandfeel) looks.get(i);
@@ -44,14 +44,14 @@ public class CacheLookAndFeel extends AbstractCacheBase {
 		return cache;
 	}
 
-	public Map<String, AbstractOggettoEntita> getAllLooks() {
+	public Map<String, AbstractOggettoEntita> getAllLooks() throws Exception {
 		if (caricata)
 			return cache;
 		else
 			return chargeAllLook();
 	}
 
-	public Vector<Lookandfeel> getVettoreLooksPerCombo() {
+	public Vector<Lookandfeel> getVettoreLooksPerCombo() throws Exception {
 		Vector<Lookandfeel> looks = new Vector<Lookandfeel>();
 		Map<String, AbstractOggettoEntita> mappa = this.getAllLooks();
 		Object[] lista = mappa.values().toArray();

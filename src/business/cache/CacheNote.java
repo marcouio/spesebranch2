@@ -34,7 +34,7 @@ public class CacheNote extends AbstractCacheBase {
 
 	WrapNote	noteDAO	= new WrapNote();
 
-	public Note getNote(final String id) {
+	public Note getNote(final String id) throws Exception {
 		Note note = (Note) cache.get(id);
 		if (note == null) {
 			note = caricaNota(id);
@@ -45,12 +45,12 @@ public class CacheNote extends AbstractCacheBase {
 		return (Note) cache.get(id);
 	}
 
-	private Note caricaNota(final String id) {
+	private Note caricaNota(final String id) throws Exception {
 		return (Note) new WrapNote().selectById(Integer.parseInt(id));
 	}
 
-	public Map<String, AbstractOggettoEntita> chargeAllNote() {
-		final ArrayList<Object> note = noteDAO.selectAll();
+	public Map<String, AbstractOggettoEntita> chargeAllNote() throws Exception {
+		final ArrayList<?> note = noteDAO.selectAll();
 		if (note != null && note.size() > 0) {
 			for (int i = 0; i < note.size(); i++) {
 				final Note nota = (Note) note.get(i);
@@ -64,7 +64,7 @@ public class CacheNote extends AbstractCacheBase {
 		return cache;
 	}
 
-	public Map<String, AbstractOggettoEntita> getAllNote() {
+	public Map<String, AbstractOggettoEntita> getAllNote() throws Exception {
 		if (caricata) {
 			return cache;
 		}
@@ -73,7 +73,7 @@ public class CacheNote extends AbstractCacheBase {
 		}
 	}
 
-	public ArrayList<Note> getAllNoteForUtente() {
+	public ArrayList<Note> getAllNoteForUtente() throws Exception {
 		final ArrayList<Note> listaNote = new ArrayList<Note>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllNote();
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();
@@ -92,7 +92,7 @@ public class CacheNote extends AbstractCacheBase {
 		return listaNote;
 	}
 
-	public ArrayList<Note> getAllNoteForUtenteEAnno() {
+	public ArrayList<Note> getAllNoteForUtenteEAnno() throws Exception {
 		final ArrayList<Note> listaNote = new ArrayList<Note>();
 		final Map<String, AbstractOggettoEntita> mappa = getAllNote();
 		final Utenti utente = (Utenti) ControlloreSpese.getSingleton().getUtenteLogin();

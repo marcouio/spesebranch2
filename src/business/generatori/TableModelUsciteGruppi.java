@@ -5,7 +5,6 @@ import grafica.componenti.table.TableModel;
 import java.util.HashMap;
 import java.util.Vector;
 
-import messaggi.I18NManager;
 import business.ControlloreSpese;
 import business.Database;
 import business.cache.CacheCategorie;
@@ -46,7 +45,7 @@ public class TableModelUsciteGruppi extends TableModel{
 		
 	}
 	
-	private void aggiungiNomiColonne(){
+	private void aggiungiNomiColonne() throws Exception{
 		
 		addColumn(ControlloreSpese.getSingleton().getMessaggio("months"));
 		for (int i = 0; i < getGruppi().size(); i++) {
@@ -57,14 +56,14 @@ public class TableModelUsciteGruppi extends TableModel{
 		}
 	}
 
-public Vector<Gruppi> getGruppi() {
+public Vector<Gruppi> getGruppi() throws Exception {
 	if(gruppi == null){
 		gruppi = CacheGruppi.getSingleton().getVettoreGruppiSenzaZero();
 	}
 	return gruppi;
 }
 
-public Vector<CatSpese> getCategorie() {
+public Vector<CatSpese> getCategorie() throws Exception {
 	if(catSpese == null){
 		catSpese = CacheCategorie.getSingleton().getCategorieSenzaGruppo();
 	}

@@ -67,9 +67,8 @@ public class ListaMovimentiUscite extends AbstractListaMov {
 						private static final long serialVersionUID = 1L;
 
 						@Override
-						public String[][] getMovimenti() {
-							final Vector<SingleSpesa> uscite = new WrapSingleSpesa()
-									.movimentiUsciteFiltrate(getDataDa(), getDataA(), getNome(), getEuro(), getCategoria());
+						public String[][] getMovimenti() throws Exception {
+							final Vector<SingleSpesa> uscite = new WrapSingleSpesa().movimentiUsciteFiltrate(getDataDa(), getDataA(), getNome(), getEuro(), getCategoria());
 							String[][] mov = null;
 							try {
 								mov = Model.getSingleton().movimentiFiltratiUscitePerNumero(WrapEntrate.NOME_TABELLA, uscite);

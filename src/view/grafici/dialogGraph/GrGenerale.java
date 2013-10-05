@@ -45,7 +45,7 @@ public class GrGenerale extends JDialog implements ActionListener {
 	private final HashMap<Integer, ArrayList<Double>> mappaOttobre;
 	private final HashMap<Integer, ArrayList<Double>> mappaNovembre;
 	private final HashMap<Integer, ArrayList<Double>> mappaDicembre;
-	Vector<CatSpese> categorie = CacheCategorie.getSingleton().getVettoreCategorie();
+	Vector<CatSpese> categorie = null;
 
 	/**
 	 * Uscite mensili per categoria Launch the application.
@@ -63,8 +63,10 @@ public class GrGenerale extends JDialog implements ActionListener {
 
 	/**
 	 * Create the dialog.
+	 * @throws Exception 
 	 */
-	public GrGenerale() {
+	public GrGenerale() throws Exception {
+		categorie = CacheCategorie.getSingleton().getVettoreCategorie();
 		setBounds(100, 100, 650, 600);
 		mappaGennaio = creaMappaMese(1);
 		mappaFebbraio = creaMappaMese(2);

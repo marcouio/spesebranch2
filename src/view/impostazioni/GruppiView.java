@@ -1,6 +1,7 @@
 package view.impostazioni;
 
 import grafica.componenti.button.ButtonBase;
+import grafica.componenti.combo.ComboBoxBase;
 import grafica.componenti.label.LabelBase;
 import grafica.componenti.textarea.TextAreaBase;
 import grafica.componenti.textfield.testo.TextFieldTesto;
@@ -11,7 +12,6 @@ import java.awt.event.ItemListener;
 import java.util.Observable;
 import java.util.Vector;
 
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 
 import view.impostazioni.ascoltatori.AscoltatoreAggiornaGruppo;
@@ -21,20 +21,20 @@ import business.cache.CacheGruppi;
 import domain.Gruppi;
 import domain.wrapper.WrapGruppi;
 
-public class GruppiView extends AbstractGruppiView {
+public class GruppiView<E> extends AbstractGruppiView {
 
 	private Gruppi gruppi = null;
-	private JComboBox comboGruppi;
+	private ComboBoxBase<E> comboGruppi;
 	private TextFieldTesto nome;
 	private TextAreaBase descrizione;
 
-	public GruppiView(final WrapGruppi gruppo) {
+	public GruppiView(final WrapGruppi gruppo) throws Exception {
 		super(gruppo);
 		modelGruppi.addObserver(this);
 		initGUI();
 	}
 
-	private void initGUI() {
+	private void initGUI() throws Exception {
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Gruppi");
@@ -63,7 +63,7 @@ public class GruppiView extends AbstractGruppiView {
 		inserisci.addActionListener(new AscoltatoreInserisciGruppo(this));
 
 		final Vector<Gruppi> vettoreGruppi = CacheGruppi.getSingleton().getVettoreGruppi();
-		comboGruppi = new JComboBox();
+		comboGruppi = new ComboBoxBase<E>(this);
 		comboGruppi.addItem("");
 
 		for (int i = 0; i < vettoreGruppi.size(); i++) {
@@ -129,7 +129,7 @@ public class GruppiView extends AbstractGruppiView {
 
 	}
 
-	public void setGruppo(final String actionCommand) {
+	public void setGruppo(final String actionCommand) throws Exception {
 		if (actionCommand.equals("Inserisci")) {
 			final int idGruppo = (CacheGruppi.getSingleton().getMaxId()) + 1;
 			getModelGruppi().setIdGruppo(idGruppo);
@@ -158,18 +158,18 @@ public class GruppiView extends AbstractGruppiView {
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws Exception {
 		final GruppiView dialog = new GruppiView(new WrapGruppi());
 		dialog.pack();
 		dialog.setBounds(10, 10, 500, 500);
 		dialog.setVisible(true);
 	}
 
-	public JComboBox getComboGruppi() {
+	public ComboBoxBase<E> getComboGruppi() {
 		return comboGruppi;
 	}
 
-	public void setComboGruppi(final JComboBox comboGruppi) {
+	public void setComboGruppi(final ComboBoxBase<E> comboGruppi) {
 		this.comboGruppi = comboGruppi;
 	}
 }

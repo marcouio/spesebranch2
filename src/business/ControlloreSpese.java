@@ -137,8 +137,9 @@ public class ControlloreSpese extends ControlloreBase {
 
 	/**
 	 * Controlla se esiste sul db l'utente guest, altrimenti lo crea
+	 * @throws Exception 
 	 */
-	private static void setStartUtenteLogin() {
+	private static void setStartUtenteLogin() throws Exception {
 		final Utenti utenteGuest = CacheUtenti.getSingleton().getUtente("1");
 		if (utenteGuest == null || utenteGuest.getNome() == null) {
 			final Utenti utente = new Utenti();
