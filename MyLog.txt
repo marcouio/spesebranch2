@@ -1,6 +1,8 @@
-lug 01, 2013 10:47:03 PM log.LoggerOggetto creaLog
-INFO: Start programma!
-lug 01, 2013 10:47:03 PM grafica.componenti.alert.Alert segnalazioneErroreGrave
-SEVERE: Login non effettuato: username o password non corretti
-lug 01, 2013 10:47:12 PM view.report.ReportView <init>
-INFO: Registrato Report: 01/07/2013 22:47
+ott 06, 2013 9:32:29 PM log.LoggerOggetto creaLog
+Informazioni: Start programma!
+ott 06, 2013 9:32:29 PM business.ControlloreSpese verificaPresenzaDb
+Informazioni: Verificata presenza Db rs trovato:org.sqlite.RS@3a1a323d
+ott 06, 2013 9:32:31 PM controller.ControlloreBase$1 run
+Informazioni: Frame, larghezza: 984.0
+ott 06, 2013 9:32:31 PM controller.ControlloreBase$1 run
+Informazioni: Frame, altezza: 552.0

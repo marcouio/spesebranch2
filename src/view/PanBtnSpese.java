@@ -121,7 +121,7 @@ public class PanBtnSpese extends PannelloBottoni{
 		toggleSql.addActionListener(new AscoltatoreAggiornatoreNiente() {
 
 			@Override
-			public void actionPerformedOverride(final ActionEvent e) {
+			public void actionPerformedOverride(final ActionEvent e) throws Exception {
 				ArrayList<JPanel> listaPannelli = generalFrame.getListaPannelli();
 				for (final JPanel pannello : listaPannelli) {
 					pannello.setVisible(false);
